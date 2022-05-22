@@ -7,4 +7,18 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Assets\home.png" />
+    <None Remove="Assets\profile.png" />
+    <None Remove="Assets\shop.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\home.png">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\profile.png" />
+    <Resource Include="Assets\shop.png" />
+  </ItemGroup>
+
 </Project>

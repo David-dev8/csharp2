@@ -13,5 +13,19 @@ namespace Quiz_Royale
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            NavigationStore store = new NavigationStore();
+
+            MainWindow = new MainWindow() {
+                DataContext = new MainWindowViewModel(store)
+        };
+        }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            MainWindow.Show();
+            base.OnStartup(e);
+        }
     }
 }
