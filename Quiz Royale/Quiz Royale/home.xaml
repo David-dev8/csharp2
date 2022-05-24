@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TextBlock Text="Hello World Home!" Padding="400">
+        <TextBlock Text="Hello World Home!" Padding="200">
             
         </TextBlock>
     </Grid>

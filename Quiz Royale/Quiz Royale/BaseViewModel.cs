@@ -12,5 +12,7 @@ namespace Quiz_Royale
         {
             NavigationStore = store;
         }
+
+
     }
 }

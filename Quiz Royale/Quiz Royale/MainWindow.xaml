@@ -13,7 +13,7 @@
             <Setter Property="FontWeight" Value="Medium"/>
         </Style>
     </Window.Resources>
-    <Grid>
+    <Grid >
         <Grid.Resources>
             <DataTemplate DataType="{x:Type local:HomeViewModel}">
                 <local:home />
@@ -22,61 +22,199 @@
                 <local:shop />
             </DataTemplate>
         </Grid.Resources>
-        <Grid Background="White">
-            <Grid Background="Black"
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <!--<Grid Background="Black"
                   HorizontalAlignment="Left"
-                  Width="125">
-                <ListView Background="Transparent"
+                  Grid.Column="0"
+                  Width="Auto">
+            <ListView Background="Transparent"
                           BorderBrush="Transparent"
+                          ScrollViewer.CanContentScroll="False"
+                          ScrollViewer.VerticalScrollBarVisibility="Disabled"
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                    <ListViewItem HorizontalAlignment="Left"
+                <ListViewItem HorizontalAlignment="Left"
                                   Margin="0, 0, 0, 15">
-                        <StackPanel Orientation="Horizontal"
+                    <StackPanel Orientation="Horizontal"
                                     Width="230">
-                            <Image Source="/Assets/home.png"
+                        <Image Source="/Assets/home.png"
                                    Stretch="None"
                                    RenderOptions.BitmapScalingMode="Fant"
                                    Margin="12, 0, 0, 0"/>
-                            <TextBlock Text="Home"
+                        <TextBlock Text="Home"
                                        Margin="25, 0, 0, 0"
                                        Foreground="White">
-                            </TextBlock>
-                        </StackPanel>
-                    </ListViewItem>
-                    <ListViewItem HorizontalAlignment="Left"
+                        </TextBlock>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem HorizontalAlignment="Left"
                                   Margin="0, 0, 0, 15">
-                        <StackPanel Orientation="Horizontal"
+                    <StackPanel Orientation="Horizontal"
                                     Width="230">
-                            <Image Source="/Assets/profile.png"
+                        <Image Source="/Assets/profile.png"
                                    Stretch="None"
                                    RenderOptions.BitmapScalingMode="Fant"
                                    Margin="12, 0, 0, 0"/>
-                            <TextBlock Text="Profile"
+                        <TextBlock Text="Profile"
                                        Margin="25, 0, 0, 0"
                                        Foreground="White">
-                            </TextBlock>
-                        </StackPanel>
-                    </ListViewItem>
-                    <ListViewItem HorizontalAlignment="Left"
+                        </TextBlock>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem HorizontalAlignment="Left"
                                   Margin="0, 0, 0, 15">
-                        <StackPanel Orientation="Horizontal"
+                    <StackPanel Orientation="Horizontal"
                                     Width="230">
-                            <Image Source="/Assets/shop.png"
+                        <Button Command="{Binding ShowShop}">
+                            <Grid Height="40" Width="200">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Image Source="/Assets/profile.png"
+                                           Grid.Column="0"
+                                           Stretch="None"
+                                           RenderOptions.BitmapScalingMode="Fant"
+                                           Margin="12, 0, 0, 0"/>
+                                <TextBlock Text="SHop"
+                                               Grid.Column="1"
+                                               Margin="25, 0, 0, 0"
+                                               Foreground="White">
+                                </TextBlock>
+                            </Grid>
+                        </Button>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem HorizontalAlignment="Left"
+                                  Margin="0, 0, 0, 15">
+                    <StackPanel Orientation="Horizontal"
+                                    Width="230">
+                        <Button Command="{Binding ShowHome}">
+                            <Grid Height="40" Width="200">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Image Source="/Assets/profile.png"
+                                           Grid.Column="0"
+                                           Stretch="None"
+                                           RenderOptions.BitmapScalingMode="Fant"
+                                           Margin="12, 0, 0, 0"/>
+                                <TextBlock Text="Home"
+                                               Grid.Column="1"
+                                               Margin="25, 0, 0, 0"
+                                               Foreground="White">
+                                </TextBlock>
+                            </Grid>
+                        </Button>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem
+                                  Margin="0, 400, 0, 15">
+                    <StackPanel Orientation="Horizontal"
+                                    Width="230">
+                        <Image Source="/Assets/shop.png"
                                    Stretch="None"
                                    RenderOptions.BitmapScalingMode="Fant"
                                    Margin="12, 0, 0, 0"/>
-                            <TextBlock Text="Shop"
+                        <TextBlock Text="Shop"
                                        Margin="25, 0, 0, 0"
                                        Foreground="White">
-                            </TextBlock>
-                        </StackPanel>
-                    </ListViewItem>
+                        </TextBlock>
+                    </StackPanel>
+                </ListViewItem>
 
-                </ListView>
-            </Grid>
-            <Frame Content="{Binding CurrentViewModel}">
-                
-            </Frame>
+            </ListView>
+
+        </Grid>-->
+        <Grid Background="Black"
+                  HorizontalAlignment="Left"
+                  Grid.Column="0"
+                  Width="200">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal"
+                            Margin="0, 20, 0, 20">
+                    <Image Source="/Assets/home.png"
+                                   Stretch="None"
+                                   RenderOptions.BitmapScalingMode="Fant"
+                                   Margin="12, 0, 0, 0"/>
+                    <TextBlock Margin="25, 0, 0, 0"
+                               Foreground="White">
+                        Home
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            Margin="0, 20, 0, 20">
+                    <Button Command="{Binding ShowHome}">
+                        <Grid Height="40" Width="200">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Image Source="/Assets/profile.png"
+                                           Grid.Column="0"
+                                           Stretch="None"
+                                           RenderOptions.BitmapScalingMode="Fant"
+                                           Margin="12, 0, 0, 0"/>
+                            <TextBlock Text="SHop"
+                                               Grid.Column="1"
+                                               Margin="25, 0, 0, 0"
+                                               Foreground="White">
+                            </TextBlock>
+                        </Grid>
+                    </Button>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                                    Width="230">
+                    <Image Source="/Assets/profile.png"
+                                   Stretch="None"
+                                   RenderOptions.BitmapScalingMode="Fant"
+                                   Margin="12, 0, 0, 0"/>
+                    <TextBlock Text="Profile"
+                                       Margin="25, 0, 0, 0"
+                                       Foreground="White">
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                                    Width="230">
+                    <Button Command="{Binding ShowShop}">
+                        <Grid Height="40" Width="200">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Image Source="/Assets/profile.png"
+                                           Grid.Column="0"
+                                           Stretch="None"
+                                           RenderOptions.BitmapScalingMode="Fant"
+                                           Margin="12, 0, 0, 0"/>
+                            <TextBlock Text="SHop"
+                                               Grid.Column="1"
+                                               Margin="25, 0, 0, 0"
+                                               Foreground="White">
+                            </TextBlock>
+                        </Grid>
+                    </Button>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                                    Width="230">
+                    <Image Source="/Assets/shop.png"
+                                   Stretch="None"
+                                   RenderOptions.BitmapScalingMode="Fant"
+                                   Margin="12, 0, 0, 0"/>
+                    <TextBlock Text="Shop"
+                                       Margin="25, 0, 0, 0"
+                                       Foreground="White">
+                    </TextBlock>
+                </StackPanel>
+            </StackPanel>
         </Grid>
+        <Frame Content="{Binding CurrentViewModel}" NavigationUIVisibility="Hidden" Grid.Column="1">
+            <Frame.Background>
+                <ImageBrush Stretch="UniformToFill" ImageSource="/Assets/background.png" />
+            </Frame.Background>
+        </Frame>
     </Grid>
 </Window>

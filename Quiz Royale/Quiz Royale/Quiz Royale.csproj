@@ -8,12 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\background.png" />
     <None Remove="Assets\home.png" />
     <None Remove="Assets\profile.png" />
     <None Remove="Assets\shop.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\background.png" />
     <Resource Include="Assets\home.png">
       <CopyToOutputDirectory></CopyToOutputDirectory>
     </Resource>
