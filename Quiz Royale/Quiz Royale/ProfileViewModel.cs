@@ -4,10 +4,8 @@ using System.Text;
 
 namespace Quiz_Royale
 {
-    public enum Payment
+    class ProfileViewModel
     {
-        XP,
-        COINS,
-    }
 
+    }
 }
