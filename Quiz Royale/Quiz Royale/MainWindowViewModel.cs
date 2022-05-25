@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
@@ -27,6 +28,8 @@ namespace Quiz_Royale
 
         public ICommand ShowShop { get; set; }
 
+        public ICommand ExitProgram { get; set; }
+
         public MainWindowViewModel(NavigationStore navigationStore)
         {
             _navigationStore = navigationStore;
@@ -38,6 +41,7 @@ namespace Quiz_Royale
 
             ShowHome = new RelayCommand(SelectHomeAsCurrentPage);
             ShowShop = new RelayCommand(SelectShopAsCurrentPage);
+            ExitProgram = new RelayCommand(CloseProgram);
         }
 
         private void SelectHomeAsCurrentPage()
@@ -48,6 +52,11 @@ namespace Quiz_Royale
         private void SelectShopAsCurrentPage()
         {
             CurrentViewModel = new ShopViewModel(_navigationStore);
+        }
+
+        private void CloseProgram()
+        {
+            Application.Current.Shutdown();
         }
     }
 }

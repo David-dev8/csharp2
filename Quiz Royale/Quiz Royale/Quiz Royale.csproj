@@ -12,6 +12,7 @@
     <None Remove="Assets\home.png" />
     <None Remove="Assets\profile.png" />
     <None Remove="Assets\shop.png" />
+    <None Remove="Assets\signOut.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,6 +22,7 @@
     </Resource>
     <Resource Include="Assets\profile.png" />
     <Resource Include="Assets\shop.png" />
+    <Resource Include="Assets\signOut.png" />
   </ItemGroup>
 
 </Project>
