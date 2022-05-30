@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Quiz_Royale
 {
-    class Inventory
+    public class Inventory
     {
         IInventoryProvider provider;
         IInventoryMutator mutator;

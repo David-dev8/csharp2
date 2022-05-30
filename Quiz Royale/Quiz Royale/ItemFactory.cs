@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Quiz_Royale
 {
-    class ItemFactory
+    public class ItemFactory
     {
         public Item MakeItem(string type, string name, string picture, string requiredAmount, string description = "", int indentifier = 0)
         {

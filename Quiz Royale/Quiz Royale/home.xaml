@@ -6,9 +6,268 @@
              xmlns:local="clr-namespace:Quiz_Royale"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <!--Deze moet in general css-->
+        <SolidColorBrush x:Key="BackgroundColor" Color="#DAD9D9" />
+        <Style TargetType="Image">
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+        </Style>
+
+        <!--Template van maken-->
+        <Style x:Key="plane" TargetType="Border"></Style>
+        
+        <!-- deze moet hier blijven -->
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Background" Value="#85ABB5"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Margin" Value="0,0,0,5" />
+            <Setter Property="ClipToBounds" Value="True" />
+            <Setter Property="BorderThickness" Value="0, 0, 0, 5" />
+            <Setter Property="IsEnabled" Value="False" />
+            <Setter Property="Padding" Value="10,0" />
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Direction="90" Opacity="0.7" BlurRadius="20" Color="Black"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="DataGridRow">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="IsHitTestVisible" Value="False" />
+        </Style>
+        
+        <Style x:Key="cellStyle" TargetType="TextBlock">
+            <Setter Property="Padding" Value="10, 2" />
+        </Style>
+        <SolidColorBrush x:Key="ProgressBar.Progress" Color="#FF06B025"/>
+        <SolidColorBrush x:Key="ProgressBar.Background" Color="#FFE6E6E6"/>
+        <SolidColorBrush x:Key="ProgressBar.Border" Color="#FFBCBCBC"/>
+        <Style x:Key="ProgressBarStyle1" TargetType="{x:Type ProgressBar}">
+            <Setter Property="Foreground" Value="{StaticResource ProgressBar.Progress}"/>
+            <Setter Property="Background" Value="{StaticResource ProgressBar.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource ProgressBar.Border}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Width" Value="200" />
+            <Setter Property="Height" Value="10" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ProgressBar}">
+                        <Grid x:Name="TemplateRoot">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Determinate"/>
+                                    <VisualState x:Name="Indeterminate">
+                                        <Storyboard RepeatBehavior="Forever">
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Animation" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
+                                                <EasingDoubleKeyFrame KeyTime="0" Value="0.25"/>
+                                                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0.25"/>
+                                                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0.25"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <PointAnimationUsingKeyFrames Storyboard.TargetName="Animation" Storyboard.TargetProperty="(UIElement.RenderTransformOrigin)">
+                                                <EasingPointKeyFrame KeyTime="0" Value="-0.5,0.5"/>
+                                                <EasingPointKeyFrame KeyTime="0:0:1" Value="0.5,0.5"/>
+                                                <EasingPointKeyFrame KeyTime="0:0:2" Value="1.5,0.5"/>
+                                            </PointAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border Background="Transparent" BorderThickness="0.5" BorderBrush="Black" CornerRadius="4"/>
+                            <Rectangle x:Name="PART_Track"/>
+                            <Grid x:Name="PART_Indicator" ClipToBounds="true" HorizontalAlignment="Left">
+                                <Rectangle x:Name="Indicator" Fill="{TemplateBinding Foreground}" RadiusX="4" RadiusY="4"/>
+                                <Rectangle x:Name="Animation" Fill="{TemplateBinding Foreground}" RenderTransformOrigin="0.5,0.5" RadiusX="4" RadiusY="4">
+                                    <Rectangle.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform/>
+                                            <SkewTransform/>
+                                            <RotateTransform/>
+                                            <TranslateTransform/>
+                                        </TransformGroup>
+                                    </Rectangle.RenderTransform>
+                                </Rectangle>
+                            </Grid>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Orientation" Value="Vertical">
+                                <Setter Property="LayoutTransform" TargetName="TemplateRoot">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsIndeterminate" Value="true">
+                                <Setter Property="Visibility" TargetName="Indicator" Value="Collapsed"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </UserControl.Resources>
     <Grid>
-        <TextBlock Text="Hello World Home!" Padding="200">
-            
-        </TextBlock>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.25*" />
+            <RowDefinition Height="1.1*" />
+            <RowDefinition Height="0.75*" />
+            <RowDefinition Height="0.75*" />
+            <RowDefinition Height="0.65*" />
+        </Grid.RowDefinitions>
+        <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" CornerRadius="10" Margin="20" BorderThickness="4" Background="{StaticResource BackgroundColor}">
+            <Grid Background="Transparent">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="1.5*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="1.5*" />
+                    <RowDefinition Height="0.65*" />
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Vertical" Grid.Row="0"  Grid.ColumnSpan="2" Margin="50, 30, 0, 0">
+                    <TextBlock FontSize="24" FontWeight="SemiBold">
+                        Play
+                    </TextBlock>
+                    <TextBlock FontSize="16">
+                        Choose a mode to play
+                    </TextBlock>
+                </StackPanel>
+                <Grid Grid.Row="1" Grid.Column="0" Margin="30, 20, 20, 20">
+                    <Image Source="{Binding SelectedGameMode.Picture}" />
+                </Grid>
+                <ListView Grid.Column="1" Grid.Row="1" Margin="0, 20, 50, 20" Background="Transparent" 
+                          BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                          ItemsSource="{Binding GameModes}" SelectionMode="Single" SelectedItem="{Binding SelectedGameMode}">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Visibility" Value="Hidden" />
+                                    <Setter Property="Height" Value="0" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Grid Height="60" Margin="0, 0, 10, 0">
+                                    <Image Source="{Binding Picture}" />
+                                </Grid>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Title}" FontSize="14" FontWeight="SemiBold" />
+                                    <TextBlock Text="{Binding Subtitle}" Margin="0, 0, 10, 0" Width="210" TextWrapping="Wrap"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <StackPanel DataContext="{Binding SelectedGameMode}" Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="2" Margin="50, 0">
+                    <TextBlock Text="{Binding Title}" FontSize="16" FontWeight="SemiBold" />
+                    <TextBlock Text="{Binding Description}" TextWrapping="Wrap" />
+                </StackPanel>
+            </Grid>
+        </Border>
+        <Border Grid.Column="1" Grid.Row="0" CornerRadius="10" Margin="20" BorderThickness="4" Background="{StaticResource BackgroundColor}">
+            <Grid Background="Transparent">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1.5*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="50, 20, 50, 0">
+                    <Grid>
+                        <Image Source="/Assets/testProfilePicture.png" Margin="0, 10, 0, 0" />
+                        <Image Source="/Assets/testBorder.png" />
+                    </Grid>
+                    <StackPanel Orientation="Vertical" Margin="25, 18, 0, 0">
+                        <TextBlock FontWeight="Bold" FontSize="22">
+                        HaroldJohnson
+                        </TextBlock>
+                        <TextBlock FontStyle="Italic" FontWeight="Light" FontFamily="Roboto" FontSize="18">
+                        True Champion of All Times
+                        </TextBlock>
+                    </StackPanel>
+                </StackPanel>
+                <DockPanel Grid.Row="1" VerticalAlignment="Top" Margin="23, 10, 0, 0" LastChildFill="False">
+                    <Grid Height="35" Margin="50, 0" DockPanel.Dock="Left">
+                        <Image Source="/Assets/star.png" />
+                        <TextBlock FontWeight="SemiBold" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            30
+                        </TextBlock>
+                    </Grid>
+                    <StackPanel Orientation="Vertical" Margin="0, 9, 0, 0" DockPanel.Dock="Left">
+                        <ProgressBar Style="{DynamicResource ProgressBarStyle1}" Value="50" />
+                        <StackPanel Orientation="Horizontal" Margin="0, 4, 0, 0">
+                            <TextBlock>
+                                1000
+                            </TextBlock>
+                            <Grid Height="10" Margin="3, 0, 5, 0">
+                                <Image Source="/Assets/xp.png" />
+                            </Grid>
+                            <TextBlock>
+                                to next level
+                            </TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Margin="0, 0, 50, 0" VerticalAlignment="Center">
+                        <Grid Height="25" Margin="0, 0, 13, 0">
+                            <Image Source="/Assets/coins.png" />
+                        </Grid>
+                        <TextBlock FontSize="20">
+                            2000
+                        </TextBlock>
+                    </StackPanel>
+                </DockPanel>
+            </Grid>
+        </Border>
+        <Border Grid.Column="1" Grid.Row="1" CornerRadius="10" Margin="20" BorderThickness="4" Background="{StaticResource BackgroundColor}">
+            <Grid Background="Transparent">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*" />
+                    <RowDefinition Height="1.5*" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Margin="50, 23, 0, -15" FontSize="14">
+                    Current division
+                </TextBlock>
+                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="50, 0" VerticalAlignment="Center">
+                    <Grid Height="75">
+                        <Image Source="/Assets/testDivision.png" />
+                    </Grid>
+                    <StackPanel Orientation="Vertical" Margin="25, 5, 0, 0">
+                        <TextBlock FontWeight="Bold" Foreground="#7D1DA4" FontSize="22">
+                        Master Of Quizes
+                        </TextBlock>
+                        <TextBlock FontStyle="Italic" Foreground="#7D1DA4" FontSize="18">
+                        Division 5
+                        </TextBlock>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Border>
+        <Border Grid.Column="1" Grid.Row="2" CornerRadius="10" Grid.RowSpan="2" Margin="20, 20, 20, 10" BorderThickness="4" Background="{StaticResource BackgroundColor}">
+            <Grid Background="Transparent">
+                <TextBlock Margin="50, 23" FontSize="14">
+                    Recent results
+                </TextBlock>
+                <DataGrid Margin="50, 50, 50, 30" BorderThickness="0" Background="Transparent" ItemsSource="{Binding Results}" AutoGenerateColumns="False" HeadersVisibility="Column" VerticalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="False" GridLinesVisibility="None" Height="275">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Time" Binding="{Binding Time}" Width="*" ElementStyle="{StaticResource cellStyle}"/>
+                        <DataGridTextColumn Header="Mode" Binding="{Binding Mode}" Width="*" ElementStyle="{StaticResource cellStyle}"/>
+                        <DataGridTextColumn Header="Right answers" Binding="{Binding AnswersRight}" Width="*" ElementStyle="{StaticResource cellStyle}"/>
+                        <DataGridTextColumn Header="Position" Binding="{Binding Position}" Width="*" ElementStyle="{StaticResource cellStyle}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Border>
+        
     </Grid>
 </UserControl>

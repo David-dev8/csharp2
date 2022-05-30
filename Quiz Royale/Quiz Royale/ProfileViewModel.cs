@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Quiz_Royale
 {
-    class ProfileViewModel
+    public class ProfileViewModel
     {
 
     }

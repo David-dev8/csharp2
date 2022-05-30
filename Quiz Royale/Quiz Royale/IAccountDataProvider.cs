@@ -4,11 +4,11 @@ using System.Text;
 
 namespace Quiz_Royale
 {
-    interface IAccountDataProvider
+    public interface IAccountDataProvider
     {
         Rank GetRank();
         IList<Result> GetResults();
-        IDictionary<Category, float> getCategoryMastery();
+        IDictionary<Category, float> GetCategoryMastery();
         IList<Badge> GetBadges();
     }
 }

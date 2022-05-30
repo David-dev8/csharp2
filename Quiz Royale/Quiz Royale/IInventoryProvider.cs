@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Quiz_Royale
 {
-    interface IInventoryProvider
+    public interface IInventoryProvider
     {
         public IList<Item> getAcquiredItems()
         {

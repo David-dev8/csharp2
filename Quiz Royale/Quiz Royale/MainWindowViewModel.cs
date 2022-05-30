@@ -20,7 +20,6 @@ namespace Quiz_Royale
             private set
             {
                 _navigationStore.CurrentViewModel = value;
-                OnPropertyChanged();
             }
         }
 

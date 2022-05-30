@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Quiz_Royale
 {
-    interface IAccountCreator
+    public interface IAccountCreator
     {
         public void createAccount(string username);
     }

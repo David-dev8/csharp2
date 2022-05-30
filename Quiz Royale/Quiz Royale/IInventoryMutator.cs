@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Quiz_Royale
 {
-    class IInventoryMutator
+    public class IInventoryMutator
     {
         public void equipItem(Item item)
         {

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Quiz_Royale
 {
-    class Badge
+    public class Badge
     {
         public string Name { get; set; }
         public string Description { get; set; }

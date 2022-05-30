@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Quiz_Royale
 {
-    class Booster : Item
+    public class Booster : Item
     {
         public string Description { get; set; }
         public int Indentifier { get; set; }
