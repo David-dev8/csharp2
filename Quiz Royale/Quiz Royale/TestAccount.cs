@@ -4,11 +4,12 @@ using System.Text;
 
 namespace Quiz_Royale
 {
-    interface IInventoryProvider
+    class TestAccount : IAccountProvider
     {
-        public IList<Item> getAcquiredItems()
+        public Account getAccount()
         {
-            return null;
+           return new Account("talip",1,1,10);
         }
+
     }
 }

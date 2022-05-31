@@ -11,9 +11,9 @@ namespace Quiz_Royale
         public int Postion { get; set; }
         public string Mode { get; set; }
 
-        public Result(DateTime time, int answersRight, int postion, string mode)
+        public Result(int answersRight, int postion, string mode)
         {
-            Time = time;
+            Time = DateTime.Now;
             AnswersRight = answersRight;
             Postion = postion;
             Mode = mode;

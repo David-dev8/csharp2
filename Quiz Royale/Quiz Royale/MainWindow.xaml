@@ -60,6 +60,9 @@
             <DataTemplate DataType="{x:Type local:ShopViewModel}">
                 <local:shop />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type local:ProfileViewModel}">
+                <local:ProfileView />
+            </DataTemplate>
         </Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
@@ -90,7 +93,7 @@
                 </StackPanel>
                 <StackPanel Style="{StaticResource MenuItem}" 
                             DockPanel.Dock="Top">
-                    <Button Command="{Binding ShowHome}"
+                    <Button Command="{Binding ShowProfile}"
                             Style="{StaticResource MenuButton}">
                         <Grid Height="40" Width="200">
                             <Grid.ColumnDefinitions>

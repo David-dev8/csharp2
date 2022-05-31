@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Quiz_Royale
 {
-    class ProfilePicture : Item 
+    interface IAccountProvider
     {
-      
+        Account getAccount();
     }
 }

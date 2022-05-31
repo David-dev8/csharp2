@@ -8,7 +8,7 @@ namespace Quiz_Royale
     {
         Rank GetRank();
         IList<Result> GetResults();
-        IDictionary<Category, float> getCategoryMastery();
+        IList<Mastery> GetCategoryMastery();
         IList<Badge> GetBadges();
     }
 }

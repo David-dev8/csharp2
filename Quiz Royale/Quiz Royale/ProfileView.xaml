@@ -6,5 +6,46 @@
              xmlns:local="clr-namespace:Quiz_Royale"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid/>
+    <Grid ShowGridLines="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Text="{Binding Account.Username }" Grid.Column="0" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+        <ListView  ItemsSource="{Binding Mastery}" Background="Transparent" Grid.Row="0" Grid.Column="1" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="{Binding Category.Picture }" FontWeight="Bold" />
+                        <TextBlock Text="{Binding Category.Name }" FontWeight="Bold" />
+                        <TextBlock Text="{Binding Category.Colour }" FontWeight="Bold" />
+                    </StackPanel>
+
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <TextBlock Text="{Binding Account.TotalWins }" Grid.Row="0" Grid.Column="2" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <Image MaxWidth="100" Name="cup" Source="/Assets/cup.png" Margin="593,-1,97,346"></Image>
+
+
+        <ListView  ItemsSource="{Binding Badge}" Background="Transparent"  Grid.Row="1" Grid.ColumnSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="{Binding Name }" FontWeight="Bold" />
+                        <TextBlock Text="{Binding Description }" FontWeight="Bold" />
+                        <TextBlock Text="{Binding Picture }" FontWeight="Bold" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
 </UserControl>

@@ -9,7 +9,6 @@ namespace Quiz_Royale
         public string Name { get; set; }
         public string Picture { get; set; }
         public string RequiredAmount { get; set; }
-        public Payment Payment { get; set; }
-
+        //public Payment Payment { get; set; }
     }
 }
