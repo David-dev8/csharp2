@@ -47,5 +47,8 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
+        <TextBlock Text="{Binding Items.Name }" FontWeight="Bold" Grid.Row="2" Grid.Column="2"/>
+
     </Grid>
 </UserControl>

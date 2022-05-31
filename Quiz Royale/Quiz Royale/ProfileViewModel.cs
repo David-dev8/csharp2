@@ -8,6 +8,8 @@ namespace Quiz_Royale
     {
         private IAccountDataProvider _accountDataProvider;
         private IAccountProvider _accountProvider;
+        private Account _account;
+        private Inventory _inventory;
 
         public IList<Mastery> Mastery 
         {
@@ -32,7 +34,15 @@ namespace Quiz_Royale
                 return _accountProvider.getAccount();
             }
         }
-         
+
+        public IList<Item> items
+        {
+            get
+            {
+                return _inventory.items;
+            }
+        }
+
         public string Name
         {
             get
