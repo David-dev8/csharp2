@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Quiz_Royale
 {
     public interface IAccountCreator
     {
-        public void createAccount(string username);
+        public Task<TokenCredentials> CreateAccount(string username);
     }
 }

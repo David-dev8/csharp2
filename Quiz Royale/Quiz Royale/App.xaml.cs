@@ -27,5 +27,10 @@ namespace Quiz_Royale
             MainWindow.Show();
             base.OnStartup(e);
         }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            Storage.Save();
+        }
     }
 }

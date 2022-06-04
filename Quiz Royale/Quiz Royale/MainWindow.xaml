@@ -54,6 +54,9 @@
     </Window.Resources>
     <Grid >
         <Grid.Resources>
+            <DataTemplate DataType="{x:Type local:LoginViewModel}">
+                <local:Login />
+            </DataTemplate>
             <DataTemplate DataType="{x:Type local:HomeViewModel}">
                 <local:home />
             </DataTemplate>
