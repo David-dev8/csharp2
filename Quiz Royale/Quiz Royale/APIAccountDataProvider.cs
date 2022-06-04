@@ -18,7 +18,7 @@ namespace Quiz_Royale
 
         public Rank GetRank()
         {
-            throw new NotImplementedException();
+            return new Rank("/Assets/testDivision.png", "Master Of Quizes", "#7D1DA4", 5);
         }
 
         public IList<Result> GetResults()

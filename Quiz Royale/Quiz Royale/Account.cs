@@ -12,14 +12,20 @@ namespace Quiz_Royale
         public int TotalWins { get; set; }
         public Inventory Inventory { get; set; }
 
-        public int getLevel()
+        public int Level
         {
-            return 0; 
+            get
+            {
+                return 20;
+            }
         }
 
-        public void getXPToNextlever()
+        public int XPToNextLevel
         {
-
+            get
+            {
+                return 1000;
+            }
         }
 
         public Account(string username, int amountOfCoins, int currentXP, int totalWins, Inventory inventory)
@@ -29,6 +35,16 @@ namespace Quiz_Royale
             CurrentXP = currentXP;
             TotalWins = totalWins;
             Inventory = inventory;
+        }
+
+        public int GetLevel()
+        {
+            return 0;
+        }
+
+        public void GetXPToNextlevel()
+        {
+
         }
     }
 }

@@ -178,7 +178,7 @@
             </Grid>
         </Border>
         <Border Grid.Column="1" Grid.Row="0" CornerRadius="10" Margin="20" BorderThickness="4" Background="{StaticResource BackgroundColor}">
-            <Grid Background="Transparent">
+            <Grid DataContext="{Binding Account}" Background="Transparent">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1.5*" />
                     <RowDefinition Height="*" />
@@ -189,9 +189,7 @@
                         <Image Source="/Assets/testBorder.png" />
                     </Grid>
                     <StackPanel Orientation="Vertical" Margin="25, 18, 0, 0">
-                        <TextBlock FontWeight="Bold" FontSize="22">
-                        HaroldJohnson
-                        </TextBlock>
+                        <TextBlock FontWeight="Bold" FontSize="22" Text="{Binding Username}" />
                         <TextBlock FontStyle="Italic" FontWeight="Light" FontFamily="Roboto" FontSize="18">
                         True Champion of All Times
                         </TextBlock>
@@ -200,16 +198,12 @@
                 <DockPanel Grid.Row="1" VerticalAlignment="Top" Margin="23, 10, 0, 0" LastChildFill="False">
                     <Grid Height="35" Margin="50, 0" DockPanel.Dock="Left">
                         <Image Source="/Assets/star.png" />
-                        <TextBlock FontWeight="SemiBold" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            30
-                        </TextBlock>
+                        <TextBlock Text="{Binding Level}" FontWeight="SemiBold" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Grid>
                     <StackPanel Orientation="Vertical" Margin="0, 9, 0, 0" DockPanel.Dock="Left">
                         <ProgressBar Style="{DynamicResource ProgressBarStyle1}" Value="50" />
                         <StackPanel Orientation="Horizontal" Margin="0, 4, 0, 0">
-                            <TextBlock>
-                                1000
-                            </TextBlock>
+                            <TextBlock Text="{Binding XPToNextLevel}" />
                             <Grid Height="10" Margin="3, 0, 5, 0">
                                 <Image Source="/Assets/xp.png" />
                             </Grid>
@@ -222,9 +216,7 @@
                         <Grid Height="25" Margin="0, 0, 13, 0">
                             <Image Source="/Assets/coins.png" />
                         </Grid>
-                        <TextBlock FontSize="20">
-                            2000
-                        </TextBlock>
+                        <TextBlock FontSize="20" Text="{Binding AmountOfCoins}" />
                     </StackPanel>
                 </DockPanel>
             </Grid>
@@ -238,17 +230,13 @@
                 <TextBlock Grid.Row="0" Margin="50, 23, 0, -15" FontSize="14">
                     Current division
                 </TextBlock>
-                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="50, 0" VerticalAlignment="Center">
+                <StackPanel DataContext="{Binding CurrentRank}" Grid.Row="1" Orientation="Horizontal" Margin="50, 0" VerticalAlignment="Center">
                     <Grid Height="75">
-                        <Image Source="/Assets/testDivision.png" />
+                        <Image Source="{Binding Picture}" />
                     </Grid>
                     <StackPanel Orientation="Vertical" Margin="25, 5, 0, 0">
-                        <TextBlock FontWeight="Bold" Foreground="#7D1DA4" FontSize="22">
-                        Master Of Quizes
-                        </TextBlock>
-                        <TextBlock FontStyle="Italic" Foreground="#7D1DA4" FontSize="18">
-                        Division 5
-                        </TextBlock>
+                        <TextBlock FontWeight="Bold" Text="{Binding Name}" Foreground="{Binding Colour}" FontSize="22" />
+                        <TextBlock Text="{Binding Division, StringFormat=Division {0}}" FontStyle="Italic" Foreground="{Binding Colour}" FontSize="18" />
                     </StackPanel>
                 </StackPanel>
             </Grid>

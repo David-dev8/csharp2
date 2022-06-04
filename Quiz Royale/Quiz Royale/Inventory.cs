@@ -6,20 +6,20 @@ namespace Quiz_Royale
 {
     public class Inventory
     {
-        IInventoryProvider provider;
-        IInventoryMutator mutator;
+        IInventoryProvider _provider;
+        IInventoryMutator _mutator;
 
-        public IList<Booster> getBoosters()
+        public IList<Booster> GetBoosters()
         {
             return null;
         }
 
-        public void equipItem(Item item)
+        public void EquipItem(Item item)
         {
                 
         }
 
-        public void addItem(Item item)
+        public void AddItem(Item item)
         {
 
         }
