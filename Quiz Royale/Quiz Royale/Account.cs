@@ -6,6 +6,8 @@ namespace Quiz_Royale
 {
     public class Account
     {
+        private const int NEEDED_XP_TO_REACH_NEXT_LEVEL = 1000;
+
         public string Username { get; set; }
         public int AmountOfCoins { get; set; }
         public int CurrentXP { get; set; }
@@ -16,7 +18,7 @@ namespace Quiz_Royale
         {
             get
             {
-                return 20;
+                return CurrentXP / NEEDED_XP_TO_REACH_NEXT_LEVEL;
             }
         }
 
@@ -24,7 +26,15 @@ namespace Quiz_Royale
         {
             get
             {
-                return 1000;
+                return NEEDED_XP_TO_REACH_NEXT_LEVEL - CurrentXP % NEEDED_XP_TO_REACH_NEXT_LEVEL;
+            }
+        }
+
+        public int PercentOfLevelProgress
+        {
+            get
+            {
+                return 100 - (int) (XPToNextLevel / (double) NEEDED_XP_TO_REACH_NEXT_LEVEL * 100);
             }
         }
 
