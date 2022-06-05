@@ -6,10 +6,7 @@ namespace Quiz_Royale
 {
     public interface IInventoryProvider
     {
-        public IList<Item> getAcquiredItems()
-        {
-            return null;
-            return null;
-        }
+        public IList<Item> GetAcquiredItems();
+        public IList<Item> GetActivateItems();
     }
 }

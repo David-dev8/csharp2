@@ -9,14 +9,14 @@ namespace Quiz_Royale
         public string Description { get; set; }
         public int Indentifier { get; set; }
 
-        public Booster(string name, string picture, string requiredAmount, string description, int indentifier)
+        public Booster(string name, string picture, int requiredAmount, Payment payment, string description, int indentifier)
         {
             Name = name;
             Picture = picture;
             RequiredAmount = requiredAmount;
+            Payment = payment;
             Description = description;
             Indentifier = indentifier;
         }
-
     }
 }
