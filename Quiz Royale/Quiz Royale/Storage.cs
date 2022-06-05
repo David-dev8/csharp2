@@ -10,7 +10,7 @@ namespace Quiz_Royale
 {
     public class Storage
     {
-        private const string FILE_NAME = "test.json";
+        private const string FILE_NAME = "Settings.json";
 
         private static Settings s_settings;
 
@@ -52,6 +52,6 @@ namespace Quiz_Royale
 
     public class Settings
     {
-        public TokenCredentials? Credentials { get; set; }
+        public TokenCredentials Credentials { get; set; }
     }
 }

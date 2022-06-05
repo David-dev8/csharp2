@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Quiz_Royale.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;

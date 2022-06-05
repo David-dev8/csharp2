@@ -23,6 +23,14 @@ namespace Quiz_Royale
             }
         }
 
+        public bool IsInMenu
+        {
+            get
+            {
+                return _navigationStore.IsInMenu;
+            }
+        }
+
         public ICommand ShowHome { get; set; }
 
         public ICommand ShowShop { get; set; }
@@ -36,6 +44,7 @@ namespace Quiz_Royale
             _navigationStore.Navigated += (object sender, EventArgs e) =>
             {
                 OnPropertyChanged(nameof(CurrentViewModel));
+                OnPropertyChanged(nameof(IsInMenu));
             };
 
             ShowHome = new RelayCommand(SelectHomeAsCurrentPage);
@@ -52,7 +61,7 @@ namespace Quiz_Royale
             } 
             else
             {
-                return new HomeViewModel(_navigationStore);
+                return new PlayersViewModel(_navigationStore);
             }
         }
 

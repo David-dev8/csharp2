@@ -44,4 +44,8 @@
     <Resource Include="Assets\xp.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>

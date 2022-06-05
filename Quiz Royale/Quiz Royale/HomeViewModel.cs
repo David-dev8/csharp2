@@ -64,6 +64,8 @@ namespace Quiz_Royale
             _accountProvider = new APIAccountProvider();
             _gameModes = GameModeProvider.GetGameModes();
             SelectedGameMode = _gameModes.FirstOrDefault();
+
+            _navigationStore.IsInMenu = true;
         }
     }
 }

@@ -23,11 +23,28 @@ namespace Quiz_Royale
             }
         }
 
+
+        private bool _isInMenu;
+
+        public bool IsInMenu
+        {
+            get
+            {
+                return _isInMenu;
+            }
+            set
+            {
+                _isInMenu = value;
+                Navigated?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
         public event EventHandler Navigated;
 
         public NavigationStore(BaseViewModel currentViewModel = null)
         {
             CurrentViewModel = currentViewModel;
+            IsInMenu = false;
         }
     }
 }

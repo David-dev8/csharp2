@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quiz_Royale
+namespace Quiz_Royale.Exceptions
 {
     public class InvalidDataException: Exception
     {
