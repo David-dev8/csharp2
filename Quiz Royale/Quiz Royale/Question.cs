@@ -6,9 +6,17 @@ namespace Quiz_Royale
 {
     public class Question
     {
-        public string Answer { get; set; }
-        public IList<Answer> Posibilities { get; set; }
+        public string Content { get; set; }
+        public IList<Answer> Possibilities { get; set; }
         public int Time { get; set; }
-        public int category { get; set; }
+        public Category Category { get; set; }
+
+        public Question(string question, IList<Answer> possibilities, int time, Category category)
+        {
+            Content = question;
+            Possibilities = possibilities;
+            Time = time;
+            Category = category;
+        }
     }
 }

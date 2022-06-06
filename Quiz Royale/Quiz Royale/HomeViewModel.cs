@@ -17,7 +17,7 @@ namespace Quiz_Royale
         {
             get
             {
-                return _accountDataProvider.GetResults();
+                return _accountDataProvider.GetResults().Take(5).ToList(); // TODO er zijn geen resultaten toevoegen attribuut op de table
             }
         }
 
