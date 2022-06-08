@@ -17,6 +17,9 @@
             <DataTemplate DataType="{x:Type local:ShopViewModel}">
                 <local:shop />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type local:GameViewModel}">
+                <local:GameView />
+            </DataTemplate>
         </Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>

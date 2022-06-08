@@ -16,7 +16,7 @@ namespace Quiz_Royale
             }
             set
             {
-                DateTime.Parse(value);
+                _time = DateTime.Parse(value);
             }
         }
         public int AnswersRight { get; set; }
