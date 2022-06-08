@@ -28,10 +28,10 @@ namespace Quiz_Royale
             int randomY = s_random.Next(availableHeight);
 
             // Geef de willekeurige positie als margin door aan het element zodat deze op een willekeurige plek komt
-            // todo take into account height and width
             element.SetCurrentValue(FrameworkElement.MarginProperty, new Thickness(randomX, randomY, 0, 0));
             element.UpdateLayout();
 
+            // todo return margin
             return Binding.DoNothing;
         }
 

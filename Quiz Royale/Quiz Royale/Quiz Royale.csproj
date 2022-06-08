@@ -18,7 +18,9 @@
     <None Remove="Assets\shop.png" />
     <None Remove="Assets\signOut.png" />
     <None Remove="Assets\star.png" />
+    <None Remove="Assets\testBoost.png" />
     <None Remove="Assets\testBorder.png" />
+    <None Remove="Assets\testCategory.png" />
     <None Remove="Assets\testDivision.png" />
     <None Remove="Assets\testProfilePicture.png" />
     <None Remove="Assets\trainingMode.png" />
@@ -37,7 +39,9 @@
     <Resource Include="Assets\shop.png" />
     <Resource Include="Assets\signOut.png" />
     <Resource Include="Assets\star.png" />
+    <Resource Include="Assets\testBoost.png" />
     <Resource Include="Assets\testBorder.png" />
+    <Resource Include="Assets\testCategory.png" />
     <Resource Include="Assets\testDivision.png" />
     <Resource Include="Assets\testProfilePicture.png" />
     <Resource Include="Assets\trainingMode.png" />

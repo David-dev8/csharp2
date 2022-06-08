@@ -20,6 +20,11 @@ namespace Quiz_Royale
                 itemFactory.MakeItem("Border", "A nice border", "/Assets/testBorder.png", 0, Payment.COINS),
                 itemFactory.MakeItem("PlayerTitle", "True Champion Of All Time", "/Assets/testBorder.png", 0, Payment.COINS),
                 itemFactory.MakeItem("Border", "A nice border", "/Assets/testBorder.png", 0, Payment.COINS),
+                itemFactory.MakeItem("Booster", "50/50", "/Assets/testBoost.png", 0, Payment.COINS, "Remove 2 of the 4 answers", 1),
+                itemFactory.MakeItem("Booster", "50/50", "/Assets/testBoost.png", 0, Payment.COINS, "Remove 2 of the 4 answers", 1),
+                itemFactory.MakeItem("Booster", "50/50", "/Assets/testBoost.png", 0, Payment.COINS, "Remove 2 of the 4 answers", 1),
+                itemFactory.MakeItem("Booster", "50/50", "/Assets/testBoost.png", 0, Payment.COINS, "Remove 2 of the 4 answers", 1),
+                itemFactory.MakeItem("Booster", "50/50", "/Assets/testBoost.png", 0, Payment.COINS, "Remove 2 of the 4 answers", 1),
             };
 
         }

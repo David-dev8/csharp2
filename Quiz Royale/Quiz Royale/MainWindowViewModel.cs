@@ -72,7 +72,8 @@ namespace Quiz_Royale
 
         private void SelectShopAsCurrentPage()
         {
-            CurrentViewModel = new ShopViewModel(_navigationStore);
+            // aanpassen naar shop
+            CurrentViewModel = new GameViewModel(_navigationStore);
         }
 
         private void CloseProgram()

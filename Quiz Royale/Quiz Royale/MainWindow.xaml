@@ -23,6 +23,9 @@
             <DataTemplate DataType="{x:Type local:PlayersViewModel}">
                 <local:Players />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type local:GameViewModel}">
+                <local:GameView />
+            </DataTemplate>
         </Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>

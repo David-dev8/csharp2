@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,11 +14,11 @@ using System.Windows.Shapes;
 namespace Quiz_Royale
 {
     /// <summary>
-    /// Interaction logic for Players.xaml
+    /// Interaction logic for GameView.xaml
     /// </summary>
-    public partial class Players : UserControl
+    public partial class GameView : UserControl
     {
-        public Players()
+        public GameView()
         {
             InitializeComponent();
         }

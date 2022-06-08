@@ -34,13 +34,21 @@ namespace Quiz_Royale
             }
         }
 
+        public IList<Item> Boosters
+        {
+            get
+            {
+                return GetBoosters();
+            }
+        }
+
         public Inventory()
         {
             _provider = new APIInventoryProvider();
             // TODO ook mutator
         }
 
-        public Item GetItemByType(string type)
+        private Item GetItemByType(string type)
         {
             var filterFactory = new FilterFactory();
             IItemFilter filter = filterFactory.GetFilter(type);
@@ -55,9 +63,20 @@ namespace Quiz_Royale
             return null;
         }
 
-        public IList<Booster> GetBoosters()
+        private IList<Item> GetBoosters()
         {
-            return null;
+            IList<Item> boosters = new List<Item>();
+            var filterFactory = new FilterFactory();
+            IItemFilter filter = filterFactory.GetFilter("Booster");
+
+            foreach (var item in _provider.GetActivateItems())
+            {
+                if (filter.Filter(item))
+                {
+                    boosters.Add(item);
+                }
+            }
+            return boosters;
         }
 
         public void EquipItem(Item item)
