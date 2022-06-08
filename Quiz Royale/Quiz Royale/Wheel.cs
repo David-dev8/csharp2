@@ -16,41 +16,18 @@ using System.Windows.Shapes;
 
 namespace Quiz_Royale
 {
-    /// <summary>
-    /// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
-    ///
-    /// Step 1a) Using this custom control in a XAML file that exists in the current project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:Quiz_Royale"
-    ///
-    ///
-    /// Step 1b) Using this custom control in a XAML file that exists in a different project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:Quiz_Royale;assembly=Quiz_Royale"
-    ///
-    /// You will also need to add a project reference from the project where the XAML file lives
-    /// to this project and Rebuild to avoid compilation errors:
-    ///
-    ///     Right click on the target project in the Solution Explorer and
-    ///     "Add Reference"->"Projects"->[Browse to and select this project]
-    ///
-    ///
-    /// Step 2)
-    /// Go ahead and use your control in the XAML file.
-    ///
-    ///     <MyNamespace:Wheel/>
-    ///
-    /// </summary>
     public class Wheel : ItemsControl
     {
         private const double ANGLE_CORRECTION = 270;
 
+        private const int MIN_ROTATIONS = 4;
+
+        private const int MAX_ROTATIONS = 10;
+
         public static readonly DependencyProperty TestPropProperty =
             DependencyProperty.Register("RotateTowards", typeof(object), typeof(Wheel), new PropertyMetadata(null));
+
+        private Random random;
 
         static Wheel()
         {
@@ -65,15 +42,16 @@ namespace Quiz_Royale
 
         public Wheel()
         {
+            random = new Random();
             Loaded += PropertyChangedCallback;
         }
 
         private void PropertyChangedCallback(object sender, EventArgs args)
         {
-            for(int i = 0; i < Items.Count; i++)
+            for (int i = 0; i < Items.Count; i++)
             {
                 var item = Items.GetItemAt(i);
-                if(RotateTowards.Equals(item))
+                if (RotateTowards.Equals(item))
                 {
                     double currentAngle = GetAngleFromItem(item);
                     double nextAngle = GetAngleFromItem(Items.GetItemAt((i + 1) % Items.Count));
@@ -111,7 +89,7 @@ namespace Quiz_Royale
 
         private double GetRandomAngleInBetween(double firstAngle, double secondAngle)
         {
-            return 360 * 5 + GetRandomDouble(firstAngle, secondAngle);
+            return 360 * random.Next(MIN_ROTATIONS, MAX_ROTATIONS) + GetRandomDouble(firstAngle, secondAngle);
         }
 
         private double GetAngleFromItem(object item)
@@ -124,17 +102,16 @@ namespace Quiz_Royale
 
         private double GetRandomDouble(double minimum, double maximum)
         {
-            Random random = new Random();
             return random.NextDouble() * (maximum - minimum) + minimum;
         }
 
         private T FindByType<T>(DependencyObject element)
         {
-            if(element is null)
+            if (element is null)
             {
                 return default(T);
             }
-            else if(element is T t)
+            else if (element is T t)
             {
                 return t;
             }
@@ -144,7 +121,7 @@ namespace Quiz_Royale
                 for (int i = 0; i < amountOfChildren; i++)
                 {
                     T searchedElement = FindByType<T>(VisualTreeHelper.GetChild(element, i));
-                    if(searchedElement != null)
+                    if (searchedElement != null)
                     {
                         return searchedElement;
                     }
