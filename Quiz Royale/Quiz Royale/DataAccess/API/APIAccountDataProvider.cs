@@ -11,7 +11,7 @@ namespace Quiz_Royale
             throw new NotImplementedException();
         }
 
-        public IDictionary<Category, float> GetCategoryMastery()
+        public IList<Mastery> GetCategoryMastery()
         {
             throw new NotImplementedException();
         }

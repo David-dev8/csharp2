@@ -57,15 +57,16 @@ namespace Quiz_Royale
 
         private BaseViewModel GetFirstViewModel()
         {
+            return new ProfileViewModel(_navigationStore);
             // Controleer of de gebruiker al een account heeft, dit is het geval wanneer er een access token aanwezig is
-            if(Storage.Settings.Credentials?.AccessToken == null)
+         /*   if(Storage.Settings.Credentials?.AccessToken == null)
             {
                 return new LoginViewModel(_navigationStore);
             } 
             else
             {
                 return new PlayersViewModel(_navigationStore);
-            }
+            }*/
         }
 
         private void SelectHomeAsCurrentPage()

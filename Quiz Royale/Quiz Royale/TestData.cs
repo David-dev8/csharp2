@@ -31,7 +31,7 @@ namespace Quiz_Royale
         {
             return new List<Result>
             {
-                new Result(10,10,"testMode")
+                new Result("2020-01-01", 10,10,"testMode")
             };
         }
     }

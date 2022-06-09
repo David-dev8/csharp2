@@ -6,6 +6,33 @@
              xmlns:local="clr-namespace:Quiz_Royale"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="Border">
+            <Setter Property="Background" Value="#DAD9D9"/>
+            <Setter Property="Opacity" Value="0.8"/>
+            <Setter Property="Margin" Value="20"/>
+            <Setter Property="CornerRadius" Value="20"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="ListView">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="StackPanel">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>  
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#85abb5"/>
+            <Setter Property="Height" Value="70"/>
+            <Setter Property="Width" Value="300"/>
+        </Style>
+    </UserControl.Resources>
     <Grid ShowGridLines="True">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -17,38 +44,59 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Text="{Binding Account.Username }" Grid.Column="0" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-
-        <ListView  ItemsSource="{Binding Mastery}" Background="Transparent" Grid.Row="0" Grid.Column="1" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <ListView.ItemTemplate>
-                <DataTemplate>
+        <Border Grid.Row="0" Grid.Column="0">
+            <StackPanel>
+                <Image MaxWidth="100" Name="cheese" Source="/Assets/cheese.png" ></Image>
+                <TextBlock Text="{Binding Account.Username }" />
+            </StackPanel>
+        </Border>
+        <Border Grid.Row="0" Grid.Column="1">
+            <ListView  ItemsSource="{Binding Mastery}"  >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="{Binding Category.Picture }" />
+                            <TextBlock Text="{Binding Category.Name }" />
+                            <TextBlock Text="{Binding Category.Colour }"  />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Border>
+        <Border Grid.Row="0" Grid.Column="2">
+            <StackPanel>
+                <Image MaxWidth="100" Name="cup" Source="/Assets/cup.png" ></Image>
+                <TextBlock TextWrapping="Wrap" Text="{Binding Account.TotalWins }"></TextBlock>
+            </StackPanel>
+        </Border>
+        <Border  Grid.Row="1" Grid.ColumnSpan="3">
+            <ListView ItemsSource="{Binding Badge}" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="{Binding Name }" />
+                            <TextBlock Text="{Binding Description }"  />
+                            <TextBlock Text="{Binding Picture }"  />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Border>
+        <StackPanel Grid.Row="2" Grid.Column="0" >
+            <Button Command="{Binding ShowBorders}" Content="Borders" ></Button>
+            <Button x:Name="profilePicture"  Content="Profile pictures" ></Button>
+            <Button x:Name="title"  Content="Titles" ></Button>
+            <Button x:Name="boost"  Content="Boosts" ></Button>
+        </StackPanel>
+        <ListView  ItemsSource="{Binding Items}"  Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
                     <StackPanel Orientation="Vertical">
-                        <TextBlock Text="{Binding Category.Picture }" FontWeight="Bold" />
-                        <TextBlock Text="{Binding Category.Name }" FontWeight="Bold" />
-                        <TextBlock Text="{Binding Category.Colour }" FontWeight="Bold" />
+                        <TextBlock Text="{Binding Name }" />
                     </StackPanel>
-
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-
-        <TextBlock Text="{Binding Account.TotalWins }" Grid.Row="0" Grid.Column="2" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <Image MaxWidth="100" Name="cup" Source="/Assets/cup.png" Margin="593,-1,97,346"></Image>
-
-
-        <ListView  ItemsSource="{Binding Badge}" Background="Transparent"  Grid.Row="1" Grid.ColumnSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Vertical">
-                        <TextBlock Text="{Binding Name }" FontWeight="Bold" />
-                        <TextBlock Text="{Binding Description }" FontWeight="Bold" />
-                        <TextBlock Text="{Binding Picture }" FontWeight="Bold" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-
-        <TextBlock Text="{Binding Items.Name }" FontWeight="Bold" Grid.Row="2" Grid.Column="2"/>
-
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+      
     </Grid>
 </UserControl>

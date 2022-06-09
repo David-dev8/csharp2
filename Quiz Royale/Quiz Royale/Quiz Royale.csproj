@@ -10,7 +10,7 @@
   <ItemGroup>
     <PackageReference Include="Castle.Windsor" Version="5.1.2" />
     <None Remove="Assets\background.png" />
-
+    <None Remove="Assets\cheese.png" />
     <None Remove="Assets\cup.png" />
     <None Remove="Assets\home.png" />
     <None Remove="Assets\item.png" />
@@ -33,6 +33,7 @@
 
   <ItemGroup>
     <Resource Include="Assets\background.png" />
+    <Resource Include="Assets\cheese.png" />
     <Resource Include="Assets\cup.png" />
     <Resource Include="Assets\coins.png" />
     <Resource Include="Assets\home.png">

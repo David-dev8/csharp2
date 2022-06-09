@@ -6,7 +6,7 @@ namespace Quiz_Royale
 {
     class TestAccount : IAccountProvider
     {
-        public Account getAccount()
+        public Account GetAccount(string username)
         {
            return new Account("talip",1,1,10);
         }

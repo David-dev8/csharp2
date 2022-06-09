@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Quiz_Royale
 {
-    class Mastery
+    public class Mastery
     {
         public Category Category { get; set; }
 

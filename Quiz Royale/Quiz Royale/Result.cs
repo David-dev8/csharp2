@@ -25,7 +25,7 @@ namespace Quiz_Royale
         public Result(string time, int answersRight, int position, string mode)
 
         {
-            Time = DateTime.Now;
+            Time = "2022-01-01";
             AnswersRight = answersRight;
             Position = position;
             Mode = mode;

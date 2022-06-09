@@ -8,7 +8,7 @@ namespace Quiz_Royale
     {
         public Account GetAccount(string username)
         {
-            return new Account(username, 100, 2300, 150, new Inventory());
+            return new Account(username, 100, 2300, 150);
         }
     }
 }

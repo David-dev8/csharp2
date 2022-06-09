@@ -16,7 +16,7 @@ namespace Quiz_Royale
         {
             get
             {
-                return new List<Item> { itemFactory.MakeItem("Booster","Booster","picture","10") };
+                return new List<Item> { itemFactory.MakeItem("Booster","Booster","picture",10, Payment.XP) };
             }
         }
 
@@ -74,6 +74,7 @@ namespace Quiz_Royale
                 }
             }
             return null;
+ 
         }
 
         private IList<Item> GetBoosters()
