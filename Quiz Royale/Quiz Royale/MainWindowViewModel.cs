@@ -20,7 +20,14 @@ namespace Quiz_Royale
             private set
             {
                 _navigationStore.CurrentViewModel = value;
-                OnPropertyChanged();
+            }
+        }
+
+        public bool IsInMenu
+        {
+            get
+            {
+                return _navigationStore.IsInMenu;
             }
         }
 
@@ -35,16 +42,30 @@ namespace Quiz_Royale
         public MainWindowViewModel(NavigationStore navigationStore)
         {
             _navigationStore = navigationStore;
-            navigationStore.CurrentViewModel = new HomeViewModel(navigationStore);
+            navigationStore.CurrentViewModel = GetFirstViewModel(); 
             _navigationStore.Navigated += (object sender, EventArgs e) =>
             {
                 OnPropertyChanged(nameof(CurrentViewModel));
+                OnPropertyChanged(nameof(IsInMenu));
             };
 
             ShowHome = new RelayCommand(SelectHomeAsCurrentPage);
             ShowShop = new RelayCommand(SelectShopAsCurrentPage);
             ExitProgram = new RelayCommand(CloseProgram);
             ShowProfile = new RelayCommand(SelectProfileAsCurrentPage);
+        }
+
+        private BaseViewModel GetFirstViewModel()
+        {
+            // Controleer of de gebruiker al een account heeft, dit is het geval wanneer er een access token aanwezig is
+            if(Storage.Settings.Credentials?.AccessToken == null)
+            {
+                return new LoginViewModel(_navigationStore);
+            } 
+            else
+            {
+                return new PlayersViewModel(_navigationStore);
+            }
         }
 
         private void SelectHomeAsCurrentPage()
@@ -54,7 +75,8 @@ namespace Quiz_Royale
 
         private void SelectShopAsCurrentPage()
         {
-            CurrentViewModel = new ShopViewModel(_navigationStore);
+            // aanpassen naar shop
+            CurrentViewModel = new GameViewModel(_navigationStore);
         }
 
         private void SelectProfileAsCurrentPage()

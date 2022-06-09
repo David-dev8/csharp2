@@ -4,11 +4,11 @@ using System.Text;
 
 namespace Quiz_Royale
 {
-    abstract class Item
+    public abstract class Item
     {
         public string Name { get; set; }
         public string Picture { get; set; }
-        public string RequiredAmount { get; set; }
+        public int RequiredAmount { get; set; }
         //public Payment Payment { get; set; }
     }
 }

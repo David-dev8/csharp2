@@ -4,10 +4,14 @@ using System.Text;
 
 namespace Quiz_Royale
 {
-    class PlayerTitle : Item
+    public class PlayerTitle : Item
     {
-       
+        public PlayerTitle(string name, string picture, int requiredAmount, Payment payment)
+        {
+            Name = name;
+            Picture = picture;
+            RequiredAmount = requiredAmount;
+            Payment = payment;
+        }
     }
-    
-   
 }

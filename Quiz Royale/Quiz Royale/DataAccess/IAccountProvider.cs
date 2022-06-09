@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Quiz_Royale
 {
-    interface IAccountCreator
+    public interface IAccountProvider
     {
-        public void createAccount(string username);
+        Account GetAccount(string username);
     }
 }

@@ -1,0 +1,153 @@
+﻿<UserControl x:Class="Quiz_Royale.home"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Quiz_Royale"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary Source="ResourceDictionaries/HomeResources.xaml" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.25*" />
+            <RowDefinition Height="1.1*" />
+            <RowDefinition Height="0.75*" />
+            <RowDefinition Height="0.75*" />
+            <RowDefinition Height="0.65*" />
+        </Grid.RowDefinitions>
+        <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Style="{StaticResource Box}">
+            <Grid Background="Transparent">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="1.5*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="1.5*" />
+                    <RowDefinition Height="0.65*" />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0"  Grid.ColumnSpan="2" Margin="50, 30, 0, 0">
+                    <TextBlock Style="{StaticResource Title}">
+                        Play
+                    </TextBlock>
+                    <TextBlock Style="{StaticResource SubTitle}">
+                        Choose a mode to play
+                    </TextBlock>
+                </StackPanel>
+                <Grid Grid.Row="1" Grid.Column="0" Margin="30, 20, 20, 20">
+                    <Image Source="{Binding SelectedGameMode.Picture}" />
+                </Grid>
+                <ListView Grid.Column="1" Grid.Row="1" Margin="0, 20, 50, 20" Background="Transparent" 
+                          BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                          ItemsSource="{Binding GameModes}" SelectionMode="Single" SelectedItem="{Binding SelectedGameMode}">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Visibility" Value="Hidden" />
+                                    <Setter Property="Height" Value="0" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Margin="0, 0, 10, 0" MaxHeight="60" Source="{Binding Picture}" />
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Title}" Style="{StaticResource DetailsHeader}" />
+                                    <TextBlock Text="{Binding Subtitle}" Margin="0, 0, 10, 0" Width="210" TextWrapping="Wrap"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <StackPanel DataContext="{Binding SelectedGameMode}" Grid.Row="2" Grid.ColumnSpan="2" Margin="50, 0">
+                    <TextBlock Text="{Binding Title}" Style="{StaticResource SubTitle}" FontWeight="SemiBold" />
+                    <TextBlock Text="{Binding Description}" TextWrapping="Wrap" />
+                </StackPanel>
+            </Grid>
+        </Border>
+        <Border Grid.Column="1" Grid.Row="0" Style="{StaticResource Box}">
+            <Grid Background="Transparent">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1.5*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="50, 20, 50, 0">
+                    <Grid DataContext="{Binding Account.Inventory}">
+                        <Image Source="{Binding ActiveProfilePicture.Picture}" Margin="0, 10, 0, 0" />
+                        <Image Source="{Binding ActiveBorder.Picture}" />
+                    </Grid>
+                    <StackPanel Margin="25, 18, 0, 0">
+                        <TextBlock FontWeight="Bold" FontSize="22" Text="{Binding Account.Username}" />
+                        <TextBlock FontStyle="Italic" FontWeight="Regular" FontSize="18" Text="{Binding Account.Inventory.ActivePlayerTitle.Name}" />
+                    </StackPanel>
+                </StackPanel>
+                <DockPanel DataContext="{Binding Account}" Grid.Row="1" VerticalAlignment="Top" Margin="23, 10, 0, 0">
+                    <Grid Height="35" Margin="50, 0" DockPanel.Dock="Left">
+                        <Image Source="/Assets/star.png" />
+                        <TextBlock Text="{Binding Level}" FontWeight="SemiBold" Style="{StaticResource SubTitle}" HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center" />
+                    </Grid>
+                    <StackPanel Margin="0, 9, 0, 0" DockPanel.Dock="Left">
+                        <ProgressBar Style="{DynamicResource ProgressBarStyle1}" Value="{Binding PercentOfLevelProgress, Mode=OneWay}" />
+                        <StackPanel Orientation="Horizontal" Margin="0, 4, 0, 0">
+                            <TextBlock Text="{Binding XPToNextLevel}" />
+                            <Image MaxHeight="10" Margin="3, 0, 5, 0" Source="/Assets/xp.png" />
+                            <TextBlock>
+                                to next level
+                            </TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Margin="0, 0, 50, 0" VerticalAlignment="Center">
+                        <Image MaxHeight="25" Margin="0, 0, 13, 0" Source="/Assets/coins.png" />
+                        <TextBlock FontSize="20" Text="{Binding AmountOfCoins}" />
+                    </StackPanel>
+                </DockPanel>
+            </Grid>
+        </Border>
+        <Border Grid.Column="1" Grid.Row="1" Style="{StaticResource Box}">
+            <Grid Background="Transparent">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*" />
+                    <RowDefinition Height="1.5*" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Margin="50, 23, 0, -15" Style="{StaticResource Caption}">
+                    Current division
+                </TextBlock>
+                <StackPanel DataContext="{Binding CurrentRank}" Grid.Row="1" Orientation="Horizontal" Margin="50, 0" VerticalAlignment="Center">
+                    <Image MaxHeight="75" Source="{Binding Picture}" />
+                    <StackPanel Margin="25, 5, 0, 0">
+                        <TextBlock FontWeight="Bold" Text="{Binding Name}" Foreground="{Binding Colour}" FontSize="22" />
+                        <TextBlock Text="{Binding Division, StringFormat=Division {0}}" FontStyle="Italic" Foreground="{Binding Colour}" FontSize="18" />
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Border>
+        <Border Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" Margin="20, 20, 20, 10" Style="{StaticResource Box}">
+            <Grid Background="Transparent">
+                <TextBlock Margin="50, 23" Style="{StaticResource Caption}">
+                    Recent results
+                </TextBlock>
+                <DataGrid Margin="50, 50, 50, 30" BorderThickness="0" Background="Transparent" ItemsSource="{Binding Results}" AutoGenerateColumns="False" 
+                          HeadersVisibility="Column" VerticalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="False" GridLinesVisibility="None" 
+                          Height="275">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Time" Binding="{Binding Time}" Width="*" ElementStyle="{StaticResource CellStyle}"/>
+                        <DataGridTextColumn Header="Mode" Binding="{Binding Mode}" Width="*" ElementStyle="{StaticResource CellStyle}"/>
+                        <DataGridTextColumn Header="Right answers" Binding="{Binding AnswersRight}" Width="*" ElementStyle="{StaticResource CellStyle}"/>
+                        <DataGridTextColumn Header="Position" Binding="{Binding Position}" Width="*" ElementStyle="{StaticResource CellStyle}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

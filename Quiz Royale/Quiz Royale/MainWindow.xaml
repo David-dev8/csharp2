@@ -7,53 +7,13 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="700" Width="1000" WindowState="Maximized">
     <Window.Resources>
-        <Style TargetType="TextBlock" x:Key="BaseTextStyle">
-            <Setter Property="FontSize" Value="24"/>
-            <Setter Property="FontFamily" Value="Roboto"/>
-            <Setter Property="FontWeight" Value="Medium"/>
-        </Style>
-        <Style TargetType="TextBlock" x:Key="MenuText" BasedOn="{StaticResource BaseTextStyle}">
-            <Setter Property="Grid.Column" Value="1"/>
-            <Setter Property="Margin" Value="33, 0, 0, 0"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-        </Style>
-        <Style TargetType="Image" x:Key="MenuIcon">
-            <Setter Property="Grid.Column" Value="0"/>
-            <Setter Property="Stretch" Value="None"/>
-            <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant"/>
-            <Setter Property="Margin" Value="20, 0, -18, 0"/>
-        </Style>
-        <Style TargetType="StackPanel" x:Key="MenuItem">
-            <Setter Property="Orientation" Value="Horizontal"/>
-            <Setter Property="Margin" Value="0, 20, 0, 10"/>
-        </Style>
-        <Style TargetType="Button" x:Key="MenuButton">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="ForceCursor" Value="True"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border x:Name="Border" Background="Transparent">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Opacity" Value="0.70" TargetName="Border" />
-                            </Trigger>
-                            <Trigger Property="IsFocused" Value="True">
-                                <Setter Property="Opacity" Value="0.70" TargetName="Border" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+        <ResourceDictionary Source="ResourceDictionaries/WindowResources.xaml" />
     </Window.Resources>
-    <Grid >
+    <Grid>
         <Grid.Resources>
+            <DataTemplate DataType="{x:Type local:LoginViewModel}">
+                <local:Login />
+            </DataTemplate>
             <DataTemplate DataType="{x:Type local:HomeViewModel}">
                 <local:home />
             </DataTemplate>
@@ -63,80 +23,72 @@
             <DataTemplate DataType="{x:Type local:ProfileViewModel}">
                 <local:ProfileView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type local:PlayersViewModel}">
+                <local:Players />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type local:GameViewModel}">
+                <local:GameView />
+            </DataTemplate>
         </Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Grid Background="Black"
-                  HorizontalAlignment="Left"
-                  Grid.Column="0"
-                  Width="200">
-            <DockPanel LastChildFill="False">
-                <StackPanel Style="{StaticResource MenuItem}" 
-                            Margin="0, 30, 0, 10" 
-                            DockPanel.Dock="Top">
-                    <Button Command="{Binding ShowHome}"
-                            Style="{StaticResource MenuButton}">
-                        <Grid Height="40" Width="200">
+        <Grid Background="Black" HorizontalAlignment="Left" Grid.Column="0" Width="200">
+            <DockPanel>
+                <StackPanel Style="{StaticResource MenuItem}" Margin="0, 30, 0, 10" DockPanel.Dock="Top">
+                    <Button Command="{Binding ShowHome}" Style="{StaticResource MenuButton}"
+                            Visibility="{Binding IsInMenu, Converter={StaticResource VisibilityConverter}}">
+                        <Grid Style="{StaticResource MenuGrid}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="40"/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Image Source="/Assets/home.png"
-                                   Style="{StaticResource MenuIcon}"/>
+                            <Image Source="/Assets/home.png" Style="{StaticResource MenuIcon}"/>
                             <TextBlock Style="{StaticResource MenuText}">
                                 Home
                             </TextBlock>
                         </Grid>
                     </Button>
                 </StackPanel>
-                <StackPanel Style="{StaticResource MenuItem}" 
-                            DockPanel.Dock="Top">
-                    <Button Command="{Binding ShowProfile}"
-                            Style="{StaticResource MenuButton}">
-                        <Grid Height="40" Width="200">
+                <StackPanel Style="{StaticResource MenuItem}" DockPanel.Dock="Top">
+                    <Button Command="{Binding ShowHome}" Style="{StaticResource MenuButton}"
+                            Visibility="{Binding IsInMenu, Converter={StaticResource VisibilityConverter}}">
+                        <Grid Style="{StaticResource MenuGrid}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="40"/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Image Source="/Assets/profile.png"
-                                   Style="{StaticResource MenuIcon}"/>
+                            <Image Source="/Assets/profile.png" Style="{StaticResource MenuIcon}"/>
                             <TextBlock Style="{StaticResource MenuText}">
                                 Profile
                             </TextBlock>
                         </Grid>
                     </Button>
                 </StackPanel>
-                <StackPanel Style="{StaticResource MenuItem}" 
-                            DockPanel.Dock="Top">
-                    <Button Command="{Binding ShowShop}"
-                            Style="{StaticResource MenuButton}">
-                        <Grid Height="40" Width="200">
+                <StackPanel Style="{StaticResource MenuItem}" DockPanel.Dock="Top">
+                    <Button Command="{Binding ShowShop}" Style="{StaticResource MenuButton}"
+                            Visibility="{Binding IsInMenu, Converter={StaticResource VisibilityConverter}}">
+                        <Grid Style="{StaticResource MenuGrid}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="40"/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Image Source="/Assets/shop.png"
-                                   Style="{StaticResource MenuIcon}"/>
+                            <Image Source="/Assets/shop.png" Style="{StaticResource MenuIcon}"/>
                             <TextBlock Style="{StaticResource MenuText}">
                                 Shop
                             </TextBlock>
                         </Grid>
                     </Button>
                 </StackPanel>
-                <StackPanel Style="{StaticResource MenuItem}" 
-                            Margin="0, 20"
-                            DockPanel.Dock="Bottom">
-                    <Button Command="{Binding ExitProgram}"
-                            Style="{StaticResource MenuButton}">
-                        <Grid Height="40" Width="200">
+                <StackPanel Style="{StaticResource MenuItem}" Margin="0, 20" DockPanel.Dock="Bottom">
+                    <Button Command="{Binding ExitProgram}" Style="{StaticResource MenuButton}">
+                        <Grid Style="{StaticResource MenuGrid}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="40"/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Image Source="/Assets/signOut.png"
-                                   Style="{StaticResource MenuIcon}"/>
+                            <Image Source="/Assets/signOut.png" Style="{StaticResource MenuIcon}"/>
                             <TextBlock Style="{StaticResource MenuText}">
                                 Exit
                             </TextBlock>

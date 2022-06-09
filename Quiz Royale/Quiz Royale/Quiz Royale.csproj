@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <RootNamespace>Quiz_Royale</RootNamespace>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
@@ -10,23 +10,51 @@
   <ItemGroup>
     <PackageReference Include="Castle.Windsor" Version="5.1.2" />
     <None Remove="Assets\background.png" />
+
     <None Remove="Assets\cup.png" />
     <None Remove="Assets\home.png" />
     <None Remove="Assets\item.png" />
+    <None Remove="Assets\coins.png" />
+    <None Remove="Assets\home.png" />
+    <None Remove="Assets\leagueOfQuestions.png" />
     <None Remove="Assets\profile.png" />
+    <None Remove="Assets\quizRoyale.png" />
     <None Remove="Assets\shop.png" />
     <None Remove="Assets\signOut.png" />
+    <None Remove="Assets\star.png" />
+    <None Remove="Assets\testBoost.png" />
+    <None Remove="Assets\testBorder.png" />
+    <None Remove="Assets\testCategory.png" />
+    <None Remove="Assets\testDivision.png" />
+    <None Remove="Assets\testProfilePicture.png" />
+    <None Remove="Assets\trainingMode.png" />
+    <None Remove="Assets\xp.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Assets\background.png" />
     <Resource Include="Assets\cup.png" />
+    <Resource Include="Assets\coins.png" />
     <Resource Include="Assets\home.png">
       <CopyToOutputDirectory></CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Assets\leagueOfQuestions.png" />
     <Resource Include="Assets\profile.png" />
+    <Resource Include="Assets\quizRoyale.png" />
     <Resource Include="Assets\shop.png" />
     <Resource Include="Assets\signOut.png" />
+    <Resource Include="Assets\star.png" />
+    <Resource Include="Assets\testBoost.png" />
+    <Resource Include="Assets\testBorder.png" />
+    <Resource Include="Assets\testCategory.png" />
+    <Resource Include="Assets\testDivision.png" />
+    <Resource Include="Assets\testProfilePicture.png" />
+    <Resource Include="Assets\trainingMode.png" />
+    <Resource Include="Assets\xp.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>

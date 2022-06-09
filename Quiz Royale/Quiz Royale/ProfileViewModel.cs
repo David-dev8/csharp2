@@ -4,13 +4,12 @@ using System.Text;
 
 namespace Quiz_Royale
 {
-    class ProfileViewModel : BaseViewModel
+    public class ProfileViewModel : BaseViewModel
     {
         private IAccountDataProvider _accountDataProvider;
         private IAccountProvider _accountProvider;
         private Account _account;
         private Inventory _inventory;
-
         public IList<Mastery> Mastery 
         {
             get 

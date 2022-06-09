@@ -4,15 +4,13 @@ using System.Text;
 
 namespace Quiz_Royale
 {
-    public class BaseViewModel
+    public class BaseViewModel : Observable
     {
-        public NavigationStore NavigationStore { get; set; }
+        protected NavigationStore _navigationStore;
         
         public BaseViewModel(NavigationStore store)
         {
-            NavigationStore = store;
+            _navigationStore = store;
         }
-
-
     }
 }

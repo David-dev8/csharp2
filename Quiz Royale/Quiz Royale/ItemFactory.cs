@@ -5,28 +5,19 @@ using System.Text;
 
 namespace Quiz_Royale
 {
-    class ItemFactory
+    public class ItemFactory
     {
-        public Item MakeItem(string type, string name, string picture, string requiredAmount, string description = "", int indentifier = 0)
+        public Item MakeItem(string type, string name, string picture, int requiredAmount, Payment payment, 
+            string description = "", int indentifier = 0)
         {
-            switch (type)
+            return type switch
             {
-                case "Booster":
-                    return new Booster(name,picture,requiredAmount,description,indentifier);
-                    break;
-                case "PlayerTitle":
-                    return new PlayerTitle();
-                    break;
-                case "ProfilePicture":
-                    return new ProfilePicture();
-                    break;
-                case "Border":
-                    return new Border();
-                    break;
-                default:
-                    return null;
-                    break;
-            }
+                "Booster" => new Booster(name, picture, requiredAmount, payment, description, indentifier),
+                "PlayerTitle" => new PlayerTitle(name, picture, requiredAmount, payment),
+                "ProfilePicture" => new ProfilePicture(name, picture, requiredAmount, payment),
+                "Border" => new Border(name, picture, requiredAmount, payment),
+                _ => null,
+            };
         }
     }
 }
