@@ -8,13 +8,25 @@ namespace Quiz_Royale
 {
     public class QuizRoyale : Game
     {
+        private static readonly IDictionary<int, string> LOSE_MESSAGES = new Dictionary<int, string>
+        {
+            { 100, "That's quite unfortunate!" },
+            { 75, "Better luck next time" },
+            { 50, "Good job!" },
+            { 25, "Excellent achievement!" },
+            { 10, "Outsting " },
+            { 1, "That was close..." },
+        };
+
+        private static readonly string WINNER_MESSAGE = "Congratulations!";
+
         private IList<Player> _players;
 
         public IList<Player> Players
         {
             get
             {
-                return _players.Take(10).ToList(); // TODO doe dit ook met de results van home
+                return _players.Take(10).ToList();
             }
             set
             {
@@ -70,7 +82,17 @@ namespace Quiz_Royale
             CurrentAmountOfPlayers = players.Count;
             TotalAmountOfPlayersStarted = players.Count;
             CurrentQuestion = new Question("What is the name of the biggest technology company in South Korea?", answers, 29, new Category("/Assets/testCategory.png", "Wetenschap", "#5294DF"));
+            CurrentPosition = 88;
+
             // TODO initialiseer de rest ook op een goede manier
+        }
+
+        protected override string GetResultMessage()
+        {
+            CurrentPosition = CurrentAmountOfPlayers + 1;
+            double percent = CurrentPosition / TotalAmountOfPlayersStarted * 100;
+            return CurrentAmountOfPlayers > 0 ? LOSE_MESSAGES.Where(x => x.Key >= percent).Reverse().First().Value 
+                : WINNER_MESSAGE;
         }
     }
 }

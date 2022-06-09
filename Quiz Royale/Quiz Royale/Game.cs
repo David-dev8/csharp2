@@ -17,7 +17,17 @@ namespace Quiz_Royale
                 return Account.Inventory.Boosters;
             }
         }
+        public string ResultMessage
+        {
+            get
+            {
+                return GetResultMessage();
+            }
+        }
         public ObservableCollection<Player> FastestPlayers { get; set; }
+        public int CurrentPosition { get; set; }
         // TODO Contentprovider toevoegen
+
+        protected abstract string GetResultMessage();
     }
 }

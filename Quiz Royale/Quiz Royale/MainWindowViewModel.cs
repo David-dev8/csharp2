@@ -57,7 +57,7 @@ namespace Quiz_Royale
             // Controleer of de gebruiker al een account heeft, dit is het geval wanneer er een access token aanwezig is
             if(Storage.Settings.Credentials?.AccessToken == null)
             {
-                return new LoginViewModel(_navigationStore);
+                return new HomeViewModel(_navigationStore);
             } 
             else
             {

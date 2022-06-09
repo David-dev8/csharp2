@@ -13,6 +13,7 @@
     <None Remove="Assets\coins.png" />
     <None Remove="Assets\home.png" />
     <None Remove="Assets\leagueOfQuestions.png" />
+    <None Remove="Assets\medal.png" />
     <None Remove="Assets\profile.png" />
     <None Remove="Assets\quizRoyale.png" />
     <None Remove="Assets\shop.png" />
@@ -34,6 +35,7 @@
       <CopyToOutputDirectory></CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\leagueOfQuestions.png" />
+    <Resource Include="Assets\medal.png" />
     <Resource Include="Assets\profile.png" />
     <Resource Include="Assets\quizRoyale.png" />
     <Resource Include="Assets\shop.png" />
