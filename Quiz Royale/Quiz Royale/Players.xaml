@@ -1,0 +1,140 @@
+﻿<UserControl x:Class="Quiz_Royale.Players"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Quiz_Royale"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <local:RandomPositionConverter x:Key="RandomPosition" />
+        <local:PercentageToArcConverter x:Key="PercentageToArc" />
+        <local:PercentageToAngleAdditionConverter x:Key="PercentageToAngle" />
+        <local:PercentageToCircularPositionConverter x:Key="PercentageToCircularPosition" />
+        <SolidColorBrush x:Key="WheelBorder" Color="#606060" />
+        <SolidColorBrush x:Key="WheelFill" Color="Black" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*" />
+            <ColumnDefinition Width="4*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Style="{StaticResource Box}" Padding="20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0" Padding="20" Text="Picking the next category" Style="{StaticResource Title}"/>
+                <Border Background="{StaticResource WheelBorder}" Grid.Row="1" Grid.Column="0" 
+                        CornerRadius="{Binding Path=ActualWidth, RelativeSource={RelativeSource Self}}"
+                        Height="{Binding Path=ActualWidth, RelativeSource={RelativeSource Self}}" Padding="4">
+                    <Grid x:Name="Wheel" Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Polygon Grid.Row="0" Grid.Column="1" Points="0,0 15,40 30,0" Margin="-15, -25"
+                                 Fill="{StaticResource WheelFill}" Panel.ZIndex="1" />
+                        <Ellipse Height="20" Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                                 Grid.Row="1" Grid.Column="1" Fill="{StaticResource WheelFill}" 
+                                 Stroke="{StaticResource WheelBorder}" Panel.ZIndex="1" StrokeThickness="2"
+                                 VerticalAlignment="Top" HorizontalAlignment="Left" Margin="-10" />
+                        <local:Wheel Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Chances}" RotateTowards="{Binding CurrentCategory}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Grid />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Height="Auto">
+                                        <Path Fill="{Binding Category.Color}">
+                                            <Path.Data>
+                                                <MultiBinding Converter="{StaticResource PercentageToArc}">
+                                                    <Binding Path="Mastery" />
+                                                    <Binding Path="ActualHeight" RelativeSource="{RelativeSource AncestorType=Grid}" />
+                                                </MultiBinding>
+                                            </Path.Data>
+                                            <Path.RenderTransform>
+                                                <RotateTransform x:Name="Test" Angle="{Binding Mastery, Converter={StaticResource PercentageToAngle}}" />
+                                            </Path.RenderTransform>
+                                        </Path>
+                                        <Image VerticalAlignment="Top" HorizontalAlignment="Left" Source="{Binding Category.Picture}" MaxHeight="30">
+                                            <Image.Margin>
+                                                <MultiBinding Converter="{StaticResource PercentageToCircularPosition}">
+                                                    <Binding Path="Mastery" />
+                                                    <Binding Path="ActualHeight" RelativeSource="{RelativeSource AncestorType=Grid}"/>
+                                                    <Binding Path="ActualHeight" RelativeSource="{RelativeSource Self}"/>
+                                                </MultiBinding>
+                                            </Image.Margin>
+                                        </Image>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </local:Wheel>
+                    </Grid>
+                </Border>
+                <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock Text="Chances" Style="{StaticResource SubTitle}" HorizontalAlignment="Center" />
+                    <ItemsControl ItemsSource="{Binding Chances}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                        <Image Source="{Binding Category.Picture}" MaxHeight="20" />
+                                        <TextBlock Text="{Binding Category.Name}" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="{Binding Mastery, StringFormat={}{0}%}" />
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Grid>
+        </Border>
+        <Border Grid.Column="1" Grid.Row="0" Grid.RowSpan="3" Style="{StaticResource Box}" Padding="20">
+            <Grid>
+                <ItemsControl ItemsSource="{Binding Players}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Grid />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Background="Red" MaxWidth="40" MaxHeight="40">
+                                <StackPanel.Margin>
+                                    <MultiBinding Converter="{StaticResource RandomPosition}">
+                                        <Binding RelativeSource="{RelativeSource Self}"/>
+                                        <Binding Path="ActualWidth" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
+                                        <Binding Path="ActualHeight" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
+                                    </MultiBinding>
+                                </StackPanel.Margin>
+                                <TextBlock Text="{Binding Username}" />
+                                <TextBlock Text="{Binding ProfilePicture}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
