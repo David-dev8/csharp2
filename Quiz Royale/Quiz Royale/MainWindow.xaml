@@ -9,13 +9,22 @@
     <Window.Resources>
         <ResourceDictionary Source="ResourceDictionaries/WindowResources.xaml" />
     </Window.Resources>
-    <Grid >
+    <Grid>
         <Grid.Resources>
+            <DataTemplate DataType="{x:Type local:LoginViewModel}">
+                <local:Login />
+            </DataTemplate>
             <DataTemplate DataType="{x:Type local:HomeViewModel}">
                 <local:home />
             </DataTemplate>
             <DataTemplate DataType="{x:Type local:ShopViewModel}">
                 <local:shop />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type local:PlayersViewModel}">
+                <local:Players />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type local:GameViewModel}">
+                <local:GameView />
             </DataTemplate>
         </Grid.Resources>
         <Grid.ColumnDefinitions>
@@ -25,7 +34,8 @@
         <Grid Background="Black" HorizontalAlignment="Left" Grid.Column="0" Width="200">
             <DockPanel>
                 <StackPanel Style="{StaticResource MenuItem}" Margin="0, 30, 0, 10" DockPanel.Dock="Top">
-                    <Button Command="{Binding ShowHome}" Style="{StaticResource MenuButton}">
+                    <Button Command="{Binding ShowHome}" Style="{StaticResource MenuButton}"
+                            Visibility="{Binding IsInMenu, Converter={StaticResource VisibilityConverter}}">
                         <Grid Style="{StaticResource MenuGrid}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="40"/>
@@ -39,7 +49,8 @@
                     </Button>
                 </StackPanel>
                 <StackPanel Style="{StaticResource MenuItem}" DockPanel.Dock="Top">
-                    <Button Command="{Binding ShowHome}" Style="{StaticResource MenuButton}">
+                    <Button Command="{Binding ShowHome}" Style="{StaticResource MenuButton}"
+                            Visibility="{Binding IsInMenu, Converter={StaticResource VisibilityConverter}}">
                         <Grid Style="{StaticResource MenuGrid}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="40"/>
@@ -53,7 +64,8 @@
                     </Button>
                 </StackPanel>
                 <StackPanel Style="{StaticResource MenuItem}" DockPanel.Dock="Top">
-                    <Button Command="{Binding ShowShop}" Style="{StaticResource MenuButton}">
+                    <Button Command="{Binding ShowShop}" Style="{StaticResource MenuButton}"
+                            Visibility="{Binding IsInMenu, Converter={StaticResource VisibilityConverter}}">
                         <Grid Style="{StaticResource MenuGrid}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="40"/>

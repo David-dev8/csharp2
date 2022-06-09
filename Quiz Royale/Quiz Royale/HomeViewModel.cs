@@ -17,7 +17,7 @@ namespace Quiz_Royale
         {
             get
             {
-                return _accountDataProvider.GetResults();
+                return _accountDataProvider.GetResults().Take(5).ToList(); // TODO er zijn geen resultaten toevoegen attribuut op de table
             }
         }
 
@@ -64,6 +64,8 @@ namespace Quiz_Royale
             _accountProvider = new APIAccountProvider();
             _gameModes = GameModeProvider.GetGameModes();
             SelectedGameMode = _gameModes.FirstOrDefault();
+
+            _navigationStore.IsInMenu = true;
         }
     }
 }
