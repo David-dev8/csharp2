@@ -9,11 +9,11 @@ using System.Windows.Data;
 
 namespace Quiz_Royale
 {
-    public class PercentageToCircularPositionConverter : IMultiValueConverter
+    public class PercentageToCircularPositionAdditionConverter : IMultiValueConverter
     {
         private double _totalOfAll;
 
-        public PercentageToCircularPositionConverter()
+        public PercentageToCircularPositionAdditionConverter()
         {
             _totalOfAll = 0;
         }

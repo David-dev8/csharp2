@@ -54,7 +54,7 @@ namespace Quiz_Royale
         {
             get
             {
-                return _accountProvider.GetAccount("De super fantastische speler");
+                return _accountProvider.GetAccount();
             }
         }
 

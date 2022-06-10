@@ -6,9 +6,9 @@ namespace Quiz_Royale
 {
     public class APIAccountProvider : IAccountProvider
     {
-        public Account GetAccount(string username)
+        public Account GetAccount()
         {
-            return new Account(username, 100, 2300, 150, new Inventory());
+            return new Account("Harold", 100, 2300, 150, new Inventory());
         }
     }
 }

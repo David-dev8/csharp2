@@ -10,14 +10,20 @@
   <ItemGroup>
     <PackageReference Include="Castle.Windsor" Version="5.1.2" />
     <None Remove="Assets\background.png" />
+    <None Remove="Assets\boost.png" />
+    <None Remove="Assets\border.png" />
     <None Remove="Assets\coins.png" />
     <None Remove="Assets\home.png" />
     <None Remove="Assets\leagueOfQuestions.png" />
     <None Remove="Assets\profile.png" />
+    <None Remove="Assets\profilePicture.png" />
     <None Remove="Assets\quizRoyale.png" />
+    <None Remove="Assets\rewardsStar.png" />
     <None Remove="Assets\shop.png" />
+    <None Remove="Assets\shoppingBag.png" />
     <None Remove="Assets\signOut.png" />
     <None Remove="Assets\star.png" />
+    <None Remove="Assets\tag.png" />
     <None Remove="Assets\testBoost.png" />
     <None Remove="Assets\testBorder.png" />
     <None Remove="Assets\testCategory.png" />
@@ -28,7 +34,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\profilePicture.png" />
+    <Resource Include="Assets\shoppingBag.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\boost.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Assets\background.png" />
+    <Resource Include="Assets\border.png" />
     <Resource Include="Assets\coins.png" />
     <Resource Include="Assets\home.png">
       <CopyToOutputDirectory></CopyToOutputDirectory>
@@ -36,9 +52,11 @@
     <Resource Include="Assets\leagueOfQuestions.png" />
     <Resource Include="Assets\profile.png" />
     <Resource Include="Assets\quizRoyale.png" />
+    <Resource Include="Assets\rewardsStar.png" />
     <Resource Include="Assets\shop.png" />
     <Resource Include="Assets\signOut.png" />
     <Resource Include="Assets\star.png" />
+    <Resource Include="Assets\tag.png" />
     <Resource Include="Assets\testBoost.png" />
     <Resource Include="Assets\testBorder.png" />
     <Resource Include="Assets\testCategory.png" />

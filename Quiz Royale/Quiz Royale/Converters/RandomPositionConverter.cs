@@ -24,8 +24,8 @@ namespace Quiz_Royale
             // Dit vermindert de ruimte die er tot beschikking is
             int availableWidth = parentWidth - System.Convert.ToInt32(element.ActualWidth);
             int availableHeight = parentHeight - System.Convert.ToInt32(element.ActualHeight);
-            int randomX = s_random.Next(availableWidth);
-            int randomY = s_random.Next(availableHeight);
+            int randomX = s_random.Next(Math.Max(0, availableWidth));
+            int randomY = s_random.Next(Math.Max(0, availableHeight));
 
             // Geef de willekeurige positie als margin door aan het element zodat deze op een willekeurige plek komt
             element.SetCurrentValue(FrameworkElement.MarginProperty, new Thickness(randomX, randomY, 0, 0));

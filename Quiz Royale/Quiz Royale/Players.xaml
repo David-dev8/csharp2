@@ -7,12 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <local:RandomPositionConverter x:Key="RandomPosition" />
-        <local:PercentageToArcConverter x:Key="PercentageToArc" />
-        <local:PercentageToAngleAdditionConverter x:Key="PercentageToAngle" />
-        <local:PercentageToCircularPositionConverter x:Key="PercentageToCircularPosition" />
-        <SolidColorBrush x:Key="WheelBorder" Color="#606060" />
-        <SolidColorBrush x:Key="WheelFill" Color="Black" />
+        <ResourceDictionary Source="ResourceDictionaries/GameResources.xaml" />
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>

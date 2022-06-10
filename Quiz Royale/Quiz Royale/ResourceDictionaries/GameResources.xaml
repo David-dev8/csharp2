@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Quiz_Royale">
+    <local:RandomPositionConverter x:Key="RandomPosition" />
+    <local:PercentageToArcConverter x:Key="PercentageToArc" />
+    <local:PercentageToAngleAdditionConverter x:Key="PercentageToAngle" />
+    <local:PercentageToCircularPositionAdditionConverter x:Key="PercentageToCircularPosition" />
+    <SolidColorBrush x:Key="WheelBorder" Color="#606060" />
+    <SolidColorBrush x:Key="WheelFill" Color="Black" />
+</ResourceDictionary>

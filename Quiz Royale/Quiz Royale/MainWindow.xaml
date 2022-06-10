@@ -94,10 +94,13 @@
                 </StackPanel>
             </DockPanel>
         </Grid>
-        <Frame Content="{Binding CurrentViewModel}" NavigationUIVisibility="Hidden" Grid.Column="1">
+        <Frame Content="{Binding CurrentViewModel}" NavigationUIVisibility="Hidden" Grid.Column="1" 
+               Opacity="{Binding HasError, Converter={StaticResource InverseOpacityConverter}}">
             <Frame.Background>
                 <ImageBrush Stretch="UniformToFill" ImageSource="/Assets/background.png" />
             </Frame.Background>
         </Frame>
+        <local:ErrorView Grid.Column="0" Grid.ColumnSpan="2" />
+        <TextBlock FontSize="100" Foreground="Red" Text="Ja nu" Visibility="{Binding IsLoading, Converter={StaticResource VisibilityConverter}}" />
     </Grid>
 </Window>
