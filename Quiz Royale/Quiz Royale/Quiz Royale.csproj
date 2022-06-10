@@ -9,6 +9,8 @@
 
   <ItemGroup>
     <PackageReference Include="Castle.Windsor" Version="5.1.2" />
+    <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.5" />
     <None Remove="Assets\background.png" />
     <None Remove="Assets\boost.png" />
     <None Remove="Assets\border.png" />
@@ -68,6 +70,12 @@
 
   <ItemGroup>
     <Folder Include="Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\LobbyView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
 </Project>

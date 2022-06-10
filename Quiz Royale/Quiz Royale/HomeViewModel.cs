@@ -12,6 +12,7 @@ namespace Quiz_Royale
         private IAccountProvider _accountProvider;
         private ICollection<GameMode> _gameModes;
         private GameMode _selectedGameMode;
+        public RelayCommand NavigateToLobbyCommand { get; }
 
         public ICollection<Result> Results
         {
@@ -58,12 +59,15 @@ namespace Quiz_Royale
             }
         }
 
+        private void navigateToLobby() => _navigationStore.CurrentViewModel = new LobbyViewModel(_navigationStore);
+
         public HomeViewModel(NavigationStore navigationStore) : base(navigationStore)
         {
             _accountDataProvider = new APIAccountDataProvider();
             _accountProvider = new APIAccountProvider();
             _gameModes = GameModeProvider.GetGameModes();
             SelectedGameMode = _gameModes.FirstOrDefault();
+            NavigateToLobbyCommand = new RelayCommand(navigateToLobby);
 
             _navigationStore.IsInMenu = true;
         }

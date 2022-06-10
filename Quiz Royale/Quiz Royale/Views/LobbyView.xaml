@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="Quiz_Royale.Lobby"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:fa="http://schemas.fontawesome.io/icons/"
+			 xmlns:local="clr-namespace:Quiz_Royale"
+			 mc:Ignorable="d" 
+			 d:DesignHeight="450" d:DesignWidth="800">
+	<UserControl.Resources>
+		<ResourceDictionary Source="../ResourceDictionaries/HomeResources.xaml" />
+	</UserControl.Resources>
+
+    <Grid>
+        <Grid x:Name="loadingGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            
+            <Border BorderBrush="White" BorderThickness="5" CornerRadius="8" Grid.Column="2" Grid.Row="2" Visibility="{Binding LoadingStatus}">
+                <StackPanel Background="White">
+                    <fa:ImageAwesome Icon="Spinner" Spin="True" Height="75" Width="75" Margin="10, 25, 10, 25"/>
+                    <TextBlock Style="{StaticResource Title}" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+				        Trying to join a match...
+                    </TextBlock>
+                </StackPanel>
+            </Border>
+
+            <Border BorderBrush="White" BorderThickness="5" CornerRadius="8" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" Visibility="{Binding WaitingLobby}">
+                <StackPanel Background="White">
+                    <TextBlock Style="{StaticResource Title}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding StatusMessage}" Margin="0, 50, 0, 50" />
+                </StackPanel>
+            </Border>
+        </Grid>
+	</Grid>
+
+</UserControl>

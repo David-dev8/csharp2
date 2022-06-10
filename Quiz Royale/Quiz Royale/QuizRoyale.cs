@@ -71,6 +71,8 @@ namespace Quiz_Royale
             TotalAmountOfPlayersStarted = players.Count;
             CurrentQuestion = new Question("What is the name of the biggest technology company in South Korea?", answers, 29, new Category("/Assets/testCategory.png", "Wetenschap", "#5294DF"));
             // TODO initialiseer de rest ook op een goede manier
+
+            HubConector = new HubConector();
         }
     }
 }
