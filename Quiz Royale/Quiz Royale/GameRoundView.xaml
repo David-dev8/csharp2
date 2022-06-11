@@ -12,68 +12,47 @@
             <Setter Property="Foreground" Value="White" />
             <Setter Property="FontWeight" Value="SemiBold" />
         </Style>
-        <!--<Style x:Key="FocusVisual">
-            <Setter Property="Control.Template">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <Rectangle Margin="2" StrokeDashArray="1 2" SnapsToDevicePixels="true" StrokeThickness="1" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>-->
-        <!--<SolidColorBrush x:Key="Item.MouseOver.Background" Color="#1F26A0DA"/>
-        <SolidColorBrush x:Key="Item.MouseOver.Border" Color="#a826A0Da"/>
-        <SolidColorBrush x:Key="Item.SelectedActive.Background" Color="#3D26A0DA"/>
-        <SolidColorBrush x:Key="Item.SelectedActive.Border" Color="#FF26A0DA"/>
-        <SolidColorBrush x:Key="Item.SelectedInactive.Background" Color="#3DDADADA"/>
-        <SolidColorBrush x:Key="Item.SelectedInactive.Border" Color="#FFDADADA"/>-->
-        <!--<Style x:Key="ListViewItemStyle1" TargetType="{x:Type ListViewItem}">
-            <Setter Property="SnapsToDevicePixels" Value="True"/>
-            <Setter Property="Padding" Value="4,1"/>
-            <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
-            <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+        <Style x:Key="AnswerStyle" TargetType="ListViewItem">
+            <Setter Property="Height" Value="75" />
+            <Setter Property="Width" Value="435" />
+            <Setter Property="Margin" Value="3" />
+            <Setter Property="Focusable" Value="{Binding DataContext.CanAnswerQuestion, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+            <Setter Property="IsEnabled" Value="{Binding DataContext.CanAnswerQuestion, RelativeSource={RelativeSource AncestorType=UserControl}}" />
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ListViewItem}">
-                        <Border x:Name="Bd" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
-                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <MultiTrigger>
-                                <MultiTrigger.Conditions>
-                                    <Condition Property="IsMouseOver" Value="True"/>
-                                </MultiTrigger.Conditions>
-                                <Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.MouseOver.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.MouseOver.Border}"/>
-                            </MultiTrigger>
-                            <MultiTrigger>
-                                <MultiTrigger.Conditions>
-                                    <Condition Property="Selector.IsSelectionActive" Value="False"/>
-                                    <Condition Property="IsSelected" Value="True"/>
-                                </MultiTrigger.Conditions>
-                                <Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.SelectedInactive.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.SelectedInactive.Border}"/>
-                            </MultiTrigger>
-                            <MultiTrigger>
-                                <MultiTrigger.Conditions>
-                                    <Condition Property="Selector.IsSelectionActive" Value="True"/>
-                                    <Condition Property="IsSelected" Value="True"/>
-                                </MultiTrigger.Conditions>
-                                <Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.SelectedActive.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.SelectedActive.Border}"/>
-                            </MultiTrigger>
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <ContentPresenter />
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-        </Style>-->
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="False">
+                    <Setter Property="Opacity" Value="0.7" />
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Opacity" Value="1" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="BoostStyle" TargetType="ListBoxItem">
+            <Setter Property="Focusable" Value="{Binding DataContext.CanUseBooster, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+            <Setter Property="IsEnabled" Value="{Binding DataContext.CanUseBooster, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <ContentPresenter />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Opacity" Value="0.6" />
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Opacity" Value="0.6" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -97,28 +76,17 @@
                 </Grid>
             </Border>
             <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="319*"/>
-                    <ColumnDefinition Width="106*"/>
-                </Grid.ColumnDefinitions>
                 <Border CornerRadius="50" Width="80" Height="80" Background="#E9E9E9" BorderBrush="#707070" BorderThickness="1"
-                        HorizontalAlignment="Right" Grid.Column="1" Margin="0,0,0,-20">
+                        HorizontalAlignment="Right" Grid.Column="1">
                     <TextBlock Text="{Binding Time}" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource Title}" />
                 </Border>
             </Grid>
         </Grid>
         <Border Width="670" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="1" Grid.RowSpan="3" Style="{StaticResource Box}">
             <Grid Background="Transparent">
-                <ListView Margin="20, 25" ItemsSource="{Binding Game.CurrentQuestion.Possibilities}" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
-                          Background="Transparent" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalAlignment="Left"
-                          SelectionMode="Single">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="Height" Value="75" />
-                            <Setter Property="Width" Value="435" />
-                            <Setter Property="Margin" Value="3" />
-                        </Style>
-                    </ListView.ItemContainerStyle>
+                <ListView Margin="20, 25" SelectedItem="{Binding SelectedAnswer, Mode=OneWayToSource}" ItemContainerStyle="{StaticResource AnswerStyle}" ItemsSource="{Binding Game.CurrentQuestion.Possibilities}" 
+                          ScrollViewer.VerticalScrollBarVisibility="Disabled" Background="Transparent" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                          HorizontalAlignment="Left" SelectionMode="Single">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Border Style="{StaticResource Box}" Height="70" Width="420" Background="#85ABB5" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0" >
@@ -178,7 +146,7 @@
                     <TextBlock Style="{StaticResource SubTitle}" >
                         Boosts
                     </TextBlock>
-                    <ListBox Background="Transparent" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemsSource="{Binding Game.Account.Inventory.Boosters}">
+                    <ListBox ItemContainerStyle="{StaticResource BoostStyle}" Background="Transparent" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemsSource="{Binding Boosters}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Image MaxHeight="40" Source="{Binding Picture}" ToolTip="{Binding Description}" />

@@ -50,19 +50,9 @@
                         </Button.Template>
                     </Button>
                 </Grid>
-                <ListView Grid.Column="1" Grid.Row="1" Margin="0, 20, 50, 20" Background="Transparent" 
+                <ListView Grid.Column="1" Grid.Row="1" Margin="0, 20, 50, 20" Background="Transparent" ItemContainerStyle="{StaticResource GameModeStyle}"
                           BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden"
                           ItemsSource="{Binding GameModes}" SelectionMode="Single" SelectedItem="{Binding SelectedGameMode}">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Style.Triggers>
-                                <Trigger Property="IsSelected" Value="True">
-                                    <Setter Property="Visibility" Value="Hidden" />
-                                    <Setter Property="Height" Value="0" />
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ListView.ItemContainerStyle>
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">

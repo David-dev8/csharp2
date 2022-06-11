@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Quiz_Royale
 {
-    public class HubConector
+    public class HubConnector
     {
         private HubConnection connection;
         public event EventHandler<JoinStatusArgs> joinStatus;
@@ -24,7 +24,7 @@ namespace Quiz_Royale
 
 
 
-        public HubConector()
+        public HubConnector()
         {
             connection = new HubConnectionBuilder()
                 .WithUrl("http://localhost:5264/GameHub")

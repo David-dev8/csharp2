@@ -24,7 +24,7 @@
                 <local:Players />
             </DataTemplate>
             <DataTemplate DataType="{x:Type local:GameViewModel}">
-                <local:GameEndedView />
+                <local:GameRoundView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type local:LobbyViewModel}">
                 <local:Lobby />

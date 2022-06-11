@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Timers;
 
 namespace Quiz_Royale
 {
@@ -17,10 +18,13 @@ namespace Quiz_Royale
             { 10, "Outsting " },
             { 1, "That was close..." },
         };
-
         private static readonly string WINNER_MESSAGE = "Congratulations!";
+        private const int TIME_AFTER_BOOST = 3;
+        private const int START_TIME = 20;
 
         private IList<Player> _players;
+        private Timer _timer;
+        private int _currentTime;
 
         public IList<Player> Players
         {
@@ -36,10 +40,31 @@ namespace Quiz_Royale
 
         public int TotalAmountOfPlayersStarted { get; set; }
         public int CurrentAmountOfPlayers { get; set; }
+        public int CurrentTime
+        {
+            get
+            {
+                return _currentTime;
+            }
+            set
+            {
+                if(value >= 0)
+                {
+                    _currentTime = value;
+                    NotifyPropertyChanged();
+                }
+                else
+                {
+                    _timer.Stop(); // TODO moet je eigenlijk wel stoppen?
+                }
+            }
+        }
+
 
         public QuizRoyale(Account account)
         {
             Account = account;
+            Boosters = new ObservableCollection<Item>(Account.Inventory.Boosters);
 
             ObservableCollection<Player> fastestPlayers = new ObservableCollection<Player>
             {
@@ -81,12 +106,34 @@ namespace Quiz_Royale
 
             CurrentAmountOfPlayers = players.Count;
             TotalAmountOfPlayersStarted = players.Count;
-            CurrentQuestion = new Question("What is the name of the biggest technology company in South Korea?", answers, 29, new Category("/Assets/testCategory.png", "Wetenschap", "#5294DF"));
+            CurrentQuestion = new Question("What is the name of the biggest technology company in South Korea?", answers, new Category("Wetenschap", "/Assets/testCategory.png", "#5294DF"));
             CurrentPosition = 88;
 
             // TODO initialiseer de rest ook op een goede manier
 
-            HubConector = new HubConector();
+            HubConnector = new HubConnector();
+            HubConnector.newQuestion += SetCurrentQuestion;
+            HubConnector.reduceTime += ReduceTime;
+            _timer = new Timer(1000);
+            _timer.Elapsed += DecreaseTime;
+        }
+
+        private void SetCurrentQuestion(object sender, NewQuestionArgs e)
+        {
+            CurrentQuestion = e.Question;
+            CurrentTime = START_TIME;
+            _timer.AutoReset = true;
+            _timer.Enabled = true;
+        }
+
+        private void ReduceTime(object sender, EventArgs e)
+        {
+            CurrentTime = TIME_AFTER_BOOST; // TODO zelfde tijd als op de socket?
+        }
+
+        private void DecreaseTime(object sender, EventArgs e)
+        {
+            CurrentTime--;
         }
 
         protected override string GetResultMessage()
