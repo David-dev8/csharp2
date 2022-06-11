@@ -11,7 +11,7 @@ namespace Quiz_Royale
     {
         private HubConnection connection;
         public event EventHandler<JoinStatusArgs> joinStatus;
-        public event EventHandler<JoinPlayerArgs> joinPlayer;
+        public event EventHandler<PlayerArgs> joinPlayer;
         public event EventHandler<UpdateStatusArgs> updateStatus;
         public event EventHandler gameOver;
         public event EventHandler start;
@@ -21,6 +21,7 @@ namespace Quiz_Royale
         public event EventHandler win;
         public event EventHandler<CategoryIncreaseArgs> catIncrease;
         public event EventHandler reduceTime;
+        public event EventHandler<PlayerArgs> playerAwnsered;
 
 
 
@@ -36,14 +37,14 @@ namespace Quiz_Royale
                 await connection.StartAsync();
             };
 
-            connection.On<bool, string, Player[]>("joinStatus", (status, message, players) =>
+            connection.On<bool, string, Player[], IDictionary<Category, float>>("joinStatus", (status, message, players, cats) =>
             {
-                joinStatus.Invoke(this, new JoinStatusArgs(status, message, players));
+                joinStatus.Invoke(this, new JoinStatusArgs(status, message, players, cats));
             });
 
             connection.On<Player>("newPlayerJoin", (player) =>
             {
-                joinPlayer.Invoke(this, new JoinPlayerArgs(player));
+                joinPlayer.Invoke(this, new PlayerArgs(player));
             });
 
             connection.On<string>("updateStatus", (player) =>
@@ -89,6 +90,11 @@ namespace Quiz_Royale
             connection.On("reduceTime", () =>
             {
                 reduceTime.Invoke(this, new EventArgs());
+            });
+
+            connection.On<Player>("playerAwnsered", (player) => 
+            {
+                playerAwnsered.Invoke(this, new PlayerArgs(player));
             });
 
             try
