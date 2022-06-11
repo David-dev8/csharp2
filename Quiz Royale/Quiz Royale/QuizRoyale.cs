@@ -8,25 +8,13 @@ namespace Quiz_Royale
 {
     public class QuizRoyale : Game
     {
-        private IList<Player> _players;
-
-        public IList<Player> Players
-        {
-            get
-            {
-                return _players.Take(10).ToList(); // TODO doe dit ook met de results van home
-            }
-            set
-            {
-                _players = value;
-            }
-        }
+        public ObservableCollection<Player> Players { get; set; }
 
         public int CurrentAmountOfPlayers 
         {
             get
             {
-                return _players.Count;
+                return Players.Count;
             }
         }
 
@@ -36,12 +24,17 @@ namespace Quiz_Royale
         {
             Account = account;
             FastestPlayers = new ObservableCollection<Player>();
-            Players = new List<Player>();
-            TotalAmountOfPlayersStarted = _players.Count;
+            Players = new ObservableCollection<Player>();
+            TotalAmountOfPlayersStarted = Players.Count;
             CurrentQuestion = null;
             Categories = new Dictionary<Category, float>();
 
             HubConector = new HubConector();
+        }
+
+        public void addPlayer(Player player)
+        {
+            Players.Add(player);
         }
     }
 }

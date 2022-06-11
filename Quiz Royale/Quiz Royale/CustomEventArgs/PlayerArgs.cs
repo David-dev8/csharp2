@@ -9,10 +9,12 @@ namespace Quiz_Royale
     public class PlayerArgs : EventArgs
     {
         public Player Player { get; }
+        public string Message { get; }
 
-        public PlayerArgs(Player player)
+        public PlayerArgs(Player player, string message)
         { 
             Player = player;
+            Message = message;
         }
     }
 }

@@ -10,10 +10,10 @@ namespace Quiz_Royale
     {
         public bool Status { get; }
         public string Message { get; }
-        public Player[] Players { get; }
-        IDictionary<Category, float> categories { get; }
+        public IList<Player> Players { get; }
+        public IList<CategoryMastery> categories { get; }
 
-        public JoinStatusArgs(bool status, string message, Player[] players, IDictionary<Category, float> cats)
+        public JoinStatusArgs(bool status, string message, IList<Player> players, IList<CategoryMastery> cats)
         { 
             Status = status;
             Message = message;

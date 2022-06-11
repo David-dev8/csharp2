@@ -7,9 +7,9 @@
 			 xmlns:local="clr-namespace:Quiz_Royale"
 			 mc:Ignorable="d" 
 			 d:DesignHeight="450" d:DesignWidth="800">
-	<UserControl.Resources>
-		<ResourceDictionary Source="../ResourceDictionaries/HomeResources.xaml" />
-	</UserControl.Resources>
+    <UserControl.Resources>
+        <ResourceDictionary Source="../ResourceDictionaries/GameResources.xaml" />
+    </UserControl.Resources>
 
     <Grid>
         <Grid x:Name="loadingGrid">
@@ -21,7 +21,8 @@
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="1*" />
+                <RowDefinition Height="0.5*" />
+                <RowDefinition Height="0.5*" />
                 <RowDefinition Height="1*" />
                 <RowDefinition Height="1*" />
                 <RowDefinition Height="1*" />
@@ -37,11 +38,42 @@
                 </StackPanel>
             </Border>
 
-            <Border BorderBrush="White" BorderThickness="5" CornerRadius="8" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" Visibility="{Binding WaitingLobby}">
-                <StackPanel Background="White">
-                    <TextBlock Style="{StaticResource Title}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding StatusMessage}" Margin="0, 50, 0, 50" />
+            <Border Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" Style="{StaticResource Box}" Visibility="{Binding WaitingLobby}">
+                <StackPanel >
+                    <TextBlock Style="{StaticResource Title}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding StatusMessage}" Margin="0, 10, 0, 0" />
                 </StackPanel>
             </Border>
+
+            <Border Grid.Column="1" Grid.Row="2" Grid.RowSpan="4" Grid.ColumnSpan="3" Style="{StaticResource Box}" Padding="20" Visibility="{Binding WaitingLobby}">
+                <Grid>
+                    <ItemsControl ItemsSource="{Binding Players}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Grid />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" MaxWidth="125" MaxHeight="125">
+                                    <StackPanel.Margin>
+                                        <MultiBinding Converter="{StaticResource RandomPosition}">
+                                            <Binding RelativeSource="{RelativeSource Self}"/>
+                                            <Binding Path="ActualWidth" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
+                                            <Binding Path="ActualHeight" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
+                                        </MultiBinding>
+                                    </StackPanel.Margin>
+                                    <Grid>
+                                        <Image Source="{Binding ProfilePicture}"  Height="75" Width="75" HorizontalAlignment="Center"/>
+                                        <Image Source="{Binding Border}" Height="100" Width="100" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <TextBlock Text="{Binding Username}" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
+            </Border>
+
         </Grid>
 	</Grid>
 

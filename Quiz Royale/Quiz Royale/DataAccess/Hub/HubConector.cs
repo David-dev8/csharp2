@@ -37,14 +37,14 @@ namespace Quiz_Royale
                 await connection.StartAsync();
             };
 
-            connection.On<bool, string, Player[], IDictionary<Category, float>>("joinStatus", (status, message, players, cats) =>
+            connection.On<bool, string, IList<Player>, IList<CategoryMastery>>("joinStatus", (status, message, players, cats) =>
             {
                 joinStatus.Invoke(this, new JoinStatusArgs(status, message, players, cats));
             });
 
-            connection.On<Player>("newPlayerJoin", (player) =>
+            connection.On<Player, string>("newPlayerJoin", (player, message) =>
             {
-                joinPlayer.Invoke(this, new PlayerArgs(player));
+                joinPlayer.Invoke(this, new PlayerArgs(player, message));
             });
 
             connection.On<string>("updateStatus", (player) =>
@@ -94,7 +94,7 @@ namespace Quiz_Royale
 
             connection.On<Player>("playerAwnsered", (player) => 
             {
-                playerAwnsered.Invoke(this, new PlayerArgs(player));
+                playerAwnsered.Invoke(this, new PlayerArgs(player, ""));
             });
 
             try

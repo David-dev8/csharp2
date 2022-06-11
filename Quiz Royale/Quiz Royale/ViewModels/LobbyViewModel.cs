@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -66,6 +67,14 @@ namespace Quiz_Royale
             }
         }
 
+        public ObservableCollection<Player> Players
+        {
+            get 
+            {
+                return ((QuizRoyale)_game).Players;
+            }
+        }
+
         public LobbyViewModel(NavigationStore store) : base(store)
         {
             LoadingStatus = "Visible";   
@@ -89,7 +98,10 @@ namespace Quiz_Royale
                 StatusMessage = e.Message;
                 foreach (Player player in e.Players)
                 {
-                    ((QuizRoyale)_game).Players.Add(player);
+                    App.Current.Dispatcher.Invoke(() =>
+                    {
+                        ((QuizRoyale)_game).addPlayer(player);
+                    });
                 }
                 LoadingStatus = "Hidden";
                 WaitingLobby = "Visible";
@@ -106,17 +118,22 @@ namespace Quiz_Royale
 
         private void updateStatus(Object sender, UpdateStatusArgs e)
         {
-
+            StatusMessage = e.Message;
         }
 
-        private void joinPlayer(Object sender, JoinPlayerArgs e)
+        private void joinPlayer(Object sender, PlayerArgs e)
         {
-
+            App.Current.Dispatcher.Invoke(() => 
+            {
+                ((QuizRoyale)_game).addPlayer(e.Player);
+            });
+            StatusMessage = e.Message;
         }
 
         private void startGame(Object sender, EventArgs e)
         {
-
+            StatusMessage = "De game Start!!";
+            //ToDo ref naar de game
         }
     }
 }

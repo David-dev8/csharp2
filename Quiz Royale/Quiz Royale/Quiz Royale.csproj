@@ -11,6 +11,7 @@
     <PackageReference Include="Castle.Windsor" Version="5.1.2" />
     <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.5" />
+    <None Remove="Assets\1.png" />
     <None Remove="Assets\background.png" />
     <None Remove="Assets\boost.png" />
     <None Remove="Assets\border.png" />
@@ -36,6 +37,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\1.png" />
     <Resource Include="Assets\profilePicture.png" />
     <Resource Include="Assets\shoppingBag.png" />
   </ItemGroup>
