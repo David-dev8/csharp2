@@ -1,4 +1,5 @@
-﻿using Quiz_Royale.DataAccess;
+﻿using Microsoft.Toolkit.Helpers;
+using Quiz_Royale.DataAccess;
 using Quiz_Royale.DataAccess.API;
 using Quiz_Royale.Exceptions;
 using System;
@@ -13,38 +14,12 @@ namespace Quiz_Royale
     {
         private IItemProvider _itemProvider;
 
-        private IList<Item> _items;
-
-        public IList<Item> Items 
-        {
-            get
-            {
-                return _items;
-            }
-            set
-            {
-                _items = value;
-                OnPropertyChanged();
-            }
-        }
+        public NotifyTaskCompletion<IList<Item>> Items { get; }
 
         public Shop()
         {
             _itemProvider = new APIItemProvider(); // todo hebben we deze nog nodig als property?
-            LoadData();
-        }
-
-        private async Task LoadData()
-        {
-            try
-            {
-                var t = await _itemProvider.GetItems();
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine("mmm");
-            }
-            _items = null;
+            Items = new NotifyTaskCompletion<IList<Item>>(_itemProvider.GetItems());
         }
 
         public async Task BuyItem(Account account, Item item)
@@ -61,7 +36,12 @@ namespace Quiz_Royale
 
         public bool CanBuy(Account account, Item item)
         {
-            return true; // todo implement
+            return item.Payment switch
+            {
+                Payment.XP => account.Level >= item.RequiredAmount,
+                Payment.COINS => account.AmountOfCoins >= item.RequiredAmount,
+                _ => false // todo exception?
+            };
         }
     }
 }

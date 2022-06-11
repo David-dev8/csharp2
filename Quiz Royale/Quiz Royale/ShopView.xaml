@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Quiz_Royale"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -54,12 +55,13 @@
             </Style.Resources>
         </Style>
     </UserControl.Resources>
-    <Grid>
+    <Grid Margin="50">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Margin="30">
+        <Grid Grid.Row="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="20" />
@@ -108,66 +110,83 @@
                     </StackPanel>
                 </Button>
             </Grid>
-            <ListView Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" ItemsSource="{Binding SelectedItems}" VerticalContentAlignment="Stretch" Margin="20, 0"
-                      SelectedItem="{Binding ItemSelected, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}">
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="ListViewItem">
-                                    <ContentPresenter />
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </ListView.ItemContainerStyle>
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal" VerticalAlignment="Stretch" Background="Transparent" />
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Border Style="{StaticResource Box}" VerticalAlignment="Stretch" Width="200" Height="240" Margin="10, 5, 10, 10">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="2*" />
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-                                    <Image Grid.Row="0" Source="{Binding Picture}" Margin="20, 10" />
-                                    <StackPanel Grid.Row="1">
-                                        <TextBlock Text="{Binding Name}" FontSize="14" TextAlignment="Center" Margin="0, 0, 0, 10" />
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <Image Source="Assets/coins.png" Width="20" />
-                                            <TextBlock Margin="10, 0" Text="{Binding RequiredAmount}" FontSize="14" />
+            <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Background="Transparent">
+                <fa:ImageAwesome Icon="Spinner" Panel.ZIndex="1" Spin="True" SpinDuration="1.5" Height="60"
+                                 Visibility="{Binding IsLoading, Converter={StaticResource VisibilityConverter}}"/>
+                <local:HorizontalScrollList ItemsSource="{Binding SelectedItems}" VerticalContentAlignment="Stretch" Margin="20, 0"
+                                            SelectedItem="{Binding ItemSelected, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+                                            DisabledItems="{Binding DisabledItems, Mode=TwoWay}">
+                    <local:HorizontalScrollList.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Border Style="{StaticResource Box}" VerticalAlignment="Stretch" Width="200" Margin="10, 5, 10, 10">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="2*" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Image Grid.Row="0" Source="{Binding Picture}" Margin="20, 10" />
+                                        <StackPanel Grid.Row="1">
+                                            <TextBlock Text="{Binding Name}" FontSize="14" TextAlignment="Center" Margin="0, 0, 0, 10" />
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <Image Source="Assets/coins.png" Width="20" />
+                                                <TextBlock Margin="10, 0" Text="{Binding RequiredAmount}" FontSize="14" />
+                                            </StackPanel>
                                         </StackPanel>
-                                    </StackPanel>
-                                </Grid>
-                            </Border>
-                        </Grid>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </Grid>
-        <Border Grid.Row="1" Style="{StaticResource Box}" Padding="20">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="5*" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="3*" />
-                </Grid.ColumnDefinitions>
-                <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource HeaderBox}">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="Assets/rewardsStar.png" />
-                        <TextBlock Text="Rewards" />
-                    </StackPanel>
-                </Border>
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </local:HorizontalScrollList.ItemTemplate>
+                </local:HorizontalScrollList>
             </Grid>
-        </Border>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="5*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
+            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1" Style="{StaticResource HeaderBox}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="Assets/rewardsStar.png" />
+                    <TextBlock Text="Rewards" />
+                </StackPanel>
+            </Border>
+            <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Background="Transparent">
+                <fa:ImageAwesome Icon="Spinner" Panel.ZIndex="1" Spin="True" SpinDuration="1.5" Height="60"
+                                 Visibility="{Binding IsLoading, Converter={StaticResource VisibilityConverter}}"/>
+                <local:HorizontalScrollList ItemsSource="{Binding Rewards}" VerticalContentAlignment="Stretch"
+                                            SelectedItem="{Binding RewardSelected, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}">
+                    <local:HorizontalScrollList.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Border Style="{StaticResource Box}" VerticalAlignment="Stretch" Width="200" Margin="0, 5, 20, 10">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="2*" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Image Grid.Row="0" Source="{Binding Picture}" Margin="20, 10" />
+                                        <StackPanel Grid.Row="1">
+                                            <TextBlock Text="{Binding Name}" FontSize="14" TextAlignment="Center" Margin="0, 0, 0, 10" />
+                                            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <Image Source="Assets/star.png" Width="32" />
+                                                <TextBlock Margin="10, 0" Text="{Binding RequiredAmount}" FontSize="14" 
+                                                           HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                            </Grid>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </local:HorizontalScrollList.ItemTemplate>
+                </local:HorizontalScrollList>
+            </Grid>
+        </Grid>
     </Grid>
 </UserControl>

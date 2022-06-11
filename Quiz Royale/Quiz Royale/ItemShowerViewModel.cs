@@ -1,4 +1,5 @@
-﻿using Quiz_Royale.Filters;
+﻿using Microsoft.Toolkit.Helpers;
+using Quiz_Royale.Filters;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,11 +10,11 @@ using System.Windows.Input;
 
 namespace Quiz_Royale
 {
-    public abstract class ItemShowerViewModel: BaseViewModel
+    public abstract class ItemShowerViewModel : BaseViewModel
     {
         protected IList<Item> _allItems;
         protected IAccountProvider _accountProvider;
-        private FilterFactory _filterFactory;
+        protected FilterFactory _filterFactory;
 
         public ICommand ShowBorders { get; set; }
 
@@ -23,7 +24,51 @@ namespace Quiz_Royale
 
         public ICommand ShowTitles { get; set; }
 
-        public ObservableCollection<Item> SelectedItems { get; private set; }
+        private IList<Item> _selectedItems;
+
+        public IList<Item> SelectedItems
+        {
+            get
+            {
+                return _selectedItems;
+            }
+            set
+            {
+                _selectedItems = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        private IList<Item> _disabledItems;
+
+        public IList<Item> DisabledItems
+        {
+            get
+            {
+                return _disabledItems;
+            }
+            set
+            {
+                _disabledItems = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _isLoading;
+
+        public bool IsLoading
+        {
+            get
+            {
+                return _isLoading;
+            }
+            set
+            {
+                _isLoading = value;
+                OnPropertyChanged();
+            }
+        }
 
         public ItemShowerViewModel(NavigationStore navigationStore): base(navigationStore)
         {
@@ -58,16 +103,22 @@ namespace Quiz_Royale
             FilterAll(_filterFactory.GetFilter("Title"));
         }
 
-        private void FilterAll(IItemFilter filter)
+        protected IList<Item> Filter(IItemFilter filter, IList<Item> items)
         {
-            SelectedItems.Clear();
-            foreach(Item item in _allItems)
+            IList<Item> filteredItems = new List<Item>();
+            foreach (Item item in items)
             {
-                if(filter.Filter(item))
+                if (filter.Filter(item))
                 {
-                    SelectedItems.Add(item);
+                    filteredItems.Add(item);
                 }
             }
+            return filteredItems;
+        }
+
+        private void FilterAll(IItemFilter filter)
+        {
+            SelectedItems = Filter(filter, _allItems);
         }
     }
 }
