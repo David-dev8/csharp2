@@ -22,7 +22,11 @@ namespace Quiz_Royale
 
         private const int MIN_ROTATIONS = 4;
 
-        private const int MAX_ROTATIONS = 10;
+        private const int MAX_ROTATIONS = 8; // todo resourcedict voor players.xaml?
+
+        private const int ROTATION_DURATION = 5;
+
+        private const int START_DELAY_DURATION = 2;
 
         public static readonly DependencyProperty TestPropProperty =
             DependencyProperty.Register("RotateTowards", typeof(object), typeof(Wheel), new PropertyMetadata(null));
@@ -70,7 +74,7 @@ namespace Quiz_Royale
 
             var storyboard = new Storyboard();
             storyboard.Children.Add(animation);
-            storyboard.BeginTime = new TimeSpan(0, 0, 1); // todo random Duration en extra rotatie
+            storyboard.BeginTime = new TimeSpan(0, 0, START_DELAY_DURATION);
             storyboard.Begin();
         }
 
@@ -79,7 +83,7 @@ namespace Quiz_Royale
             return new DoubleAnimation
             {
                 To = angle,
-                Duration = TimeSpan.FromMilliseconds(3000),
+                Duration = TimeSpan.FromMilliseconds(ROTATION_DURATION * 1000),
                 EasingFunction = new QuadraticEase()
                 {
                     EasingMode = EasingMode.EaseOut,

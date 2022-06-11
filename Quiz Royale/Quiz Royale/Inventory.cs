@@ -1,7 +1,9 @@
-﻿using Quiz_Royale.Filters;
+﻿using Quiz_Royale.DataAccess.API;
+using Quiz_Royale.Filters;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Quiz_Royale
 {
@@ -45,7 +47,7 @@ namespace Quiz_Royale
         public Inventory()
         {
             _provider = new APIInventoryProvider();
-            // TODO ook mutator
+            _mutator = new APIInventoryMutator();
         }
 
         private Item GetItemByType(string type)
@@ -84,9 +86,9 @@ namespace Quiz_Royale
                 
         }
 
-        public void AddItem(Item item)
+        public async Task AddItem(Item item)
         {
-
+            await _mutator.ObtainItem(item);
         }
     }
 }

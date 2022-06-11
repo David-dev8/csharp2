@@ -10,6 +10,7 @@ namespace Quiz_Royale
         public Question CurrentQuestion { get; set; }
         public IDictionary<Category, float> Categories { get; set; } // TODO categorie wordt meegegeven aan de question nu, hoe wordt dat gedaan met de float
         public Account Account { get; set; }
+        public HubConector HubConector { get; set; }
         public IList<Item> Boosters 
         {
             get

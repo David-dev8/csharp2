@@ -6,6 +6,6 @@ namespace Quiz_Royale
 {
     public interface IAccountProvider
     {
-        Account GetAccount(string username);
+        Account GetAccount();
     }
 }

@@ -19,5 +19,7 @@ namespace Quiz_Royale.Filters
                 _ => null,
             };
         }
+
+        // todo return null of except?
     }
 }

@@ -68,10 +68,13 @@ namespace Quiz_Royale
             {
                 return new List<CategoryMastery>
                 {
-                    new CategoryMastery(new Category("Nature", "/Assets/coins.png", "#ffffff"), 65),
-                    new CategoryMastery(new Category("Coins", "/Assets/coins.png", "#0000ff"), 20),
-                    new CategoryMastery(new Category("Cat", "/Assets/coins.png", "#00ff00"), 5),
-                    new CategoryMastery(new Category("h", "/Assets/coins.png", "#ff0000"), 10)
+                    new CategoryMastery(new Category("Nature", "/Assets/coins.png", "#F72909"), 30),
+                    new CategoryMastery(new Category("Nature", "/Assets/coins.png", "#FFB436"), 15),
+                    new CategoryMastery(new Category("Nature", "/Assets/coins.png", "#E6E61B"), 10),
+                    new CategoryMastery(new Category("Nature", "/Assets/coins.png", "#4DAD03"), 10),
+                    new CategoryMastery(new Category("Coins", "/Assets/coins.png", "#5294DF"), 20),
+                    new CategoryMastery(new Category("Cat", "/Assets/coins.png", "#BD1897"), 5),
+                    new CategoryMastery(new Category("h", "/Assets/coins.png", "#E867C8"), 10)
                 };
             }
         }

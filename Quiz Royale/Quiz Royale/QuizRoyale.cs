@@ -85,6 +85,8 @@ namespace Quiz_Royale
             CurrentPosition = 88;
 
             // TODO initialiseer de rest ook op een goede manier
+
+            HubConector = new HubConector();
         }
 
         protected override string GetResultMessage()

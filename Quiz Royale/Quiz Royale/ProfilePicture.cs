@@ -6,12 +6,9 @@ namespace Quiz_Royale
 {
     public class ProfilePicture : Item 
     {
-        public ProfilePicture(string name, string picture, int requiredAmount, Payment payment)
+        public ProfilePicture(int id, string name, string picture, int requiredAmount, Payment payment)
+            : base(id, name, picture, requiredAmount, payment)
         {
-            Name = name;
-            Picture = picture;
-            RequiredAmount = requiredAmount;
-            Payment = payment;
         }
     }
 }
