@@ -22,55 +22,24 @@ namespace Quiz_Royale
             }
         }
 
+        public int CurrentAmountOfPlayers 
+        {
+            get
+            {
+                return _players.Count;
+            }
+        }
+
         public int TotalAmountOfPlayersStarted { get; set; }
-        public int CurrentAmountOfPlayers { get; set; }
 
         public QuizRoyale(Account account)
         {
             Account = account;
-
-            ObservableCollection<Player> fastestPlayers = new ObservableCollection<Player>
-            {
-                new Player("De super fantastische speler", "True Champion of All Times" , "/Assets/testProfilePicture.png", "/Assets/testBorder.png"),
-                new Player("De super fantastische spelertjes", "True Champion of All Times" , "/Assets/testProfilePicture.png", "/Assets/testBorder.png"),
-                new Player("De super fantastische spelers", "True Champion of All Times" , "/Assets/testProfilePicture.png", "/Assets/testBorder.png"),
-
-            };
-
-            FastestPlayers = fastestPlayers;
-
-            IList<Player> players = new List<Player>
-            {
-                new Player("De super fantastische speler", "True Champion of All Times" , "/Assets/testProfilePicture.png", "/Assets/testBorder.png"),
-                new Player("De super fantastische speler", "True Champion of All Times" , "/Assets/testProfilePicture.png", "/Assets/testBorder.png"),
-                new Player("De super fantastische speler", "True Champion of All Times" , "/Assets/testProfilePicture.png", "/Assets/testBorder.png"),
-                new Player("De super fantastische speler", "True Champion of All Times" , "/Assets/testProfilePicture.png", "/Assets/testBorder.png"),
-                new Player("De super fantastische speler", "True Champion of All Times" , "/Assets/testProfilePicture.png", "/Assets/testBorder.png"),
-                new Player("De super fantastische speler", "True Champion of All Times" , "/Assets/testProfilePicture.png", "/Assets/testBorder.png"),
-                new Player("De super fantastische speler", "True Champion of All Times" , "/Assets/testProfilePicture.png", "/Assets/testBorder.png"),
-                new Player("De super fantastische speler", "True Champion of All Times" , "/Assets/testProfilePicture.png", "/Assets/testBorder.png"),
-                new Player("De super fantastische speler", "True Champion of All Times" , "/Assets/testProfilePicture.png", "/Assets/testBorder.png"),
-                new Player("De super fantastische spelertje", "True Champion of All Times" , "/Assets/testProfilePicture.png", "/Assets/testBorder.png"),
-                new Player("De super fantastische spel", "True Champion of All Times" , "/Assets/testProfilePicture.png", "/Assets/testBorder.png"),
-                new Player("De super fantastische spele", "True Champion of All Times" , "/Assets/testProfilePicture.png", "/Assets/testBorder.png"),
-                new Player("De super fantastische spelertjes", "True Champion of All Times" , "/Assets/testProfilePicture.png", "/Assets/testBorder.png"),
-                new Player("De super fantastische spelers", "True Champion of All Times" , "/Assets/testProfilePicture.png", "/Assets/testBorder.png"),
-            };
-
-            Players = players;
-
-            IList<Answer> answers = new List<Answer>
-            {
-                new Answer('A', "Samumsung Technologies"),
-                new Answer('B', "Hitachi"),
-                new Answer('C', "Huawei"),
-                new Answer('D', "Sony"),
-            };
-
-            CurrentAmountOfPlayers = players.Count;
-            TotalAmountOfPlayersStarted = players.Count;
-            CurrentQuestion = new Question("What is the name of the biggest technology company in South Korea?", answers, 29, new Category("/Assets/testCategory.png", "Wetenschap", "#5294DF"));
-            // TODO initialiseer de rest ook op een goede manier
+            FastestPlayers = new ObservableCollection<Player>();
+            Players = new List<Player>();
+            TotalAmountOfPlayersStarted = _players.Count;
+            CurrentQuestion = null;
+            Categories = new Dictionary<Category, float>();
 
             HubConector = new HubConector();
         }
