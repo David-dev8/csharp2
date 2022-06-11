@@ -81,6 +81,7 @@ namespace Quiz_Royale
             HubConnector = new HubConnector();
             HubConnector.newQuestion += SetCurrentQuestion;
             HubConnector.reduceTime += ReduceTime;
+            HubConnector.playerAnswered += AddFastestPlayer;
             _timer = new Timer(1000);
             _timer.Elapsed += DecreaseTime;
         }
@@ -101,6 +102,11 @@ namespace Quiz_Royale
         private void DecreaseTime(object sender, EventArgs e)
         {
             CurrentTime--;
+        }
+
+        private void AddFastestPlayer(object sender, PlayerArgs e)
+        {
+            FastestPlayers.Add(e.Player);
         }
 
         protected override string GetResultMessage()

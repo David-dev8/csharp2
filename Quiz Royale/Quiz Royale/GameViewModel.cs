@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
@@ -10,9 +11,49 @@ namespace Quiz_Royale
     {
         private Answer _currentAnswer;
         private bool _canAnswerQuestion;
+        private Booster _selectedBooster;
+        private bool _canUseBooster;
         
         public Game Game { get; set; }
         public ICommand GoToHome { get; set; }
+
+        public ObservableCollection<Item> Boosters
+        {
+            get
+            {
+                return Game.Boosters;
+            }
+        }
+
+        public Booster SelectedBooster
+        {
+            get
+            {
+                return _selectedBooster;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    _selectedBooster = value;
+                    CanUseBooster = false;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public bool CanUseBooster
+        {
+            get
+            {
+                return _canUseBooster;
+            }
+            set
+            {
+                _canUseBooster = value;
+                NotifyPropertyChanged();
+            }
+        }
 
         public Answer SelectedAnswer
         {
@@ -43,7 +84,6 @@ namespace Quiz_Royale
                 NotifyPropertyChanged();
             }
         }
-
 
         public GameViewModel(NavigationStore navigationStore) : base(navigationStore)
         {

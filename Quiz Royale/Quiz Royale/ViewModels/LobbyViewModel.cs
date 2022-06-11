@@ -74,12 +74,12 @@ namespace Quiz_Royale
             WaitingLobby = "Hidden";
             _game = new QuizRoyale(new APIAccountProvider().GetAccount("tim"));
 
-            _game.HubConector.joinStatus += joinStatus;
-            _game.HubConector.updateStatus += updateStatus;
-            _game.HubConector.joinPlayer += joinPlayer;
-            _game.HubConector.start += startGame;
+            _game.HubConnector.joinStatus += joinStatus;
+            _game.HubConnector.updateStatus += updateStatus;
+            _game.HubConnector.joinPlayer += joinPlayer;
+            _game.HubConnector.start += startGame;
 
-            _game.HubConector.Join(_game.Account.Username);
+            _game.HubConnector.Join(_game.Account.Username);
         }
 
         private void joinStatus(Object sender, JoinStatusArgs e)
@@ -99,8 +99,8 @@ namespace Quiz_Royale
                 LoadingStatus = "Hidden";
                 ShowError = "Visible";
                 _navigationStore.Error = "Joinen is niet gelukt, probeer het later opniew";
-                _game.HubConector.breakConection();
-                _game.HubConector = null;
+                _game.HubConnector.BreakConection();
+                _game.HubConnector = null;
             }
         }
 
@@ -109,7 +109,7 @@ namespace Quiz_Royale
 
         }
 
-        private void joinPlayer(Object sender, JoinPlayerArgs e)
+        private void joinPlayer(Object sender, PlayerArgs e)
         {
 
         }

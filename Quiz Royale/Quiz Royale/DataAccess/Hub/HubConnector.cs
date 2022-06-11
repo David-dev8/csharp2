@@ -21,9 +21,7 @@ namespace Quiz_Royale
         public event EventHandler win;
         public event EventHandler<CategoryIncreaseArgs> catIncrease;
         public event EventHandler reduceTime;
-        public event EventHandler<PlayerArgs> playerAwnsered;
-
-
+        public event EventHandler<PlayerArgs> playerAnswered;
 
         public HubConnector()
         {
@@ -92,9 +90,9 @@ namespace Quiz_Royale
                 reduceTime.Invoke(this, new EventArgs());
             });
 
-            connection.On<Player>("playerAwnsered", (player) => 
+            connection.On<Player>("playerAnswered", (player) => 
             {
-                playerAwnsered.Invoke(this, new PlayerArgs(player));
+                playerAnswered.Invoke(this, new PlayerArgs(player));
             });
 
             try
@@ -135,7 +133,7 @@ namespace Quiz_Royale
             await connection.InvokeAsync("useBoost", type, options);
         }
 
-        public async Task breakConection()
+        public async Task BreakConection()
         { 
             await connection.DisposeAsync();
         }
