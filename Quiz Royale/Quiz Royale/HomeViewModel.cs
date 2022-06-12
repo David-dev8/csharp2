@@ -59,7 +59,12 @@ namespace Quiz_Royale
             }
         }
 
-        private void navigateToLobby() => _navigationStore.CurrentViewModel = new LobbyViewModel(_navigationStore);
+        private void navigateToLobby()
+        {
+            var factory = new GameFactory();
+            Game game = factory.CreateGame(SelectedGameMode.Mode, new APIAccountProvider().GetAccount());
+            _navigationStore.CurrentViewModel = new LobbyViewModel(_navigationStore, game);
+        }
 
         public HomeViewModel(NavigationStore navigationStore) : base(navigationStore)
         {

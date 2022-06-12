@@ -4,13 +4,43 @@ using System.Text;
 
 namespace Quiz_Royale
 {
-    public class Account
+    public class Account: Observable
     {
         private const int NEEDED_XP_TO_REACH_NEXT_LEVEL = 1000;
 
         public string Username { get; set; }
-        public int AmountOfCoins { get; set; }
-        public int CurrentXP { get; set; }
+
+        private int _amountOfCoins;
+
+        public int AmountOfCoins
+        {
+            get
+            {
+                return _amountOfCoins;
+            }
+            set
+            {
+                _amountOfCoins = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        private int _currentXP;
+
+        public int CurrentXP
+        {
+            get
+            {
+                return _currentXP;
+            }
+            set
+            {
+                _currentXP = value;
+                OnPropertyChanged();
+            }
+        }
+
         public int TotalWins { get; set; }
         public Inventory Inventory { get; set; }
 

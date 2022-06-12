@@ -12,6 +12,7 @@
     <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
     <PackageReference Include="Microsoft.Toolkit" Version="6.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.5" />
+    <PackageReference Include="SharpVectors" Version="1.7.7" />
     <None Remove="Assets\1.png" />
     <None Remove="Assets\background.png" />
     <None Remove="Assets\boost.png" />

@@ -7,6 +7,38 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        
+        <ContentControl Content="{Binding DataContext, RelativeSource={RelativeSource AncestorType=Grid}}">
+            <ContentControl.Style>
+                <Style TargetType="ContentControl">
+                    <Setter Property="ContentTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <local:GameRoundView />
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter> 
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding HasGameEnded}" Value="True">
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <local:GameEndedView />
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding CanPickCategory}" Value="True">
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <local:Players />
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ContentControl.Style>
+        </ContentControl>
     </Grid>
 </UserControl>

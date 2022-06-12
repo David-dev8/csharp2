@@ -1,6 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Quiz_Royale">
     <BooleanToVisibilityConverter x:Key="VisibilityConverter" />
+    <local:InverseBooleanToVisibilityConverter x:Key="InverseVisibilityConverter" />
     <SolidColorBrush x:Key="BackgroundColor" Color="#DAD9D9" />
     <SolidColorBrush x:Key="PrimaryAccentColor" Color="#76A99F" />
     <SolidColorBrush x:Key="SecondaryAccentColor" Color="#85ABB5" />

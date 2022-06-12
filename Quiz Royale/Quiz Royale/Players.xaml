@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Quiz_Royale"
+             xmlns:svg="http://sharpvectors.codeplex.com/svgc/"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -46,7 +47,7 @@
                                  Grid.Row="1" Grid.Column="1" Fill="{StaticResource WheelFill}" 
                                  Stroke="{StaticResource WheelBorder}" Panel.ZIndex="1" StrokeThickness="2"
                                  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="-10" />
-                        <local:Wheel Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Chances}" RotateTowards="{Binding CurrentCategory}">
+                        <local:Wheel Grid.Row="1" Grid.Column="1" RotateTowards="{Binding Game.CurrentCategory}" ItemsSource="{Binding Game.Chances}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <Grid />
@@ -66,36 +67,38 @@
                                                 <RotateTransform x:Name="Test" Angle="{Binding Mastery, Converter={StaticResource PercentageToAngle}}" />
                                             </Path.RenderTransform>
                                         </Path>
-                                        <Image VerticalAlignment="Top" HorizontalAlignment="Left" Source="{Binding Category.Picture}" MaxHeight="30">
-                                            <Image.Margin>
+                                        <svg:SvgViewbox VerticalAlignment="Top" HorizontalAlignment="Left" Source="{Binding Category.Picture}" 
+                                                        MaxHeight="30" AutoSize="True" OptimizePath="False" TextAsGeometry="True">
+                                            <svg:SvgViewbox.Margin>
                                                 <MultiBinding Converter="{StaticResource PercentageToCircularPosition}">
                                                     <Binding Path="Mastery" />
                                                     <Binding Path="ActualHeight" RelativeSource="{RelativeSource AncestorType=Grid}"/>
                                                     <Binding Path="ActualHeight" RelativeSource="{RelativeSource Self}"/>
                                                 </MultiBinding>
-                                            </Image.Margin>
-                                        </Image>
+                                            </svg:SvgViewbox.Margin>
+                                        </svg:SvgViewbox>
                                     </Grid>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </local:Wheel>
                     </Grid>
                 </Border>
-                <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Stretch">
                     <TextBlock Text="Chances" Style="{StaticResource SubTitle}" HorizontalAlignment="Center" />
-                    <ItemsControl ItemsSource="{Binding Chances}">
+                    <ItemsControl x:Name="Test" ItemsSource="{Binding Game.Chances}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Grid>
+                                <Grid HorizontalAlignment="Stretch" Margin="0,5">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <StackPanel Grid.Column="0" Orientation="Horizontal">
-                                        <Image Source="{Binding Category.Picture}" MaxHeight="20" />
-                                        <TextBlock Text="{Binding Category.Name}" />
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right">
+                                        <local:SVGImage Source="{Binding Category.Picture}" MaxHeight="20" Color="{Binding Category.Color}" />
+                                        <TextBlock Margin="10,0" Text="{Binding Category.Name}" Foreground="{Binding Category.Color}" 
+                                                   FontWeight="SemiBold" />
                                     </StackPanel>
-                                    <StackPanel Grid.Column="1">
+                                    <StackPanel Grid.Column="1" HorizontalAlignment="Left" Margin="10,0">
                                         <TextBlock Text="{Binding Mastery, StringFormat={}{0}%}" />
                                     </StackPanel>
                                 </Grid>
@@ -107,7 +110,7 @@
         </Border>
         <Border Grid.Column="1" Grid.Row="0" Grid.RowSpan="3" Style="{StaticResource Box}" Padding="20">
             <Grid>
-                <ItemsControl ItemsSource="{Binding Players}">
+                <ItemsControl ItemsSource="{Binding Game.Players}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <Grid />
@@ -115,7 +118,7 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Background="Red" MaxWidth="40" MaxHeight="40">
+                            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" MaxWidth="40" MaxHeight="40">
                                 <StackPanel.Margin>
                                     <MultiBinding Converter="{StaticResource RandomPosition}">
                                         <Binding RelativeSource="{RelativeSource Self}"/>
@@ -123,8 +126,10 @@
                                         <Binding Path="ActualHeight" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
                                     </MultiBinding>
                                 </StackPanel.Margin>
-                                <TextBlock Text="{Binding Username}" />
-                                <TextBlock Text="{Binding ProfilePicture}" />
+                                <Grid>
+                                    <Image Source="{Binding ProfilePicture}" Height="30" Width="30" HorizontalAlignment="Center"/>
+                                    <Image Source="{Binding Border}" Height="40" Width="40" HorizontalAlignment="Center"/>
+                                </Grid>
                             </StackPanel>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

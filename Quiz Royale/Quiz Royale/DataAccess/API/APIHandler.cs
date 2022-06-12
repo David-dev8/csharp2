@@ -52,9 +52,14 @@ namespace Quiz_Royale
             }
         }
 
-        public async Task<IList<T>> Fetch<T>(string endpoint)
+        public async Task<IList<T>> FetchAll<T>(string endpoint)
         {
             return await GetFromAPI<IList<T>>(endpoint);
+        }
+
+        public async Task<T> Fetch<T>(string endpoint)
+        {
+            return await GetFromAPI<T>(endpoint);
         }
 
         public async Task<T> Fetch<T>(string endpoint, int id)

@@ -10,7 +10,7 @@ namespace Quiz_Royale.DataAccess.API
     {
         public async Task<IList<Item>> GetItems()
         {
-            return await _apiHandler.Fetch<Item>("/Item/Items");
+            return await _apiHandler.FetchAll<Item>("/Item/Items");
         }
     }
 }

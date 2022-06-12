@@ -14,14 +14,24 @@ namespace Quiz_Royale
 
         public string Description { get; set; }
 
+        public Mode Mode { get; set; }
+
         // TODO gamemode toevoegen
 
-        public GameMode(string picture, string title, string subtitle, string description)
+        public GameMode(Mode mode, string picture, string title, string subtitle, string description)
         {
             Picture = picture;
             Title = title;
             Subtitle = subtitle;
             Description = description;
+            Mode = mode;
         }
+    }
+
+    public enum Mode
+    {
+        QUIZ_ROYALE,
+        LEAGUE_OF_QUESTIONS,
+        TRAINING
     }
 }

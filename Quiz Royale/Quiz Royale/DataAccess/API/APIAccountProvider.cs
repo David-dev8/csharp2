@@ -4,16 +4,18 @@ using System.Text;
 
 namespace Quiz_Royale
 {
-    public class APIAccountProvider : IAccountProvider
+    public class APIAccountProvider : APIProcessor, IAccountProvider
     {
-        public Account GetAccount()
+        private static Account s_account;
+
+        public async void Initialize()
         {
-            return new Account("Harrold", 100, 2300, 150, new Inventory());
+            s_account = await _apiHandler.Fetch<Account>("/Player");
         }
 
-        public Account GetAccount(string name)
+        public Account GetAccount()
         {
-            return new Account(name, 100, 2300, 150, new Inventory());
+            return new Account("tim", 1, 1, 1, new Inventory());
         }
     }
 }

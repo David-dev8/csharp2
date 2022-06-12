@@ -1,60 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Quiz_Royale
 {
-    internal class LobbyViewModel : BaseViewModel
+    public class LobbyViewModel : BaseViewModel
     {
-        private string _loadingStatus;
-        private string _statusMessage;
-        private string _showError;
-        private string _waitingLobby;
-        private Game _game;
+        private bool _waitingLobby;
 
-        public string LoadingStatus
-        {
-            get
-            {
-                return _loadingStatus;
-            }
-            set
-            {
-                _loadingStatus = value;
-                NotifyPropertyChanged();
-            }
-        }
+        public Game Game { get; set; }
 
-        public string StatusMessage
-        {
-            get
-            {
-                return _statusMessage;
-            }
-            set
-            {
-                _statusMessage = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-        public string ShowError
-        {
-            get
-            {
-                return _showError;
-            }
-            set
-            {
-                _showError = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-        public string WaitingLobby
+        public bool WaitingLobby
         {
             get
             {
@@ -67,73 +27,36 @@ namespace Quiz_Royale
             }
         }
 
-        public ObservableCollection<Player> Players
+        public LobbyViewModel(NavigationStore store, Game game) : base(store)
         {
-            get 
+            Game = game;
+            Game.PropertyChanged += _game_PropertyChanged;
+        }
+
+        private void _game_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch(Game.State)
             {
-                return ((QuizRoyale)_game).Players;
+                case State.JOINED:
+                    WaitingLobby = true;
+                    break;
+                case State.NEXT_CATEGORY:
+                    _navigationStore.CurrentViewModel = new GameViewModel(_navigationStore, Game);
+                    break;
+                case State.ENDED:
+                    _navigationStore.Error = "Joining went wrong";
+                    break;
             }
         }
 
-        public LobbyViewModel(NavigationStore store) : base(store)
+        public override void Dispose()
         {
-            LoadingStatus = "Visible";   
-            StatusMessage = "";   
-            ShowError = "Hidden";
-            WaitingLobby = "Hidden";
-            _game = new QuizRoyale(new APIAccountProvider().GetAccount("tim"));
-
-            _game.HubConnector.joinStatus += joinStatus;
-            _game.HubConnector.updateStatus += updateStatus;
-            _game.HubConnector.joinPlayer += joinPlayer;
-            _game.HubConnector.start += startGame;
-
-            _game.HubConnector.Join(_game.Account.Username);
-        }
-
-        private void joinStatus(Object sender, JoinStatusArgs e)
-        {
-            if (e.Status)
+            Game.PropertyChanged -= _game_PropertyChanged;
+            if(Game.State == State.ENDED)
             {
-                StatusMessage = e.Message;
-                foreach (Player player in e.Players)
-                {
-                    App.Current.Dispatcher.Invoke(() =>
-                    {
-                        ((QuizRoyale)_game).addPlayer(player);
-                    });
-                }
-                LoadingStatus = "Hidden";
-                WaitingLobby = "Visible";
+                Game.Dispose();
             }
-            else 
-            {
-                LoadingStatus = "Hidden";
-                ShowError = "Visible";
-                _navigationStore.Error = "Joinen is niet gelukt, probeer het later opniew";
-                _game.HubConnector.BreakConection();
-                _game.HubConnector = null;
-            }
-        }
-
-        private void updateStatus(Object sender, UpdateStatusArgs e)
-        {
-            StatusMessage = e.Message;
-        }
-
-        private void joinPlayer(Object sender, PlayerArgs e)
-        {
-            App.Current.Dispatcher.Invoke(() => 
-            {
-                ((QuizRoyale)_game).addPlayer(e.Player);
-            });
-            StatusMessage = e.Message;
-        }
-
-        private void startGame(Object sender, EventArgs e)
-        {
-            StatusMessage = "De game Start!!";
-            //ToDo ref naar de game
+            base.Dispose();
         }
     }
 }

@@ -10,9 +10,15 @@ namespace Quiz_Royale
     {
         public bool Result { get; }
 
-        public ResultArgs(bool result)
+        public int XP { get; }
+
+        public int Coins { get; }
+
+        public ResultArgs(bool result, int xp, int coins)
         { 
             Result = result;
+            XP = xp;
+            Coins = coins;
         }
     }
 }

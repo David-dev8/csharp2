@@ -19,5 +19,22 @@ namespace Quiz_Royale
             Picture = picture;
             Color = color;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            Category otherCategory = (Category)obj;
+
+            return Name.Equals(otherCategory.Name) && Picture.Equals(otherCategory.Picture) && Color.Equals(otherCategory.Color);
+        }
+
+        public override int GetHashCode()
+        {
+            return 1000 * Name.GetHashCode() + 100 * Picture.GetHashCode() + Color.GetHashCode();
+        }
     }
 }

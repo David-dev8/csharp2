@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,11 +10,11 @@ namespace Quiz_Royale
     public abstract class Game : Observable // TODO geen constr?
     {
         private ObservableCollection<Item> _boosters;
-        
+        protected HubConnector _connector;
+
         public Question CurrentQuestion { get; set; }
-        public IDictionary<Category, float> Categories { get; set; } // TODO categorie wordt meegegeven aan de question nu, hoe wordt dat gedaan met de float
+        public IList<CategoryMastery> Chances { get; set; } // TODO categorie wordt meegegeven aan de question nu, hoe wordt dat gedaan met de float
         public Account Account { get; set; }
-        public HubConnector HubConnector { get; set; }
         public ObservableCollection<Item> Boosters 
         {
             get
@@ -35,16 +36,61 @@ namespace Quiz_Royale
         public ObservableCollection<Player> FastestPlayers { get; set; }
         public int CurrentPosition { get; set; }
 
+        public CategoryMastery CurrentCategory
+        {
+            get
+            {
+                if(CurrentQuestion == null)
+                {
+                    return null;
+                }
+
+                return Chances.Where(c => c.Category.Equals(CurrentQuestion.Category)).SingleOrDefault(); // todo
+            }
+        }
+
+
+        private State _state;
+
+        public State State
+        {
+            get
+            {
+                return _state;
+            }
+            set
+            {
+                _state = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        private string _statusMessage;
+
+        public string StatusMessage
+        {
+            get
+            {
+                return _statusMessage;
+            }
+            set
+            {
+                _statusMessage = value;
+                OnPropertyChanged();
+            }
+        }
+
         protected abstract string GetResultMessage();
 
-        public async Task Answer(char answerId)
+        public async Task Answer(Answer answer)
         {
-            await HubConnector.AnswerQuestion(answerId);
+            await _connector.AnswerQuestion(answer.Code);
         }
 
         public async Task UseBoost(Item booster)
         {
-            await HubConnector.UseBoost(booster.Name, "");
+            await _connector.UseBoost(booster.Name, ""); // todo
             RemoveBooster(booster);
         }
 
@@ -52,5 +98,20 @@ namespace Quiz_Royale
         {
             Boosters.Remove(booster);
         }
+
+        public void Dispose()
+        {
+            _connector.Leave();
+            _connector.BreakConection();
+        }
+    }
+
+    public enum State
+    {
+        WAITING,
+        JOINED,
+        QUESTION,
+        NEXT_CATEGORY,
+        ENDED
     }
 }

@@ -21,11 +21,8 @@
             <DataTemplate DataType="{x:Type local:ShopViewModel}">
                 <local:shop />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type local:PlayersViewModel}">
-                <local:Players />
-            </DataTemplate>
             <DataTemplate DataType="{x:Type local:GameViewModel}">
-                <local:GameRoundView />
+                <local:GameView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type local:LobbyViewModel}">
                 <local:Lobby />

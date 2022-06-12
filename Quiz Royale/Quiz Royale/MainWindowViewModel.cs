@@ -108,6 +108,7 @@ namespace Quiz_Royale
 
         private void CloseProgram()
         {
+            CurrentViewModel.Dispose();
             Application.Current.Shutdown();
         }
     }

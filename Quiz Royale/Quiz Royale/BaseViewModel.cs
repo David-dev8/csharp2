@@ -12,5 +12,9 @@ namespace Quiz_Royale
         {
             _navigationStore = store;
         }
+
+        public virtual void Dispose()
+        {
+        }
     }
 }

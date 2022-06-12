@@ -21,7 +21,8 @@ namespace Quiz_Royale
         public event EventHandler win;
         public event EventHandler<CategoryIncreaseArgs> catIncrease;
         public event EventHandler reduceTime;
-        public event EventHandler<PlayerArgs> playerAnswered;
+        public event EventHandler<PlayerAnsweredEventArgs> playerAnswered;
+        public event EventHandler<PlayersLeftEventArgs> playersLeft;
 
         public HubConnector()
         {
@@ -37,62 +38,67 @@ namespace Quiz_Royale
 
             connection.On<bool, string, IList<Player>, IList<CategoryMastery>>("joinStatus", (status, message, players, cats) =>
             {
-                joinStatus.Invoke(this, new JoinStatusArgs(status, message, players, cats));
+                joinStatus?.Invoke(this, new JoinStatusArgs(status, message, players, cats));
             });
 
             connection.On<Player, string>("newPlayerJoin", (player, message) =>
             {
-                joinPlayer.Invoke(this, new PlayerArgs(player, message));
+                joinPlayer?.Invoke(this, new PlayerArgs(player, message));
             });
 
-            connection.On<string>("updateStatus", (player) =>
+            connection.On<string>("updateStatus", (message) =>
             {
-                updateStatus.Invoke(this, new UpdateStatusArgs(player));
+                updateStatus?.Invoke(this, new UpdateStatusArgs(message));
             });
 
             connection.On("gameOver", () =>
             {
-                gameOver.Invoke(this, new EventArgs());
+                gameOver?.Invoke(this, new EventArgs());
             });
 
             connection.On("start", () =>
             {
-                start.Invoke(this, new EventArgs());
+                start?.Invoke(this, new EventArgs());
             });
 
             connection.On("StartQuestion", () =>
             {
-                startQuestion.Invoke(this, new EventArgs());
+                startQuestion?.Invoke(this, new EventArgs());
             });
             
             connection.On<Question>("newQuestion", (question) =>
             {
-                newQuestion.Invoke(this, new NewQuestionArgs(question));
+                newQuestion?.Invoke(this, new NewQuestionArgs(question));
             });
             
-            connection.On<bool>("result", (result) =>
+            connection.On<bool, int, int>("result", (result, xp, coins) =>
             {
-                results.Invoke(this, new ResultArgs(result));
+                results?.Invoke(this, new ResultArgs(result, xp, coins));
             });
 
             connection.On("Win", () =>
             {
-                win.Invoke(this, new EventArgs());
+                win?.Invoke(this, new EventArgs());
             });
 
             connection.On<string>("categoryIncrease", (cat) =>
             {
-                catIncrease.Invoke(this, new CategoryIncreaseArgs(cat));
+                catIncrease?.Invoke(this, new CategoryIncreaseArgs(cat));
             });
 
             connection.On("reduceTime", () =>
             {
-                reduceTime.Invoke(this, new EventArgs());
+                reduceTime?.Invoke(this, new EventArgs());
             });
 
-            connection.On<Player>("playerAnswered", (player) => 
+            connection.On<Player, double>("playerAnswered", (player, answerTime) => 
             {
-                playerAnswered.Invoke(this, new PlayerArgs(player, ""));
+                playerAnswered?.Invoke(this, new PlayerAnsweredEventArgs(player, answerTime));
+            });
+
+            connection.On<IList<Player>>("playersLeft", (players) =>
+            {
+                playersLeft?.Invoke(this, new PlayersLeftEventArgs(players));
             });
 
             try

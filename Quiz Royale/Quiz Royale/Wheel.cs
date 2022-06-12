@@ -52,17 +52,20 @@ namespace Quiz_Royale
 
         private void LoadedCallback(object sender, EventArgs args)
         {
-            for (int i = 0; i < Items.Count; i++)
+            if(RotateTowards != null)
             {
-                var item = Items.GetItemAt(i);
-                if (RotateTowards.Equals(item))
+                for (int i = 0; i < Items.Count; i++)
                 {
-                    double currentAngle = GetAngleFromItem(item);
-                    double nextAngle = GetAngleFromItem(Items.GetItemAt((i + 1) % Items.Count));
-                    double randomAngle = GetRandomAngleInBetween(currentAngle, nextAngle);
+                    var item = Items.GetItemAt(i);
+                    if (RotateTowards.Equals(item))
+                    {
+                        double currentAngle = GetAngleFromItem(item);
+                        double nextAngle = GetAngleFromItem(Items.GetItemAt((i + 1) % Items.Count));
+                        double randomAngle = GetRandomAngleInBetween(currentAngle, nextAngle);
 
-                    DoubleAnimation rotateAnimation = GetRotateAnimation(randomAngle);
-                    SetupAnimation(rotateAnimation);
+                        DoubleAnimation rotateAnimation = GetRotateAnimation(randomAngle);
+                        SetupAnimation(rotateAnimation);
+                    }
                 }
             }
         }
