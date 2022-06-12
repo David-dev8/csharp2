@@ -18,6 +18,16 @@ namespace Quiz_Royale
         // De Client moet static zijn zodat er niet telkens een nieuwe connectie wordt aangemaakt
         private static HttpClient s_httpClient;
 
+        private static JsonSerializerOptions _serializerOptions = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                PropertyNameCaseInsensitive = true,
+                Converters =
+                {
+                    new ItemConverter()
+                }
+            };
+
         public APIHandler()
         {
             InitializeClient();
@@ -100,12 +110,12 @@ namespace Quiz_Royale
         private async Task<T> FromJSON<T>(HttpResponseMessage response)
         {
             string json = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<T>(json);
+            return JsonSerializer.Deserialize<T>(json, _serializerOptions);
         }
 
         private HttpContent ToJSON<T>(T data)
         {
-            string json = JsonSerializer.Serialize<T>(data);
+            string json = JsonSerializer.Serialize<T>(data, _serializerOptions);
             return new StringContent(json, Encoding.UTF8, "application/json");
         }
 

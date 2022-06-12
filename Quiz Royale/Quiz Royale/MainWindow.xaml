@@ -25,7 +25,7 @@
                 <local:Players />
             </DataTemplate>
             <DataTemplate DataType="{x:Type local:GameViewModel}">
-                <local:GameView />
+                <local:GameRoundView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type local:LobbyViewModel}">
                 <local:Lobby />
@@ -105,6 +105,5 @@
             </Frame.Background>
         </Frame>
         <local:ErrorView Grid.Column="0" Grid.ColumnSpan="2" />
-        <TextBlock FontSize="100" Foreground="Red" Text="Ja nu" Visibility="{Binding IsLoading, Converter={StaticResource VisibilityConverter}}" />
     </Grid>
 </Window>

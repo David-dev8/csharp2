@@ -90,5 +90,10 @@ namespace Quiz_Royale
         {
             await _mutator.ObtainItem(item);
         }
+
+        public bool HasItem(Item item)
+        {
+            return true;
+        }
     }
 }

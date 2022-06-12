@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Quiz_Royale
 {
-    public class HubConector
+    public class HubConnector
     {
         private HubConnection connection;
         public event EventHandler<JoinStatusArgs> joinStatus;
@@ -21,11 +21,9 @@ namespace Quiz_Royale
         public event EventHandler win;
         public event EventHandler<CategoryIncreaseArgs> catIncrease;
         public event EventHandler reduceTime;
-        public event EventHandler<PlayerArgs> playerAwnsered;
+        public event EventHandler<PlayerArgs> playerAnswered;
 
-
-
-        public HubConector()
+        public HubConnector()
         {
             connection = new HubConnectionBuilder()
                 .WithUrl("http://localhost:5264/GameHub")
@@ -92,9 +90,9 @@ namespace Quiz_Royale
                 reduceTime.Invoke(this, new EventArgs());
             });
 
-            connection.On<Player>("playerAwnsered", (player) => 
+            connection.On<Player>("playerAnswered", (player) => 
             {
-                playerAwnsered.Invoke(this, new PlayerArgs(player, ""));
+                playerAnswered.Invoke(this, new PlayerArgs(player, ""));
             });
 
             try
@@ -135,7 +133,7 @@ namespace Quiz_Royale
             await connection.InvokeAsync("useBoost", type, options);
         }
 
-        public async Task breakConection()
+        public async Task BreakConection()
         { 
             await connection.DisposeAsync();
         }
