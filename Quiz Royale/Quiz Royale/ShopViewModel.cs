@@ -12,6 +12,8 @@ namespace Quiz_Royale
     {
         private Shop _shop;
 
+        public Account Account { get; set; }
+
         private Item _itemSelected;
 
         public Item ItemSelected
@@ -53,11 +55,27 @@ namespace Quiz_Royale
             }
         }
 
+        private IList<Item> _disabledItems;
+
+        public IList<Item> DisabledItems
+        {
+            get
+            {
+                return _disabledItems;
+            }
+            set
+            {
+                _disabledItems = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ShopViewModel(NavigationStore navigationStore) : base(navigationStore)
         {
             IsLoading = true;
             _shop = new Shop();
-            _shop.Items.PropertyChanged += Items_PropertyChanged; ;
+            _shop.Items.PropertyChanged += Items_PropertyChanged;
+            Account = _accountProvider.GetAccount();
         }
 
         private void Items_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -66,9 +84,7 @@ namespace Quiz_Royale
             {
                 FillBuyables(_shop.Items.Result);
                 FillRewards(_shop.Items.Result);
-                var t = new List<Item>();
-                t.Add(_shop.Items.Result[0]);
-                DisabledItems = t;
+                DisabledItems = _shop.GetItemsOutOfStock(Account);
                 App.Current.Dispatcher.Invoke(() =>
                 {
                     FilterBorders();
@@ -77,18 +93,12 @@ namespace Quiz_Royale
             }
         }
 
-        // todo?
-        public bool IsEnabled(Item item)
-        {
-            return _shop.CanBuy(_accountProvider.GetAccount(), item);
-        }
-
         private async Task Buy()
         {
             // todo try catch?
             try
             {
-                await _shop.BuyItem(_accountProvider.GetAccount(), _itemSelected);
+                await _shop.BuyItem(Account, _itemSelected);
             }
             catch(InsufficientFundsException)
             {

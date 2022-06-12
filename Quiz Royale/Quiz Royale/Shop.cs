@@ -34,7 +34,30 @@ namespace Quiz_Royale
             }
         }
 
-        public bool CanBuy(Account account, Item item)
+        public IList<Item> GetItemsOutOfStock(Account account)
+        {
+            IList<Item> itemsOutOfStock = new List<Item>();
+            foreach(Item item in Items.Result)
+            {
+                if(IsOutOfStock(account, item))
+                {
+                    itemsOutOfStock.Add(item);
+                }
+            }
+            return itemsOutOfStock;
+        }
+
+        private bool IsOutOfStock(Account account, Item item)
+        {
+            return !((item is Booster) || account.Inventory.HasItem(item));
+        }
+
+        private bool CanBuy(Account account, Item item)
+        {
+            return !IsOutOfStock(account, item) && CanAfford(account, item);
+        }
+
+        private bool CanAfford(Account account, Item item)
         {
             return item.Payment switch
             {

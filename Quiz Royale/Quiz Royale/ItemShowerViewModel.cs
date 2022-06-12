@@ -39,22 +39,6 @@ namespace Quiz_Royale
             }
         }
 
-
-        private IList<Item> _disabledItems;
-
-        public IList<Item> DisabledItems
-        {
-            get
-            {
-                return _disabledItems;
-            }
-            set
-            {
-                _disabledItems = value;
-                OnPropertyChanged();
-            }
-        }
-
         private bool _isLoading;
 
         public bool IsLoading
