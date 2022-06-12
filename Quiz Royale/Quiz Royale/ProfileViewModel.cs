@@ -60,6 +60,9 @@ namespace Quiz_Royale
         }
 
         public ICommand ShowBorders { get; set; }
+        public ICommand ShowProfilePictures { get; set; }
+        public ICommand ShowTitles { get; set; }
+        public ICommand ShowBoosters { get; set; }
 
         public ProfileViewModel(NavigationStore navigationStore) : base(navigationStore)
         {
@@ -67,6 +70,9 @@ namespace Quiz_Royale
             _accountProvider = new TestAccount();
             _itemProvider = new TestItem();
             ShowBorders = new RelayCommand(ShowBorder);
+            ShowProfilePictures = new RelayCommand(ShowProfilePicture);
+            ShowTitles = new RelayCommand(ShowTitle);
+            ShowBoosters = new RelayCommand(ShowBooster);
             _items = _itemProvider.GetItems();
 
         }
@@ -75,8 +81,34 @@ namespace Quiz_Royale
         {
            Items = new List<Item>
             {
-                 new Booster ("hallo","hallo",1,Payment.XP,"10", 1)
+                 new Border ("Border","Border",1,Payment.XP)
             };
         }
+
+        private void ShowProfilePicture()
+        {
+            Items = new List<Item>
+            {
+                 new ProfilePicture ("Profile","Profile",1,Payment.XP)
+            };
+        }
+
+        private void ShowTitle()
+        {
+            Items = new List<Item>
+            {
+                 new PlayerTitle ("Title","Title",1,Payment.XP)
+            };
+        }
+
+        private void ShowBooster()
+        {
+            Items = new List<Item>
+            {
+                 new Booster ("Booster","Booster",1,Payment.XP,"Booster",1)
+            };
+        }
+
+
     }
 }
