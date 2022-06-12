@@ -18,35 +18,39 @@ namespace Quiz_Royale
 {
     public class Wheel : ItemsControl
     {
-        private const double ANGLE_CORRECTION = 270;
-
-        private const int MIN_ROTATIONS = 4;
-
-        private const int MAX_ROTATIONS = 10;
-
-        public static readonly DependencyProperty TestPropProperty =
+        public static readonly DependencyProperty RotateTowardsProperty =
             DependencyProperty.Register("RotateTowards", typeof(object), typeof(Wheel), new PropertyMetadata(null));
-
-        private Random random;
 
         static Wheel()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Wheel), new FrameworkPropertyMetadata(typeof(Wheel)));
         }
 
+        private const double ANGLE_CORRECTION = 270;
+
+        private const int MIN_ROTATIONS = 4;
+
+        private const int MAX_ROTATIONS = 8; // todo resourcedict voor players.xaml?
+
+        private const int ROTATION_DURATION = 5;
+
+        private const int START_DELAY_DURATION = 2;
+
+        private Random random;
+
         public object RotateTowards
         {
-            get { return GetValue(TestPropProperty); }
-            set { SetValue(TestPropProperty, value); }
+            get { return GetValue(RotateTowardsProperty); }
+            set { SetValue(RotateTowardsProperty, value); }
         }
 
         public Wheel()
         {
             random = new Random();
-            Loaded += PropertyChangedCallback;
+            Loaded += LoadedCallback;
         }
 
-        private void PropertyChangedCallback(object sender, EventArgs args)
+        private void LoadedCallback(object sender, EventArgs args)
         {
             for (int i = 0; i < Items.Count; i++)
             {
@@ -70,7 +74,7 @@ namespace Quiz_Royale
 
             var storyboard = new Storyboard();
             storyboard.Children.Add(animation);
-            storyboard.BeginTime = new TimeSpan(0, 0, 1); // todo random Duration en extra rotatie
+            storyboard.BeginTime = new TimeSpan(0, 0, START_DELAY_DURATION);
             storyboard.Begin();
         }
 
@@ -79,7 +83,7 @@ namespace Quiz_Royale
             return new DoubleAnimation
             {
                 To = angle,
-                Duration = TimeSpan.FromMilliseconds(3000),
+                Duration = TimeSpan.FromMilliseconds(ROTATION_DURATION * 1000),
                 EasingFunction = new QuadraticEase()
                 {
                     EasingMode = EasingMode.EaseOut,
@@ -94,7 +98,7 @@ namespace Quiz_Royale
 
         private double GetAngleFromItem(object item)
         {
-            DependencyObject itemContainer = (FrameworkElement)ItemContainerGenerator.ContainerFromItem(item);
+            DependencyObject itemContainer = ItemContainerGenerator.ContainerFromItem(item);
             Path p = FindByType<Path>(itemContainer);
             RotateTransform rotation = p.RenderTransform as RotateTransform;
             return ANGLE_CORRECTION - rotation.Angle;

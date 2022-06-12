@@ -1,19 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Quiz_Royale
 {
-    public class IInventoryMutator
+    public interface IInventoryMutator
     {
-        public void equipItem(Item item)
-        {
+        public Task EquipItem(Item item);
 
-        }
-
-        public void obtainItem(Item item)
-        {
-
-        }
+        public Task ObtainItem(Item item);
     }
 }

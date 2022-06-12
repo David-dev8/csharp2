@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Quiz_Royale"
         mc:Ignorable="d"
-        Title="MainWindow" Height="700" Width="1000" WindowState="Maximized">
+        Title="MainWindow" Height="700" Width="1000" WindowState="Maximized"
+        >
     <Window.Resources>
         <ResourceDictionary Source="ResourceDictionaries/WindowResources.xaml" />
     </Window.Resources>
@@ -27,7 +28,10 @@
                 <local:Players />
             </DataTemplate>
             <DataTemplate DataType="{x:Type local:GameViewModel}">
-                <local:GameView />
+                <local:GameRoundView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type local:LobbyViewModel}">
+                <local:Lobby />
             </DataTemplate>
         </Grid.Resources>
         <Grid.ColumnDefinitions>
@@ -97,10 +101,12 @@
                 </StackPanel>
             </DockPanel>
         </Grid>
-        <Frame Content="{Binding CurrentViewModel}" NavigationUIVisibility="Hidden" Grid.Column="1">
+        <Frame Content="{Binding CurrentViewModel}" NavigationUIVisibility="Hidden" Grid.Column="1" 
+               Opacity="{Binding HasError, Converter={StaticResource InverseOpacityConverter}}">
             <Frame.Background>
                 <ImageBrush Stretch="UniformToFill" ImageSource="/Assets/background.png" />
             </Frame.Background>
         </Frame>
+        <local:ErrorView Grid.Column="0" Grid.ColumnSpan="2" />
     </Grid>
 </Window>

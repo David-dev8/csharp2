@@ -31,42 +31,75 @@ namespace Quiz_Royale
             }
         }
 
+        public string Error
+        {
+            get
+            {
+                return _navigationStore.Error;
+            }
+        }
+
+        public bool HasError
+        {
+            get
+            {
+                return !string.IsNullOrEmpty(Error);
+            }
+        }
+
         public ICommand ShowHome { get; set; }
 
         public ICommand ShowShop { get; set; }
 
         public ICommand ExitProgram { get; set; }
 
+
         public ICommand ShowProfile { get; set; }
+
+        public ICommand Dismiss { get; set; }
 
         public MainWindowViewModel(NavigationStore navigationStore)
         {
             _navigationStore = navigationStore;
-            navigationStore.CurrentViewModel = GetFirstViewModel(); 
-            _navigationStore.Navigated += (object sender, EventArgs e) =>
-            {
-                OnPropertyChanged(nameof(CurrentViewModel));
-                OnPropertyChanged(nameof(IsInMenu));
-            };
+            navigationStore.CurrentViewModel = GetFirstViewModel();
+            NotifyForUpdates();
 
             ShowHome = new RelayCommand(SelectHomeAsCurrentPage);
             ShowShop = new RelayCommand(SelectShopAsCurrentPage);
             ExitProgram = new RelayCommand(CloseProgram);
             ShowProfile = new RelayCommand(SelectProfileAsCurrentPage);
+            Dismiss = new RelayCommand(DismissAllErrors);
+        }
+
+        private void NotifyForUpdates()
+        {
+            _navigationStore.Navigated += (object sender, EventArgs e) =>
+            {
+                OnPropertyChanged(nameof(CurrentViewModel));
+                OnPropertyChanged(nameof(IsInMenu));
+                OnPropertyChanged(nameof(Error));
+                OnPropertyChanged(nameof(HasError));
+            };
+        }
+
+        private void DismissAllErrors()
+        {
+            _navigationStore.Error = null;
         }
 
         private BaseViewModel GetFirstViewModel()
         {
-            return new ProfileViewModel(_navigationStore);
             // Controleer of de gebruiker al een account heeft, dit is het geval wanneer er een access token aanwezig is
-         /*   if(Storage.Settings.Credentials?.AccessToken == null)
+            if(Storage.Settings.Credentials?.AccessToken == null)
             {
                 return new LoginViewModel(_navigationStore);
             } 
             else
             {
-                return new PlayersViewModel(_navigationStore);
-            }*/
+
+                return new HomeViewModel(_navigationStore);
+            }
+
         }
 
         private void SelectHomeAsCurrentPage()
@@ -76,8 +109,7 @@ namespace Quiz_Royale
 
         private void SelectShopAsCurrentPage()
         {
-            // aanpassen naar shop
-            CurrentViewModel = new GameViewModel(_navigationStore);
+            CurrentViewModel = new ShopViewModel(_navigationStore);
         }
 
         private void SelectProfileAsCurrentPage()

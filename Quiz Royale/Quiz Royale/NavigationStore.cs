@@ -39,6 +39,21 @@ namespace Quiz_Royale
             }
         }
 
+        private string _error;
+
+        public string Error
+        {
+            get
+            {
+                return _error;
+            }
+            set
+            {
+                _error = value;
+                Navigated?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
         public event EventHandler Navigated;
 
         public NavigationStore(BaseViewModel currentViewModel = null)

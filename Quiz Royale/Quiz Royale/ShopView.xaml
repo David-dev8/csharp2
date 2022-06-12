@@ -4,11 +4,163 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Quiz_Royale"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <TextBlock Text="Hello World Shop!" Padding="200">
-            
-        </TextBlock>
+    <UserControl.Resources>
+        <local:InverseBooleanConverter x:Key="InverseConverter" />
+    </UserControl.Resources>
+    <Grid Margin="50">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="5*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
+            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource HeaderBox}">
+                <StackPanel>
+                    <Image Source="Assets/shoppingBag.png" />
+                    <TextBlock Text="Shop" />
+                </StackPanel>
+            </Border>
+            <DockPanel Grid.Column="2" DataContext="{Binding Account}" Margin="0, 0, 10, 0">
+                <Border Style="{StaticResource Box}" DockPanel.Dock="Right" Margin="0" Width="175">
+                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Margin="0, 0, 50, 0" VerticalAlignment="Center">
+                        <Image MaxHeight="25" Margin="15, 0, 13, 0" Source="/Assets/coins.png" />
+                        <TextBlock FontSize="18" Text="{Binding AmountOfCoins}" />
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource Box}" DockPanel.Dock="Right" Margin="0" Width="300">
+                    <StackPanel Orientation="Horizontal">
+                        <Grid Height="25" Margin="15, 0, 13, 0">
+                            <Image Source="/Assets/star.png" />
+                            <TextBlock Text="{Binding Level}" FontWeight="SemiBold" Style="{StaticResource Caption}" HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center" />
+                        </Grid>
+                        <ProgressBar Margin="0, 3, 0, 0" Style="{DynamicResource ProgressBarStyle1}" Value="{Binding PercentOfLevelProgress, Mode=OneWay}" />
+                    </StackPanel>
+                </Border>
+            </DockPanel>
+            <Grid Grid.Row="2" Grid.Column="0" Margin="0, 0, 0, 20" 
+                  IsEnabled="{Binding IsLoading, Converter={StaticResource InverseConverter}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Button Grid.Row="0" Style="{StaticResource Option}" Command="{Binding ShowBorders}">
+                    <StackPanel>
+                        <Image Source="Assets/border.png" />
+                        <TextBlock Text="Borders" />
+                    </StackPanel>
+                </Button>
+                <Button Grid.Row="1" Style="{StaticResource Option}" Command="{Binding ShowProfilePictures}">
+                    <StackPanel>
+                        <Image Source="Assets/profilePicture.png" />
+                        <TextBlock Text="Profile pictures" />
+                    </StackPanel>
+                </Button>
+                <Button Grid.Row="2" Style="{StaticResource Option}" Command="{Binding ShowTitles}">
+                    <StackPanel>
+                        <Image Source="Assets/tag.png" />
+                        <TextBlock Text="Titles" />
+                    </StackPanel>
+                </Button>
+                <Button Grid.Row="3" Style="{StaticResource Option}" Command="{Binding ShowBoosters}">
+                    <StackPanel>
+                        <Image Source="Assets/boost.png" />
+                        <TextBlock Text="Boosters" />
+                    </StackPanel>
+                </Button>
+            </Grid>
+            <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Background="Transparent">
+                <!--<fa:ImageAwesome Icon="Spinner" Panel.ZIndex="1" Spin="True" SpinDuration="1.5" Height="60"
+                                 Visibility="{Binding IsLoading, Converter={StaticResource VisibilityConverter}}"/>-->
+                <local:HorizontalScrollList ItemsSource="{Binding SelectedItems}" VerticalContentAlignment="Stretch" Margin="20, 0"
+                                            SelectedItem="{Binding ItemSelected, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+                                            DisabledItems="{Binding DisabledItems, Mode=TwoWay}">
+                    <local:HorizontalScrollList.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Style="{StaticResource Hover}">
+                                <Border Style="{StaticResource Box}" VerticalAlignment="Stretch" Width="200" Margin="10, 5, 10, 10">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="2*" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Image Grid.Row="0" Source="{Binding Picture}" Margin="20, 10" />
+                                        <StackPanel Grid.Row="1">
+                                            <TextBlock Text="{Binding Name}" FontSize="14" TextAlignment="Center" Margin="0, 0, 0, 10" />
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <Image Source="Assets/coins.png" Width="20" />
+                                                <TextBlock Margin="10, 0" Text="{Binding RequiredAmount}" FontSize="14" />
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </local:HorizontalScrollList.ItemTemplate>
+                </local:HorizontalScrollList>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="5*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
+            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1" Style="{StaticResource HeaderBox}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="Assets/rewardsStar.png" />
+                    <TextBlock Text="Rewards" />
+                </StackPanel>
+            </Border>
+            <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Background="Transparent">
+                <!--<fa:ImageAwesome Icon="Spinner" Panel.ZIndex="1" Spin="True" SpinDuration="1.5" Height="60"
+                                 Visibility="{Binding IsLoading, Converter={StaticResource VisibilityConverter}}"/>-->
+                <local:HorizontalScrollList ItemsSource="{Binding Rewards}" VerticalContentAlignment="Stretch"
+                                            SelectedItem="{Binding RewardSelected, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}">
+                    <local:HorizontalScrollList.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Style="{StaticResource Hover}">
+                                <Border Style="{StaticResource Box}" VerticalAlignment="Stretch" Width="200" Margin="0, 5, 20, 10">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="2*" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Image Grid.Row="0" Source="{Binding Picture}" Margin="20, 10" />
+                                        <StackPanel Grid.Row="1">
+                                            <TextBlock Text="{Binding Name}" FontSize="14" TextAlignment="Center" Margin="0, 0, 0, 10" />
+                                            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <Image Source="Assets/star.png" Width="32" />
+                                                <TextBlock Margin="10, 0" Text="{Binding RequiredAmount}" FontSize="14" 
+                                                           HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                            </Grid>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </local:HorizontalScrollList.ItemTemplate>
+                </local:HorizontalScrollList>
+            </Grid>
+        </Grid>
     </Grid>
 </UserControl>

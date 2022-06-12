@@ -19,7 +19,7 @@ namespace Quiz_Royale
 
             MainWindow = new MainWindow() {
                 DataContext = new MainWindowViewModel(store)
-        };
+            };
         }
 
         protected override void OnStartup(StartupEventArgs e)

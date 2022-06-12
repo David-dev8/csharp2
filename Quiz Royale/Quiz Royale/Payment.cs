@@ -9,5 +9,4 @@ namespace Quiz_Royale
         XP,
         COINS,
     }
-
 }

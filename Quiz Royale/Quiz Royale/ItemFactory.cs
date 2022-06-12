@@ -7,15 +7,15 @@ namespace Quiz_Royale
 {
     public class ItemFactory
     {
-        public Item MakeItem(string type, string name, string picture, int requiredAmount, Payment payment, 
-            string description = "", int indentifier = 0)
+        public Item MakeItem(int id, ItemType type, string name, string picture, int requiredAmount, Payment payment, 
+            string description = "")
         {
             return type switch
             {
-                "Booster" => new Booster(name, picture, requiredAmount, payment, description, indentifier),
-                "PlayerTitle" => new PlayerTitle(name, picture, requiredAmount, payment),
-                "ProfilePicture" => new ProfilePicture(name, picture, requiredAmount, payment),
-                "Border" => new Border(name, picture, requiredAmount, payment),
+                ItemType.BOOST => new Booster(id, name, picture, requiredAmount, payment, description),
+                ItemType.TITLE => new PlayerTitle(id, name, picture, requiredAmount, payment),
+                ItemType.PROFILE_PICTURE => new ProfilePicture(id, name, picture, requiredAmount, payment),
+                ItemType.BORDER => new Border(id, name, picture, requiredAmount, payment),
                 _ => null,
             };
         }

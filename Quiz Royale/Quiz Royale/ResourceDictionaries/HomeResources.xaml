@@ -23,4 +23,23 @@
     <Style x:Key="CellStyle" TargetType="TextBlock">
         <Setter Property="Padding" Value="10, 2" />
     </Style>
+    <Style x:Key="GameModeStyle" TargetType="ListViewItem">
+        <Setter Property="Margin" Value="0, 0, 0, 5" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListViewItem">
+                    <ContentPresenter />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Opacity" Value="0.6" />
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Visibility" Value="Hidden" />
+                <Setter Property="Height" Value="0" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>

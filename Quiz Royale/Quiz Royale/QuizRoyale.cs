@@ -3,74 +3,112 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Timers;
 
 namespace Quiz_Royale
 {
     public class QuizRoyale : Game
     {
-        private IList<Player> _players;
+        public ObservableCollection<Player> Players { get; set; }
 
-        public IList<Player> Players
+        private static readonly IDictionary<int, string> LOSE_MESSAGES = new Dictionary<int, string>
+        {
+            { 100, "That's quite unfortunate!" },
+            { 75, "Better luck next time" },
+            { 50, "Good job!" },
+            { 25, "Excellent achievement!" },
+            { 10, "Outsting " },
+            { 1, "That was close..." },
+        };
+        private static readonly string WINNER_MESSAGE = "Congratulations!";
+        private const int TIME_AFTER_BOOST = 3;
+        private const int START_TIME = 20;
+
+        private Timer _timer;
+        private int _currentTime;
+
+        public int CurrentAmountOfPlayers 
         {
             get
             {
-                return _players.Take(10).ToList(); // TODO doe dit ook met de results van home
-            }
-            set
-            {
-                _players = value;
+                return Players.Count;
             }
         }
 
         public int TotalAmountOfPlayersStarted { get; set; }
-        public int CurrentAmountOfPlayers { get; set; }
+
+        public int CurrentTime
+        {
+            get
+            {
+                return _currentTime;
+            }
+            set
+            {
+                if(value >= 0)
+                {
+                    _currentTime = value;
+                    NotifyPropertyChanged();
+                }
+                else
+                {
+                    _timer.Stop(); // TODO moet je eigenlijk wel stoppen?
+                }
+            }
+        }
 
         public QuizRoyale(Account account)
         {
             Account = account;
+            Boosters = new ObservableCollection<Item>(Account.Inventory.Boosters);
+            FastestPlayers = new ObservableCollection<Player>();
+            Players = new ObservableCollection<Player>();
+            TotalAmountOfPlayersStarted = Players.Count;
+            CurrentQuestion = null;
+            Categories = new Dictionary<Category, float>();
 
-            ObservableCollection<Player> fastestPlayers = new ObservableCollection<Player>
-            {
-                new Player("De super fantastische speler", "True Champion of All Times" , "/Assets/testProfilePicture.png", "/Assets/testBorder.png"),
-                new Player("De super fantastische spelertjes", "True Champion of All Times" , "/Assets/testProfilePicture.png", "/Assets/testBorder.png"),
-                new Player("De super fantastische spelers", "True Champion of All Times" , "/Assets/testProfilePicture.png", "/Assets/testBorder.png"),
+            HubConnector = new HubConnector();
+            HubConnector.newQuestion += SetCurrentQuestion;
+            HubConnector.reduceTime += ReduceTime;
+            HubConnector.playerAnswered += AddFastestPlayer;
+            _timer = new Timer(1000);
+            _timer.Elapsed += DecreaseTime;
+        }
 
-            };
+        private void SetCurrentQuestion(object sender, NewQuestionArgs e)
+        {
+            CurrentQuestion = e.Question;
+            CurrentTime = START_TIME;
+            _timer.AutoReset = true;
+            _timer.Enabled = true;
+        }
 
-            FastestPlayers = fastestPlayers;
+        private void ReduceTime(object sender, EventArgs e)
+        {
+            CurrentTime = TIME_AFTER_BOOST; // TODO zelfde tijd als op de socket?
+        }
 
-            IList<Player> players = new List<Player>
-            {
-                new Player("De super fantastische speler", "True Champion of All Times" , "/Assets/testProfilePicture.png", "/Assets/testBorder.png"),
-                new Player("De super fantastische speler", "True Champion of All Times" , "/Assets/testProfilePicture.png", "/Assets/testBorder.png"),
-                new Player("De super fantastische speler", "True Champion of All Times" , "/Assets/testProfilePicture.png", "/Assets/testBorder.png"),
-                new Player("De super fantastische speler", "True Champion of All Times" , "/Assets/testProfilePicture.png", "/Assets/testBorder.png"),
-                new Player("De super fantastische speler", "True Champion of All Times" , "/Assets/testProfilePicture.png", "/Assets/testBorder.png"),
-                new Player("De super fantastische speler", "True Champion of All Times" , "/Assets/testProfilePicture.png", "/Assets/testBorder.png"),
-                new Player("De super fantastische speler", "True Champion of All Times" , "/Assets/testProfilePicture.png", "/Assets/testBorder.png"),
-                new Player("De super fantastische speler", "True Champion of All Times" , "/Assets/testProfilePicture.png", "/Assets/testBorder.png"),
-                new Player("De super fantastische speler", "True Champion of All Times" , "/Assets/testProfilePicture.png", "/Assets/testBorder.png"),
-                new Player("De super fantastische spelertje", "True Champion of All Times" , "/Assets/testProfilePicture.png", "/Assets/testBorder.png"),
-                new Player("De super fantastische spel", "True Champion of All Times" , "/Assets/testProfilePicture.png", "/Assets/testBorder.png"),
-                new Player("De super fantastische spele", "True Champion of All Times" , "/Assets/testProfilePicture.png", "/Assets/testBorder.png"),
-                new Player("De super fantastische spelertjes", "True Champion of All Times" , "/Assets/testProfilePicture.png", "/Assets/testBorder.png"),
-                new Player("De super fantastische spelers", "True Champion of All Times" , "/Assets/testProfilePicture.png", "/Assets/testBorder.png"),
-            };
+        private void DecreaseTime(object sender, EventArgs e)
+        {
+            CurrentTime--;
+        }
 
-            Players = players;
+        private void AddFastestPlayer(object sender, PlayerArgs e)
+        {
+            FastestPlayers.Add(e.Player);
+        }
 
-            IList<Answer> answers = new List<Answer>
-            {
-                new Answer('A', "Samumsung Technologies"),
-                new Answer('B', "Hitachi"),
-                new Answer('C', "Huawei"),
-                new Answer('D', "Sony"),
-            };
+        protected override string GetResultMessage()
+        {
+            CurrentPosition = CurrentAmountOfPlayers + 1;
+            double percent = CurrentPosition / TotalAmountOfPlayersStarted * 100;
+            return CurrentAmountOfPlayers > 0 ? LOSE_MESSAGES.Where(x => x.Key >= percent).Reverse().First().Value 
+                : WINNER_MESSAGE;
+        }
 
-            CurrentAmountOfPlayers = players.Count;
-            TotalAmountOfPlayersStarted = players.Count;
-            CurrentQuestion = new Question("What is the name of the biggest technology company in South Korea?", answers, 29, new Category("/Assets/testCategory.png", "Wetenschap", "#5294DF"));
-            // TODO initialiseer de rest ook op een goede manier
+        public void addPlayer(Player player)
+        {
+            Players.Add(player);
         }
     }
 }

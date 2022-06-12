@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -17,23 +18,43 @@ namespace Quiz_Royale
         // De Client moet static zijn zodat er niet telkens een nieuwe connectie wordt aangemaakt
         private static HttpClient s_httpClient;
 
+        private static JsonSerializerOptions _serializerOptions = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                PropertyNameCaseInsensitive = true,
+                Converters =
+                {
+                    new ItemConverter()
+                }
+            };
+
         public APIHandler()
+        {
+            InitializeClient();
+            SetAuthorization();
+        }
+
+        private void InitializeClient()
         {
             if(s_httpClient == null)
             {
-                InitalizeClient();
+                s_httpClient = new HttpClient();
+                s_httpClient.BaseAddress = new Uri(BASE_URL);
             }
         }
 
-        private static void InitalizeClient()
+        private void SetAuthorization()
         {
-            s_httpClient = new HttpClient();
-            s_httpClient.BaseAddress = new Uri(BASE_URL);
+            string token = Storage.Settings.Credentials?.AccessToken;
+            if(token != null)
+            {
+                s_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            }
         }
 
-        public async Task<ICollection<T>> Fetch<T>(string endpoint)
+        public async Task<IList<T>> Fetch<T>(string endpoint)
         {
-            return await GetFromAPI<ICollection<T>>(endpoint);
+            return await GetFromAPI<IList<T>>(endpoint);
         }
 
         public async Task<T> Fetch<T>(string endpoint, int id)
@@ -54,8 +75,19 @@ namespace Quiz_Royale
                     DetermineException(response.StatusCode);
                 }
             }
-            // Er moet iets worden geretourneerd omdat niet wordt gerkend dat er een exceptie wordt gegooid in de else
-            return default(R);
+            // Er moet hier een exceptie worden gegooid omdat niet wordt gerkend dat er een exceptie wordt gegooid in de else
+            throw new Exception();
+        }
+
+        public async Task Update(string endpoint)
+        {
+            using (HttpResponseMessage response = await s_httpClient.PatchAsync(endpoint, null))
+            {
+                if (!response.IsSuccessStatusCode)
+                {
+                    DetermineException(response.StatusCode);
+                }
+            }
         }
 
         private async Task<T> GetFromAPI<T>(string endpoint)
@@ -71,19 +103,19 @@ namespace Quiz_Royale
                     DetermineException(response.StatusCode);
                 }
             }
-            // Er moet iets worden geretourneerd omdat niet wordt gerkend dat er een exceptie wordt gegooid in de else
-            return default(T);
+            // Er moet hier een exceptie worden gegooid omdat niet wordt gerkend dat er een exceptie wordt gegooid in de else
+            throw new Exception();
         }
 
         private async Task<T> FromJSON<T>(HttpResponseMessage response)
         {
             string json = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<T>(json);
+            return JsonSerializer.Deserialize<T>(json, _serializerOptions);
         }
 
         private HttpContent ToJSON<T>(T data)
         {
-            string json = JsonSerializer.Serialize<T>(data);
+            string json = JsonSerializer.Serialize<T>(data, _serializerOptions);
             return new StringContent(json, Encoding.UTF8, "application/json");
         }
 
