@@ -18,7 +18,11 @@ namespace Quiz_Royale
         {
             get
             {
-                return new List<Item> { itemFactory.MakeItem("Booster","Booster","picture",10, Payment.XP) };
+                return new List<Item> 
+                { 
+                    itemFactory.MakeItem(1, ItemType.BORDER, "picture", "picture",10, Payment.XP), 
+                    itemFactory.MakeItem(1, ItemType.PROFILE_PICTURE, "picture2", "picture2",10, Payment.XP)
+                };
             }
         }
 

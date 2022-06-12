@@ -81,7 +81,7 @@ namespace Quiz_Royale
             StatusMessage = "";   
             ShowError = "Hidden";
             WaitingLobby = "Hidden";
-            _game = new QuizRoyale(new APIAccountProvider().GetAccount("tim"));
+            _game = new QuizRoyale(new APIAccountProvider().GetAccount());
 
             _game.HubConnector.joinStatus += joinStatus;
             _game.HubConnector.updateStatus += updateStatus;

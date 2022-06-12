@@ -11,7 +11,7 @@ namespace Quiz_Royale
         {
             return game switch
             {
-                "QuizRoyale" => new QuizRoyale(new Account("De super fantastische speler", 100, 2300, 150)),
+                "QuizRoyale" => new QuizRoyale(new Account("De super fantastische speler", 100, 2300, 150, new Inventory())),
                 _ => null,
             };
         }

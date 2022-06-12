@@ -39,13 +39,13 @@ namespace Quiz_Royale
             }
         }
 
-        public Account(string username, int amountOfCoins, int currentXP, int totalWins /*Inventory inventory*/)
+        public Account(string username, int amountOfCoins, int currentXP, int totalWins, Inventory inventory)
         {
             Username = username;
             AmountOfCoins = amountOfCoins;
             CurrentXP = currentXP;
             TotalWins = totalWins;
-            //Inventory = inventory;
+            Inventory = inventory;
         }
 
         public int GetLevel()

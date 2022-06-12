@@ -96,8 +96,7 @@ namespace Quiz_Royale
             } 
             else
             {
-
-                return new HomeViewModel(_navigationStore);
+                return new ProfileViewModel(_navigationStore);
             }
 
         }

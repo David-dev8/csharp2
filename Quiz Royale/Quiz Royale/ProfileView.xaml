@@ -7,6 +7,73 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
+        <SolidColorBrush x:Key="ProgressBar.Progress" Color="#FF06B025"/>
+        <SolidColorBrush x:Key="ProgressBar.Background" Color="#FFE6E6E6"/>
+        <SolidColorBrush x:Key="ProgressBar.Border" Color="#FFBCBCBC"/>
+        <Style x:Key="ProgressBarMastery" TargetType="{x:Type ProgressBar}">
+            <Setter Property="Foreground" Value="{StaticResource ProgressBar.Progress}"/>
+            <Setter Property="Background" Value="{StaticResource ProgressBar.Background}"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Width" Value="200" />
+            <Setter Property="Height" Value="20" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ProgressBar}">
+                        <Grid x:Name="TemplateRoot">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Determinate"/>
+                                    <VisualState x:Name="Indeterminate">
+                                        <Storyboard RepeatBehavior="Forever">
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Animation" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
+                                                <EasingDoubleKeyFrame KeyTime="0" Value="0.25"/>
+                                                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0.25"/>
+                                                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0.25"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <PointAnimationUsingKeyFrames Storyboard.TargetName="Animation" Storyboard.TargetProperty="(UIElement.RenderTransformOrigin)">
+                                                <EasingPointKeyFrame KeyTime="0" Value="-0.5,0.5"/>
+                                                <EasingPointKeyFrame KeyTime="0:0:1" Value="0.5,0.5"/>
+                                                <EasingPointKeyFrame KeyTime="0:0:2" Value="1.5,0.5"/>
+                                            </PointAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border Background="Transparent" BorderThickness="0" BorderBrush="Black" CornerRadius="4"/>
+                            <Rectangle x:Name="PART_Track"/>
+                            <Grid x:Name="PART_Indicator" ClipToBounds="true" HorizontalAlignment="Left">
+                                <Rectangle x:Name="Indicator" Fill="{TemplateBinding Foreground}" RadiusX="4" RadiusY="4"/>
+                                <Rectangle x:Name="Animation" Fill="{TemplateBinding Foreground}" RenderTransformOrigin="0.5,0.5" RadiusX="4" RadiusY="4">
+                                    <Rectangle.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform/>
+                                            <SkewTransform/>
+                                            <RotateTransform/>
+                                            <TranslateTransform/>
+                                        </TransformGroup>
+                                    </Rectangle.RenderTransform>
+                                </Rectangle>
+                            </Grid>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Orientation" Value="Vertical">
+                                <Setter Property="LayoutTransform" TargetName="TemplateRoot">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsIndeterminate" Value="true">
+                                <Setter Property="Visibility" TargetName="Indicator" Value="Collapsed"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <!--<UserControl.Resources>
         <Style TargetType="Border">
             <Setter Property="Background" Value="#DAD9D9"/>
             <Setter Property="Opacity" Value="0.8"/>
@@ -34,98 +101,134 @@
             <Setter Property="Height" Value="70"/>
             <Setter Property="Width" Value="300"/>
         </Style>
-    </UserControl.Resources>
-    <Grid ShowGridLines="True">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
+    </UserControl.Resources>-->
+    <Grid Margin="50">
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Border Grid.Row="0" Grid.Column="0">
-            <StackPanel>
-                <Image MaxWidth="100" Name="cheese" Source="/Assets/cheese.png" ></Image>
-                <TextBlock Text="{Binding Account.Username }" />
-            </StackPanel>
-        </Border>
-        <Grid Grid.Row="0" Grid.Column="1" Opacity="0.8" Background="#DAD9D9" Margin="20">
-                <Grid.RowDefinitions>
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <TextBlock Text="Category Matery" VerticalAlignment="Top" ></TextBlock>
-            <ListView  ItemsSource="{Binding Mastery}"  >
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock Text="{Binding Category.Picture }" />
-                            <TextBlock Text="{Binding Category.Name }" />
-                            <TextBlock Text="{Binding Category.Colour }"  />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </Grid>
-        <Border Grid.Row="0" Grid.Column="2">
-            <StackPanel>
-                <Image MaxWidth="100" Name="cup" Source="/Assets/cup.png" ></Image>
-                <TextBlock TextWrapping="Wrap" Text="{Binding Account.TotalWins }"></TextBlock>
-            </StackPanel>
-        </Border>
-        <Border  Grid.Row="1" Grid.ColumnSpan="3">
-            <ListView ItemsSource="{Binding Badge}" >
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock Text="{Binding Name }" />
-                            <TextBlock Text="{Binding Description }"  />
-                            <TextBlock Text="{Binding Picture }"  />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </Border>
-        <Grid Grid.Row="2" Grid.Column="0" >
+        <Grid Grid.Row="0">
             <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="5*" />
             </Grid.RowDefinitions>
-            <Button Grid.Row="0" Command="{Binding ShowBorders}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
+            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource HeaderBox}">
                 <StackPanel>
-                    <TextBlock Text="Borders" />
+                    <Image Source="Assets/profile.png" />
+                    <TextBlock Text="Profile" />
                 </StackPanel>
-            </Button>
-            <Button Grid.Row="1" Command="{Binding ShowProfilePictures}">
-                <StackPanel>
-                    <TextBlock Text="Profile pictures" />
-                </StackPanel>
-            </Button>
-            <Button Grid.Row="2"  Command="{Binding ShowTitles}">
-                <StackPanel>
-                    <TextBlock Text="Titles" />
-                </StackPanel>
-            </Button>
-            <Button Grid.Row="3" Command="{Binding ShowBoosters}">
-                <StackPanel>
-                    <TextBlock Text="Boosters" />
-                </StackPanel>
-            </Button>
-        </Grid>
-        
-        <ListView  ItemsSource="{Binding Items}"  Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                    <StackPanel Orientation="Horizontal" Height="300">
-                        <TextBlock Text="{Binding Name }" />
+            </Border>
+            <DockPanel Grid.Column="2" DataContext="{Binding Account}" Margin="0, 0, 10, 0">
+                <Border Style="{StaticResource Box}" DockPanel.Dock="Right" Margin="0" Width="175">
+                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Margin="0, 0, 50, 0" VerticalAlignment="Center">
+                        <Image MaxHeight="25" Margin="15, 0, 13, 0" Source="/Assets/coins.png" />
+                        <TextBlock FontSize="18" Text="{Binding AmountOfCoins}" />
                     </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-      
+                </Border>
+                <Border Style="{StaticResource Box}" DockPanel.Dock="Right" Margin="0" Width="300">
+                    <StackPanel Orientation="Horizontal">
+                        <Grid Height="25" Margin="15, 0, 13, 0">
+                            <Image Source="/Assets/star.png" />
+                            <TextBlock Text="{Binding Level}" FontWeight="SemiBold" Style="{StaticResource Caption}" HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center" />
+                        </Grid>
+                        <ProgressBar Margin="0, 3, 0, 0" Style="{DynamicResource ProgressBarStyle1}" Value="{Binding PercentOfLevelProgress, Mode=OneWay}" />
+                    </StackPanel>
+                </Border>
+            </DockPanel>
+            <Border Style="{StaticResource Box}" Grid.Row="2"  Grid.ColumnSpan="3">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="1.8*" />
+                        <ColumnDefinition Width="0.8*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Margin="50, 30, 50, 0">
+                        <Grid DataContext="{Binding Account.Inventory}" Height="150" HorizontalAlignment="Left" >
+                            <Image Source="{Binding ActiveProfilePicture.Picture}" Margin="0, 10, 0, 0" />
+                            <Image Source="{Binding ActiveBorder.Picture}" />
+                        </Grid>
+                        <StackPanel Margin="0, 18, 0, 0">
+                            <TextBlock FontWeight="Bold" FontSize="22" Text="{Binding Account.Username}" />
+                            <TextBlock FontStyle="Italic" FontWeight="Regular" FontSize="18" Text="{Binding Account.Inventory.ActivePlayerTitle.Name}" />
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Margin="0, 30, 0, 0">
+                        <TextBlock Style="{StaticResource Title}">Category Mastery</TextBlock>
+                        <ItemsControl ItemsSource="{Binding Mastery}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" Margin="0, 10, 0, 0">
+                                        <Image MaxHeight="35" Source="{Binding Category.Picture}"/>
+                                        <ProgressBar  Margin="15, 0, 50, 0" Foreground="{Binding Category.Color}" Value="{Binding SuccesRate}" Style="{DynamicResource ProgressBarMastery}">
+                                            <ProgressBar.Effect>
+                                                <DropShadowEffect BlurRadius="15" ShadowDepth="7" Opacity="0.25" Color="Black" />
+                                            </ProgressBar.Effect>
+                                        </ProgressBar>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </StackPanel>
+                    <StackPanel Grid.Column="2" Margin="0, 30, 0, 0">
+                        <Image MaxHeight="150" Source="/Assets/cup.png"/>
+                        <TextBlock FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Center">Wins</TextBlock>
+                        <TextBlock FontSize="18" FontWeight="SemiBold" HorizontalAlignment="Center">10</TextBlock>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+        <Grid Grid.Row="2">
+           <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="5*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
+            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource HeaderBox}">
+                <StackPanel>
+                    <Image Source="Assets/badge.png" />
+                    <TextBlock Text="Badges" />
+                </StackPanel>
+            </Border>
+            <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Style="{StaticResource Box}">
+                <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                    <ItemsControl ItemsSource="{Binding Badge}" Margin="50,30">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Margin="0, 10, 30, 0" Width="330">
+                                    <Image MaxHeight="125" Source="{Binding Picture}"/>
+                                    <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                        <TextBlock Style="{StaticResource Title}" Text="{Binding Name}" ></TextBlock>
+                                        <TextBlock Style="{StaticResource SubTitle}" Text="{Binding Description}" ></TextBlock>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Border>
+        </Grid>
     </Grid>
 </UserControl>

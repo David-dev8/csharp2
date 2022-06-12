@@ -8,12 +8,34 @@ namespace Quiz_Royale
     {
         public IList<Badge> GetBadges()
         {
-            throw new NotImplementedException();
+            return new List<Badge>
+            {
+                new Badge("Winner","Win 50 times in quiz royale","/Assets/testBadge.png"),
+                new Badge("On Fire!","Description","/Assets/testBadge.png"),
+                new Badge("Badge3","Description","/Assets/testBadge.png"),
+                new Badge("Badge4","Description","/Assets/testBadge.png"),
+                new Badge("Badge4","Description","/Assets/testBadge.png"),
+                new Badge("Badge4","Description","/Assets/testBadge.png"),
+                new Badge("Badge4","Description","/Assets/testBadge.png"),
+                new Badge("Badge4","Description","/Assets/testBadge.png"),
+                new Badge("Badge4","Description","/Assets/testBadge.png"),
+                new Badge("Badge4","Description","/Assets/testBadge.png"),
+                new Badge("Badge4","Description","/Assets/testBadge.png"),
+            };
         }
 
         public IList<Mastery> GetCategoryMastery()
         {
-            throw new NotImplementedException();
+            return new List<Mastery>
+            {
+                new Mastery(new Category("Wetenschap", "/Assets/testCategory.png", "#FFFFFF"), 100),
+                new Mastery(new Category("Wetenschap", "/Assets/testCategory.png", "#b80c0c"), 100),
+                new Mastery(new Category("Wetenschap", "/Assets/testCategory.png", "#FFFFFF"), 100),
+                new Mastery(new Category("Wetenschap", "/Assets/testCategory.png", "#FFFFFF"), 100),
+                new Mastery(new Category("Wetenschap", "/Assets/testCategory.png", "#4fb80c"), 100),
+                new Mastery(new Category("Wetenschap", "/Assets/testCategory.png", "#FFFFFF"), 100),
+                new Mastery(new Category("Wetenschap", "/Assets/testCategory.png", "#FFFFFF"), 100)
+            };
         }
 
         public Rank GetRank()
