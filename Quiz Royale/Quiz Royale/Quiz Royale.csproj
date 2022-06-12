@@ -11,12 +11,14 @@
     <PackageReference Include="Castle.Windsor" Version="5.1.2" />
     <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
     <PackageReference Include="Microsoft.Toolkit" Version="6.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.5" />
     <None Remove="Assets\background.png" />
     <None Remove="Assets\boost.png" />
     <None Remove="Assets\border.png" />
     <None Remove="Assets\coins.png" />
     <None Remove="Assets\home.png" />
     <None Remove="Assets\leagueOfQuestions.png" />
+    <None Remove="Assets\medal.png" />
     <None Remove="Assets\profile.png" />
     <None Remove="Assets\profilePicture.png" />
     <None Remove="Assets\quizRoyale.png" />
@@ -52,6 +54,7 @@
       <CopyToOutputDirectory></CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\leagueOfQuestions.png" />
+    <Resource Include="Assets\medal.png" />
     <Resource Include="Assets\profile.png" />
     <Resource Include="Assets\quizRoyale.png" />
     <Resource Include="Assets\rewardsStar.png" />
@@ -70,6 +73,12 @@
 
   <ItemGroup>
     <Folder Include="Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\LobbyView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
 </Project>

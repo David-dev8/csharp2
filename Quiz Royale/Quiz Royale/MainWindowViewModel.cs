@@ -92,7 +92,7 @@ namespace Quiz_Royale
             } 
             else
             {
-                return new ShopViewModel(_navigationStore);
+                return new HomeViewModel(_navigationStore);
             }
         }
 

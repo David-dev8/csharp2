@@ -24,7 +24,10 @@
                 <local:Players />
             </DataTemplate>
             <DataTemplate DataType="{x:Type local:GameViewModel}">
-                <local:GameView />
+                <local:GameRoundView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type local:LobbyViewModel}">
+                <local:Lobby />
             </DataTemplate>
         </Grid.Resources>
         <Grid.ColumnDefinitions>

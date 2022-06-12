@@ -8,14 +8,12 @@ namespace Quiz_Royale
     {
         public string Content { get; set; }
         public IList<Answer> Possibilities { get; set; }
-        public int Time { get; set; }
         public Category Category { get; set; }
 
-        public Question(string question, IList<Answer> possibilities, int time, Category category)
+        public Question(string question, IList<Answer> possibilities, Category category)
         {
             Content = question;
             Possibilities = possibilities;
-            Time = time;
             Category = category;
         }
     }

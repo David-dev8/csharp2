@@ -7,4 +7,11 @@
     <local:PercentageToCircularPositionAdditionConverter x:Key="PercentageToCircularPosition" />
     <SolidColorBrush x:Key="WheelBorder" Color="#606060" />
     <SolidColorBrush x:Key="WheelFill" Color="Black" />
+    <Style x:Key="GameEndedStyle"  TargetType="TextBlock">
+        <Setter Property="FontSize" Value="18" />
+    </Style>
+    <Style x:Key="RewardText" TargetType="TextBlock" BasedOn="{StaticResource GameEndedStyle}">
+        <Setter Property="Grid.Column" Value="1" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
 </ResourceDictionary>
