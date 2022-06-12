@@ -81,12 +81,15 @@ namespace Quiz_Royale
 
         private void DisableItems()
         {
-            foreach(object item in DisabledItems)
+            if(DisabledItems != null)
             {
-                FrameworkElement container = ItemContainerGenerator.ContainerFromItem(item) as FrameworkElement;
-                if(container != null)
+                foreach (object item in DisabledItems)
                 {
-                    container.IsEnabled = false;
+                    FrameworkElement container = ItemContainerGenerator.ContainerFromItem(item) as FrameworkElement;
+                    if (container != null)
+                    {
+                        container.IsEnabled = false;
+                    }
                 }
             }
         }

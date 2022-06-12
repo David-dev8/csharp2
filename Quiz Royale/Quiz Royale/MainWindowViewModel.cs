@@ -103,8 +103,7 @@ namespace Quiz_Royale
 
         private void SelectShopAsCurrentPage()
         {
-            // aanpassen naar shop todo
-            CurrentViewModel = new GameViewModel(_navigationStore);
+            CurrentViewModel = new ShopViewModel(_navigationStore);
         }
 
         private void CloseProgram()
