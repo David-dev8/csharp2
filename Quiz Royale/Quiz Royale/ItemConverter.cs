@@ -16,7 +16,7 @@ namespace Quiz_Royale
             public ItemType ItemType { get; set; }
             public string Name { get; set; }
             public string Picture { get; set; }
-            public int RequiredAmount { get; set; }
+            public int Cost { get; set; }
             public Payment PaymentType { get; set; }
             public string Description { get; set; }
         }
@@ -29,7 +29,7 @@ namespace Quiz_Royale
                 item.ItemType, 
                 item.Name, 
                 item.Picture, 
-                item.RequiredAmount, 
+                item.Cost, 
                 item.PaymentType, 
                 item.Description);
         }
