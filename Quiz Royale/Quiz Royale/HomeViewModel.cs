@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Toolkit.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -14,13 +15,11 @@ namespace Quiz_Royale
         private GameMode _selectedGameMode;
         public RelayCommand NavigateToLobbyCommand { get; }
 
-        public ICollection<Result> Results
-        {
-            get
-            {
-                return _accountDataProvider.GetResults().Take(5).ToList(); // TODO er zijn geen resultaten toevoegen attribuut op de table
-            }
-        }
+        public NotifyTaskCompletion<IList<Result>> Results { get; }
+
+        public NotifyTaskCompletion<Rank> CurrentRank { get; }
+
+        public NotifyTaskCompletion<Account> Account { get; }
 
         public ICollection<GameMode> GameModes
         {
@@ -29,7 +28,7 @@ namespace Quiz_Royale
                 return _gameModes;
             }
         }
-        
+
         public GameMode SelectedGameMode
         {
             get
@@ -43,26 +42,10 @@ namespace Quiz_Royale
             }
         }
 
-        public Rank CurrentRank
-        {
-            get
-            {
-                return _accountDataProvider.GetRank();
-            }
-        }
-
-        public Account Account
-        {
-            get
-            {
-                return _accountProvider.GetAccount();
-            }
-        }
-
         private void navigateToLobby()
         {
             var factory = new GameFactory();
-            Game game = factory.CreateGame(SelectedGameMode.Mode, new APIAccountProvider().GetAccount());
+            Game game = factory.CreateGame(SelectedGameMode.Mode, Account.Result);
             _navigationStore.CurrentViewModel = new LobbyViewModel(_navigationStore, game);
         }
 
@@ -75,6 +58,13 @@ namespace Quiz_Royale
             NavigateToLobbyCommand = new RelayCommand(navigateToLobby);
 
             _navigationStore.IsInMenu = true;
+
+            Account = new NotifyTaskCompletion<Account>(_accountProvider.GetAccount());
+            CurrentRank = new NotifyTaskCompletion<Rank>(_accountDataProvider.GetRank());
+            Results = new NotifyTaskCompletion<IList<Result>>(_accountDataProvider.GetResults()); 
+
+
+                // TODO er zijn geen resultaten toevoegen attribuut op de table
         }
     }
 }

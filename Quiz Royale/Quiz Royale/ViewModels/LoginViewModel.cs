@@ -41,7 +41,10 @@ namespace Quiz_Royale
         public LoginViewModel(NavigationStore store) : base(store)
         {
             _creator = new APIAccountCreator();
-            Login = new RelayCommand(async () => { await LoginUser(); }, CanLogin);
+            Login = new RelayCommand(async () => { 
+                await LoginUser();
+                Account acocunt = await new APIAccountProvider().GetAccount();
+            }, CanLogin);
         }
 
         private async Task LoginUser()

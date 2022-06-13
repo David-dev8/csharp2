@@ -33,7 +33,7 @@
                     <TextBlock Text="Shop" />
                 </StackPanel>
             </Border>
-            <DockPanel Grid.Column="2" DataContext="{Binding Account}" Margin="0, 0, 10, 0">
+            <DockPanel Grid.Column="2" DataContext="{Binding Account.Result}" Margin="0, 0, 10, 0">
                 <Border Style="{StaticResource Box}" DockPanel.Dock="Right" Margin="0" Width="175">
                     <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Margin="0, 0, 50, 0" VerticalAlignment="Center">
                         <Image MaxHeight="25" Margin="15, 0, 13, 0" Source="/Assets/coins.png" />
@@ -85,8 +85,8 @@
                 </Button>
             </Grid>
             <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Background="Transparent">
-                <!--<fa:ImageAwesome Icon="Spinner" Panel.ZIndex="1" Spin="True" SpinDuration="1.5" Height="60"
-                                 Visibility="{Binding IsLoading, Converter={StaticResource VisibilityConverter}}"/>-->
+                <fa:ImageAwesome Icon="Spinner" Panel.ZIndex="1" Spin="True" SpinDuration="1.5" Height="60"
+                                 Visibility="{Binding IsLoading, Converter={StaticResource VisibilityConverter}}"/>
                 <local:HorizontalScrollList ItemsSource="{Binding SelectedItems}" VerticalContentAlignment="Stretch" Margin="20, 0"
                                             SelectedItem="{Binding ItemSelected, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
                                             DisabledItems="{Binding DisabledItems, Mode=TwoWay}">
@@ -132,8 +132,8 @@
                 </StackPanel>
             </Border>
             <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Background="Transparent">
-                <!--<fa:ImageAwesome Icon="Spinner" Panel.ZIndex="1" Spin="True" SpinDuration="1.5" Height="60"
-                                 Visibility="{Binding IsLoading, Converter={StaticResource VisibilityConverter}}"/>-->
+                <fa:ImageAwesome Icon="Spinner" Panel.ZIndex="1" Spin="True" SpinDuration="1.5" Height="60"
+                                 Visibility="{Binding IsLoading, Converter={StaticResource VisibilityConverter}}"/>
                 <local:HorizontalScrollList ItemsSource="{Binding Rewards}" VerticalContentAlignment="Stretch"
                                             SelectedItem="{Binding RewardSelected, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}">
                     <local:HorizontalScrollList.ItemTemplate>

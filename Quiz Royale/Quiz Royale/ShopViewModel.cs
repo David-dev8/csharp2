@@ -1,4 +1,5 @@
-﻿using Quiz_Royale.Exceptions;
+﻿using Microsoft.Toolkit.Helpers;
+using Quiz_Royale.Exceptions;
 using Quiz_Royale.Filters;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace Quiz_Royale
     {
         private Shop _shop;
 
-        public Account Account { get; set; }
+        public NotifyTaskCompletion<Account> Account { get; set; }
 
         private Item _itemSelected;
 
@@ -74,17 +75,17 @@ namespace Quiz_Royale
         {
             IsLoading = true;
             _shop = new Shop();
-            _shop.Items.PropertyChanged += Items_PropertyChanged;
-            Account = _accountProvider.GetAccount();
+            _shop.Items.PropertyChanged += Items_PropertyChanged; // t
+            Account = new NotifyTaskCompletion<Account>(_accountProvider.GetAccount());
         }
 
         private void Items_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (_shop.Items.IsSuccessfullyCompleted)
+            if (_shop.Items.IsSuccessfullyCompleted && Account.IsSuccessfullyCompleted)
             {
                 FillBuyables(_shop.Items.Result);
                 FillRewards(_shop.Items.Result);
-                DisabledItems = _shop.GetItemsOutOfStock(Account);
+                DisabledItems = _shop.GetItemsOutOfStock(Account.Result);
                 App.Current.Dispatcher.Invoke(() =>
                 {
                     FilterBorders();
@@ -98,7 +99,7 @@ namespace Quiz_Royale
             // todo try catch?
             try
             {
-                await _shop.BuyItem(Account, _itemSelected);
+                await _shop.BuyItem(Account.Result, _itemSelected);
             }
             catch(InsufficientFundsException)
             {

@@ -9,7 +9,7 @@ namespace Quiz_Royale
         private const int NEEDED_XP_TO_REACH_NEXT_LEVEL = 1000;
 
         public string Username { get; set; }
-
+        
         private int _amountOfCoins;
 
         public int AmountOfCoins
@@ -68,13 +68,13 @@ namespace Quiz_Royale
             }
         }
 
-        public Account(string username, int amountOfCoins, int currentXP, int totalWins, Inventory inventory)
+        public Account(string username, int amountOfCoins, int currentXP, int totalWins)
         {
             Username = username;
             AmountOfCoins = amountOfCoins;
             CurrentXP = currentXP;
             TotalWins = totalWins;
-            Inventory = inventory;
+            Inventory = new Inventory();
         }
 
         public int GetLevel()

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Quiz_Royale
 {
@@ -8,14 +9,14 @@ namespace Quiz_Royale
     {
         private static Account s_account;
 
-        public async void Initialize()
+        public async Task<Account> GetAccount()
         {
-            s_account = await _apiHandler.Fetch<Account>("/Player");
-        }
+            if (s_account == null)
+            {
+                s_account = await _apiHandler.Fetch<Account>("/Player");
+            }
 
-        public Account GetAccount()
-        {
-            return new Account("tim", 1, 1, 1, new Inventory());
+            return s_account;
         }
     }
 }
