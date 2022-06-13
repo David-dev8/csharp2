@@ -42,13 +42,7 @@
                     </TextBlock>
                 </StackPanel>
                 <Grid Grid.Row="1" Grid.Column="0" Margin="30, 20, 20, 20">
-                    <Button Command="{Binding NavigateToLobbyCommand}">
-                        <Button.Template>
-                            <ControlTemplate>
-                                <Image Source="{Binding SelectedGameMode.Picture}" />
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
+                    <Image Source="{Binding SelectedGameMode.Picture}" />
                 </Grid>
                 <ListView Grid.Column="1" Grid.Row="1" Margin="0, 20, 50, 20" Background="Transparent" ItemContainerStyle="{StaticResource GameModeStyle}"
                           BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden"
@@ -69,6 +63,10 @@
                     <TextBlock Text="{Binding Title}" Style="{StaticResource SubTitle}" FontWeight="SemiBold" />
                     <TextBlock Text="{Binding Description}" TextWrapping="Wrap" />
                 </StackPanel>
+                <Button Grid.Row="3" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" 
+                        Margin="50,20" Command="{Binding StartGame}">
+                    <TextBlock Padding="10, 0">Play</TextBlock>
+                </Button>
             </Grid>
         </Border>
         <Border Grid.Column="1" Grid.Row="0" Style="{StaticResource Box}">
@@ -77,17 +75,17 @@
                     <RowDefinition Height="1.5*" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="50, 20, 50, 0">
-                    <Grid DataContext="{Binding Account.Inventory}">
+                <StackPanel Grid.Row="0" DataContext="{Binding Account.Result}" Orientation="Horizontal" Margin="50, 20, 50, 0">
+                    <Grid DataContext="{Binding Inventory}">
                         <Image Source="{Binding ActiveProfilePicture.Picture}" Margin="0, 10, 0, 0" />
                         <Image Source="{Binding ActiveBorder.Picture}" />
                     </Grid>
                     <StackPanel Margin="25, 18, 0, 0">
-                        <TextBlock FontWeight="Bold" FontSize="22" Text="{Binding Account.Username}" />
-                        <TextBlock FontStyle="Italic" FontWeight="Regular" FontSize="18" Text="{Binding Account.Inventory.ActivePlayerTitle.Name}" />
+                        <TextBlock FontWeight="Bold" FontSize="22" Text="{Binding Username}" />
+                        <TextBlock FontStyle="Italic" FontWeight="Regular" FontSize="18" Text="{Binding Inventory.ActivePlayerTitle.Name}" />
                     </StackPanel>
                 </StackPanel>
-                <DockPanel DataContext="{Binding Account}" Grid.Row="1" VerticalAlignment="Top" Margin="23, 10, 0, 0">
+                <DockPanel DataContext="{Binding Account.Result}" Grid.Row="1" VerticalAlignment="Top" Margin="23, 10, 0, 0">
                     <Grid Height="35" Margin="50, 0" DockPanel.Dock="Left">
                         <Image Source="/Assets/star.png" />
                         <TextBlock Text="{Binding Level}" FontWeight="SemiBold" Style="{StaticResource SubTitle}" HorizontalAlignment="Center" 
@@ -119,13 +117,19 @@
                 <TextBlock Grid.Row="0" Margin="50, 23, 0, -15" Style="{StaticResource Caption}">
                     Current division
                 </TextBlock>
-                <StackPanel DataContext="{Binding CurrentRank}" Grid.Row="1" Orientation="Horizontal" Margin="50, 0" VerticalAlignment="Center">
-                    <Image MaxHeight="75" Source="{Binding Picture}" />
-                    <StackPanel Margin="25, 5, 0, 0">
-                        <TextBlock FontWeight="Bold" Text="{Binding Name}" Foreground="{Binding Colour}" FontSize="22" />
-                        <TextBlock Text="{Binding Division, StringFormat=Division {0}}" FontStyle="Italic" Foreground="{Binding Colour}" FontSize="18" />
+                <Grid DataContext="{Binding CurrentRank.Result}" Grid.Row="1" Margin="50, 0" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0" MaxHeight="75" Source="{Binding Picture}" Margin="0,0,0,20" />
+                    <StackPanel Grid.Column="1" Margin="25, 5, 0, 0">
+                        <TextBlock FontWeight="Bold" Text="{Binding Name}" Foreground="{Binding Color}" FontSize="22" />
+                        <TextBlock Foreground="{Binding Color}" FontSize="18">
+                            Division <Run Text="{Binding Division}" /> - Top <Run Text="{Binding UpperBound}" />%
+                        </TextBlock>
                     </StackPanel>
-                </StackPanel>
+                </Grid>
             </Grid>
         </Border>
         <Border Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" Margin="20, 20, 20, 10" Style="{StaticResource Box}">
@@ -133,13 +137,27 @@
                 <TextBlock Margin="50, 23" Style="{StaticResource Caption}">
                     Recent results
                 </TextBlock>
-                <DataGrid Margin="50, 50, 50, 30" BorderThickness="0" Background="Transparent" ItemsSource="{Binding Results}" AutoGenerateColumns="False" 
+                <DataGrid Margin="50, 50, 50, 30" BorderThickness="0" Background="Transparent" ItemsSource="{Binding Results.Result}" AutoGenerateColumns="False" 
                           HeadersVisibility="Column" VerticalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="False" GridLinesVisibility="None" 
-                          Height="275">
+                          Height="275" >
+                    <DataGrid.Style>
+                        <Style TargetType="DataGrid">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding HasItems, RelativeSource={RelativeSource Self}}" Value="false">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="DataGrid">
+                                                <TextBlock Style="{StaticResource Caption}" Text="Currently, there are no results." />
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.Style>
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Time" Binding="{Binding Time}" Width="*" ElementStyle="{StaticResource CellStyle}"/>
-                        <DataGridTextColumn Header="Mode" Binding="{Binding Mode}" Width="*" ElementStyle="{StaticResource CellStyle}"/>
-                        <DataGridTextColumn Header="Right answers" Binding="{Binding AnswersRight}" Width="*" ElementStyle="{StaticResource CellStyle}"/>
+                        <DataGridTextColumn Header="Mode" Binding="{Binding ModeString}" Width="*" ElementStyle="{StaticResource CellStyle}"/>
                         <DataGridTextColumn Header="Position" Binding="{Binding Position}" Width="*" ElementStyle="{StaticResource CellStyle}"/>
                     </DataGrid.Columns>
                 </DataGrid>

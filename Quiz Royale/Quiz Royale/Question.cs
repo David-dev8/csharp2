@@ -10,9 +10,9 @@ namespace Quiz_Royale
         public IList<Answer> Possibilities { get; set; }
         public Category Category { get; set; }
 
-        public Question(string question, IList<Answer> possibilities, Category category)
+        public Question(string content, IList<Answer> possibilities, Category category)
         {
-            Content = question;
+            Content = content;
             Possibilities = possibilities;
             Category = category;
         }

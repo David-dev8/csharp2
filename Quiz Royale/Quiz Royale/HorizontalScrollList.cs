@@ -20,11 +20,12 @@ namespace Quiz_Royale
     {
         public static readonly DependencyProperty DisabledItemsProperty =
             DependencyProperty.Register("DisabledItems", typeof(IEnumerable), typeof(HorizontalScrollList), 
-                new PropertyMetadata(null, DisableItems));
+                new PropertyMetadata(DisableItems));
 
         static HorizontalScrollList()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(HorizontalScrollList), new FrameworkPropertyMetadata(typeof(HorizontalScrollList)));
+            ItemsSourceProperty.OverrideMetadata(typeof(HorizontalScrollList), new FrameworkPropertyMetadata(DisableItems));
         }
 
         private static void DisableItems(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -59,19 +60,26 @@ namespace Quiz_Royale
         private void Shop_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
             ShiftCurrent(e.Delta);
-            ScrollIntoView(Items.GetItemAt(_currentDisplayedItem));
+            ScrollIntoView(Items.GetItemAt(_currentDisplayedItem));  
             e.Handled = true;
         }
 
         private void ShiftCurrent(int delta)
         {
-            _currentDisplayedItem += delta < 0 ? -1 : 1;
-            _currentDisplayedItem = Math.Min(Math.Max(GetMinimumDisplayedItems(), _currentDisplayedItem), Items.Count - 1);
+            if (_currentDisplayedItem == 0 && delta > 0)
+            {
+                _currentDisplayedItem = Math.Min(GetMinimumDisplayedItems(), Items.Count - 1);
+            }
+            else
+            {
+                _currentDisplayedItem += delta < 0 ? -1 : 1;
+                _currentDisplayedItem = Math.Min(Math.Max(0, _currentDisplayedItem), Items.Count - 1);
+            }
         }
 
         private int GetMinimumDisplayedItems()
         {
-            return (int)Math.Ceiling(ActualWidth / GetItemWidth());
+            return (int)(ActualWidth / GetItemWidth());
         }
 
         private double GetItemWidth()

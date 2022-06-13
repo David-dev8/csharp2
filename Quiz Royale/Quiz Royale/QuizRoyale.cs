@@ -22,7 +22,7 @@ namespace Quiz_Royale
         };
         private static readonly string WINNER_MESSAGE = "Congratulations!";
         private const int TIME_AFTER_BOOST = 3;
-        private const int START_TIME = 20;
+        private const int START_TIME = 10;
 
         private Timer _timer;
         private int _currentTime;
@@ -63,24 +63,73 @@ namespace Quiz_Royale
             Boosters = new ObservableCollection<Item>(Account.Inventory.Boosters);
             FastestPlayers = new ObservableCollection<Player>();
             Players = new ObservableCollection<Player>();
-            TotalAmountOfPlayersStarted = Players.Count;
-            CurrentQuestion = null;
-            Categories = new Dictionary<Category, float>();
+            Chances = new List<CategoryMastery>();
 
-            HubConnector = new HubConnector();
-            HubConnector.newQuestion += SetCurrentQuestion;
-            HubConnector.reduceTime += ReduceTime;
-            HubConnector.playerAnswered += AddFastestPlayer;
+            _connector = new HubConnector();
+            _connector.newQuestion += SetCurrentQuestion;
+            _connector.reduceTime += ReduceTime;
+            _connector.playerAnswered += AddFastestPlayer;
             _timer = new Timer(1000);
             _timer.Elapsed += DecreaseTime;
+
+            _connector.startQuestion += StartQuestion;
+            _connector.results += Result;
+
+            _connector.playersLeft += EliminatePlayers;
+
+            _connector.gameOver += GameEnded;
+            _connector.win += Win;
+
+            _connector.joinStatus += joinStatus;
+            _connector.joinPlayer += joinPlayer;
+            _connector.updateStatus += updateStatus;
+            _connector.start += startGame;
+
+            _connector.Join(Account.Username);
+        }
+
+        private void EliminatePlayers(object sender, PlayersLeftArgs e)
+        {
+            Players = new ObservableCollection<Player>(e.Players);
+        }
+
+        private void Win(object sender, WinArgs e)
+        {
+            Account.CurrentXP += e.XP;
+            Account.AmountOfCoins += e.Coins;
+            EndGame();
+        }
+
+        private void GameEnded(object sender, EventArgs e)
+        {
+            EndGame();
+        }
+
+        private void EndGame()
+        {
+            State = State.ENDED;
+            _connector.BreakConection();
+        }
+
+        private void Result(object sender, ResultArgs e)
+        {
+            Account.CurrentXP += e.XP;
+            Account.AmountOfCoins += e.Coins;
+        }
+
+        private void StartQuestion(object sender, EventArgs e)
+        {
+            _timer.AutoReset = true;
+            _timer.Enabled = true;
+            FastestPlayers.Clear();
+            State = State.QUESTION;
         }
 
         private void SetCurrentQuestion(object sender, NewQuestionArgs e)
         {
             CurrentQuestion = e.Question;
+            State = State.NEXT_CATEGORY;
             CurrentTime = START_TIME;
-            _timer.AutoReset = true;
-            _timer.Enabled = true;
         }
 
         private void ReduceTime(object sender, EventArgs e)
@@ -93,22 +142,65 @@ namespace Quiz_Royale
             CurrentTime--;
         }
 
-        private void AddFastestPlayer(object sender, PlayerArgs e)
+        private void AddFastestPlayer(object sender, PlayerAnsweredArgs e)
         {
-            FastestPlayers.Add(e.Player);
+            if(FastestPlayers.Count < 3)
+            {
+                FastestPlayers.Add(e.Player);
+            }
         }
 
         protected override string GetResultMessage()
         {
-            CurrentPosition = CurrentAmountOfPlayers + 1;
-            double percent = CurrentPosition / TotalAmountOfPlayersStarted * 100;
-            return CurrentAmountOfPlayers > 0 ? LOSE_MESSAGES.Where(x => x.Key >= percent).Reverse().First().Value 
-                : WINNER_MESSAGE;
+            CurrentPosition = CurrentAmountOfPlayers;
+            if(CurrentPosition == 1)
+            {
+                return WINNER_MESSAGE;
+            }
+            double percent = (double) CurrentPosition / TotalAmountOfPlayersStarted * 100;
+            return LOSE_MESSAGES.Where(x => x.Key >= percent).Reverse().First().Value;
         }
 
         public void addPlayer(Player player)
         {
             Players.Add(player);
+        }
+
+        private void joinStatus(Object sender, JoinStatusArgs e)
+        {
+            if (e.Status)
+            {
+                foreach (Player player in e.Players)
+                {
+                    addPlayer(player);
+                }
+                State = State.JOINED;
+                Chances = e.categories;
+            }
+            else
+            {
+                _connector.BreakConection();
+                _connector = null;
+                State = State.ENDED;
+            }
+            StatusMessage = e.Message;
+        }
+
+        private void joinPlayer(Object sender, PlayerArgs e)
+        {
+            addPlayer(e.Player);
+            StatusMessage = e.Message;
+        }
+
+        private void startGame(Object sender, EventArgs e)
+        {
+            TotalAmountOfPlayersStarted = Players.Count;
+            StatusMessage = "The game is starting!";
+        }
+
+        private void updateStatus(Object sender, UpdateStatusArgs e)
+        {
+            StatusMessage = e.Message;
         }
     }
 }

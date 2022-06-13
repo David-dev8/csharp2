@@ -6,12 +6,12 @@ namespace Quiz_Royale
 {
     public class Answer
     {
-        public char Id { get; set; }
+        public char Code { get; set; }
         public string Description { get; set; }
 
-        public Answer(char id, string description)
+        public Answer(char code, string description)
         {
-            Id = id;
+            Code = code;
             Description = description;
         }
     }

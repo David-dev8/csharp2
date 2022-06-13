@@ -19,14 +19,21 @@ namespace Quiz_Royale
                 _time = DateTime.Parse(value);
             }
         }
-        public int AnswersRight { get; set; }
         public int Position { get; set; }
-        public string Mode { get; set; }
-        public Result(string time, int answersRight, int position, string mode)
 
+        public Mode Mode { get; set; }
+
+        public string ModeString
         {
-            Time = "2022-01-01";
-            AnswersRight = answersRight;
+            get
+            {
+                return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Mode.ToString().ToLower().Replace('_', ' '));
+            }
+        }
+
+        public Result(string time, int position, Mode mode)
+        {
+            Time = time;
             Position = position;
             Mode = mode;
         }

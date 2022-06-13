@@ -16,7 +16,7 @@ namespace Quiz_Royale
 
         public string Border { get; set; }
 
-        public int AnswerTime { get; set; }
+        public double AnswerTime { get; set; }
 
         public Player(string username, string title, string profilePicture, string border)
         {

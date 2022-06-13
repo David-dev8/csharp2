@@ -20,5 +20,22 @@ namespace Quiz_Royale
             RequiredAmount = requiredAmount;
             Payment = payment;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            Item otherItem = (Item) obj;
+
+            return Id == otherItem.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
     }
 }

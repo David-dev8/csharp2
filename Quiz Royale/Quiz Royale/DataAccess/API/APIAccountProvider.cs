@@ -1,14 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Quiz_Royale
 {
-    public class APIAccountProvider : IAccountProvider
+    public class APIAccountProvider : APIProcessor, IAccountProvider
     {
-        public Account GetAccount()
+        private static Account s_account;
+
+        public async Task<Account> GetAccount()
         {
-            return new Account("Harrold", 100, 2300, 150, new Inventory());
+            if (s_account == null)
+            {
+                s_account = await _apiHandler.Fetch<Account>("/Player");
+            }
+
+            return s_account;
         }
     }
 }

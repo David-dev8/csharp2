@@ -9,13 +9,26 @@ namespace Quiz_Royale
     public class CategoryMastery
     {
         public Category Category { get; set; }
-        
-        public double Mastery { get; set; }
+
+        private double _mastery;
+
+        public double Mastery
+        {
+            get 
+            {
+                return Math.Round(_mastery, 3);
+            }
+            set 
+            { 
+                _mastery = value; 
+            }
+        }
+
 
         public CategoryMastery(Category category, double mastery)
         {
             Category = category;
-            Mastery = mastery;
+            _mastery = mastery;
         }
 
         public override bool Equals(object obj)
@@ -30,7 +43,6 @@ namespace Quiz_Royale
             return Category.Name.Equals(otherMastery.Category.Name);
         }
 
-        // override object.GetHashCode
         public override int GetHashCode()
         {
             return 1000 * Category.GetHashCode() + Mastery.GetHashCode();

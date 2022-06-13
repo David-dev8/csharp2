@@ -17,6 +17,38 @@ namespace Quiz_Royale
         public Game Game { get; set; }
         public ICommand GoToHome { get; set; }
 
+
+        private bool _hasGameEnded;
+
+        public bool HasGameEnded
+        {
+            get
+            {
+                return _hasGameEnded;
+            }
+            set
+            {
+                _hasGameEnded = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        private bool _canPickCategory;
+
+        public bool CanPickCategory
+        {
+            get
+            {
+                return _canPickCategory;
+            }
+            set
+            {
+                _canPickCategory = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ObservableCollection<Item> Boosters
         {
             get
@@ -66,6 +98,7 @@ namespace Quiz_Royale
                 if(value != null)
                 {
                     _currentAnswer = value;
+                    Game.Answer(value);
                     CanAnswerQuestion = false;
                     NotifyPropertyChanged();
                 }
@@ -85,17 +118,51 @@ namespace Quiz_Royale
             }
         }
 
-        public GameViewModel(NavigationStore navigationStore) : base(navigationStore)
+        public GameViewModel(NavigationStore navigationStore, Game game) : base(navigationStore)
         {
-            var gameFactory = new GameFactory();
-            Game = gameFactory.CreateGame("QuizRoyale");
+            Game = game;
+            DetermineState();
             GoToHome = new RelayCommand(SelectHomeAsCurrentPage);
-            _canAnswerQuestion = true;
+            Game.PropertyChanged += Game_PropertyChanged;
+        }
+
+        private void Game_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            DetermineState();
+        }
+
+        private void DetermineState()
+        {
+            switch (Game.State)
+            {
+                case State.QUESTION:
+                    Reset();
+                    break;
+                case State.NEXT_CATEGORY:
+                    CanPickCategory = true;
+                    break;
+                case State.ENDED:
+                    HasGameEnded = true;
+                    break;
+            }
+        }
+
+        private void Reset()
+        {
+            CanPickCategory = false; // todo
+            CanAnswerQuestion = true;
+            CanUseBooster = true;
         }
 
         private void SelectHomeAsCurrentPage()
         {
             _navigationStore.CurrentViewModel = new HomeViewModel(_navigationStore);
+        }
+
+        public override void Dispose()
+        {
+            Game.Dispose();
+            base.Dispose();
         }
     }
 }

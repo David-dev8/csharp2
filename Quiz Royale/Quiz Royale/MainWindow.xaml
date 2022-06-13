@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Quiz_Royale"
         mc:Ignorable="d"
         Title="MainWindow" Height="700" Width="1000" WindowState="Maximized"
-        >
+        AllowsTransparency="True" WindowStyle="None">
     <Window.Resources>
         <ResourceDictionary Source="ResourceDictionaries/WindowResources.xaml" />
     </Window.Resources>
@@ -24,11 +24,8 @@
             <DataTemplate DataType="{x:Type local:ProfileViewModel}">
                 <local:ProfileView />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type local:PlayersViewModel}">
-                <local:Players />
-            </DataTemplate>
             <DataTemplate DataType="{x:Type local:GameViewModel}">
-                <local:GameRoundView />
+                <local:GameView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type local:LobbyViewModel}">
                 <local:Lobby />

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Windows.Input;
+using Microsoft.Toolkit.Helpers;
 
 namespace Quiz_Royale
 {
@@ -61,7 +62,7 @@ namespace Quiz_Royale
         public MainWindowViewModel(NavigationStore navigationStore)
         {
             _navigationStore = navigationStore;
-            navigationStore.CurrentViewModel = GetFirstViewModel();
+            GetFirstViewModel();
             NotifyForUpdates();
 
             ShowHome = new RelayCommand(SelectHomeAsCurrentPage);
@@ -87,16 +88,30 @@ namespace Quiz_Royale
             _navigationStore.Error = null;
         }
 
-        private BaseViewModel GetFirstViewModel()
+        private void GetFirstViewModel()
         {
             // Controleer of de gebruiker al een account heeft, dit is het geval wanneer er een access token aanwezig is
             if(Storage.Settings.Credentials?.AccessToken == null)
             {
-                return new LoginViewModel(_navigationStore);
+                CurrentViewModel = new LoginViewModel(_navigationStore);
             } 
             else
             {
-                return new ProfileViewModel(_navigationStore);
+                TryToGoToHome();
+            }
+        }
+
+        private async void TryToGoToHome()
+        {
+            try
+            {
+                Account account = await new APIAccountProvider().GetAccount();
+                CurrentViewModel = new HomeViewModel(_navigationStore);
+            }
+            catch(Exception)
+            {
+                CurrentViewModel = new LoginViewModel(_navigationStore);
+                _navigationStore.Error = "Cannot connect to the server. Please try again";
             }
 
         }
@@ -118,6 +133,7 @@ namespace Quiz_Royale
 
         private void CloseProgram()
         {
+            CurrentViewModel.Dispose(); // todo
             Application.Current.Shutdown();
         }
     }

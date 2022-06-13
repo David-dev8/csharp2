@@ -1,13 +1,15 @@
-﻿using Quiz_Royale.DataAccess.API;
+﻿using Microsoft.Toolkit.Helpers;
+using Quiz_Royale.DataAccess.API;
 using Quiz_Royale.Filters;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Quiz_Royale
 {
-    public class Inventory
+    public class Inventory: Observable
     {
 
         IInventoryProvider provider;
@@ -28,6 +30,8 @@ namespace Quiz_Royale
 
         private IInventoryProvider _provider;
         private IInventoryMutator _mutator;
+        private NotifyTaskCompletion<IList<Item>> _activeItems;
+        private NotifyTaskCompletion<IList<Item>> _allItems;
 
         public Item ActiveProfilePicture
         {
@@ -65,14 +69,21 @@ namespace Quiz_Royale
         {
             _provider = new APIInventoryProvider();
             _mutator = new APIInventoryMutator();
+            _allItems = new NotifyTaskCompletion<IList<Item>>(_provider.GetAcquiredItems());
+            _activeItems = new NotifyTaskCompletion<IList<Item>>(_provider.GetActiveItems());
         }
 
         private Item GetItemByType(string type)
         {
+            if (_activeItems.Result == null)
+            {
+                return null;
+            }
+
             var filterFactory = new FilterFactory();
             IItemFilter filter = filterFactory.GetFilter(type);
 
-            foreach(var item in _provider.GetActivateItems())
+            foreach(var item in _activeItems.Result)
             {
                 if(filter.Filter(item))
                 {
@@ -85,11 +96,16 @@ namespace Quiz_Royale
 
         private IList<Item> GetBoosters()
         {
+            if (_activeItems.Result == null)
+            {
+                return null;
+            }
+
             IList<Item> boosters = new List<Item>();
             var filterFactory = new FilterFactory();
             IItemFilter filter = filterFactory.GetFilter("Booster");
 
-            foreach (var item in _provider.GetActivateItems())
+            foreach (var item in _activeItems.Result)
             {
                 if (filter.Filter(item))
                 {
@@ -101,7 +117,6 @@ namespace Quiz_Royale
 
         public void EquipItem(Item item)
         {
-                
         }
 
         public async Task AddItem(Item item)
@@ -111,7 +126,7 @@ namespace Quiz_Royale
 
         public bool HasItem(Item item)
         {
-            return true;
+            return _allItems.Result.Contains(item);
         }
     }
 }

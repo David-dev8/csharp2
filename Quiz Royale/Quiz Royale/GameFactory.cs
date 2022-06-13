@@ -7,12 +7,12 @@ namespace Quiz_Royale
     public class GameFactory
     {
         // TODO met strings of iets anders?
-        public Game CreateGame(string game)
+        public Game CreateGame(Mode mode, Account account)
         {
-            return game switch
+            return mode switch
             {
-                "QuizRoyale" => new QuizRoyale(new Account("De super fantastische speler", 100, 2300, 150, new Inventory())),
-                _ => null,
+                Mode.QUIZ_ROYALE => new QuizRoyale(account),
+                _ => null // todo
             };
         }
     }

@@ -27,6 +27,7 @@ namespace Quiz_Royale
             if(CanBuy(account, item))
             {
                 await account.Inventory.AddItem(item);
+                RemoveFunds(account, item);
             }
             else
             {
@@ -49,7 +50,7 @@ namespace Quiz_Royale
 
         private bool IsOutOfStock(Account account, Item item)
         {
-            return !((item is Booster) || account.Inventory.HasItem(item));
+            return !(item is Booster) && account.Inventory.HasItem(item);
         }
 
         private bool CanBuy(Account account, Item item)
@@ -65,6 +66,14 @@ namespace Quiz_Royale
                 Payment.COINS => account.AmountOfCoins >= item.RequiredAmount,
                 _ => false // todo exception?
             };
+        }
+
+        private void RemoveFunds(Account account, Item item)
+        {
+            if(item.Payment == Payment.COINS)
+            {
+                account.AmountOfCoins -= item.RequiredAmount;
+            }
         }
     }
 }
