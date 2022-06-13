@@ -18,11 +18,11 @@ namespace Quiz_Royale
         public event EventHandler startQuestion;
         public event EventHandler<NewQuestionArgs> newQuestion;
         public event EventHandler<ResultArgs> results;
-        public event EventHandler win;
+        public event EventHandler<WinArgs> win;
         public event EventHandler<CategoryIncreaseArgs> catIncrease;
         public event EventHandler reduceTime;
-        public event EventHandler<PlayerAnsweredEventArgs> playerAnswered;
-        public event EventHandler<PlayersLeftEventArgs> playersLeft;
+        public event EventHandler<PlayerAnsweredArgs> playerAnswered;
+        public event EventHandler<PlayersLeftArgs> playersLeft;
 
         public HubConnector()
         {
@@ -76,9 +76,9 @@ namespace Quiz_Royale
                 results?.Invoke(this, new ResultArgs(result, xp, coins));
             });
 
-            connection.On("Win", () =>
+            connection.On<int, int>("Win", (xp, coins) =>
             {
-                win?.Invoke(this, new EventArgs());
+                win?.Invoke(this, new WinArgs(xp, coins));
             });
 
             connection.On<string>("categoryIncrease", (cat) =>
@@ -93,12 +93,12 @@ namespace Quiz_Royale
 
             connection.On<Player, double>("playerAnswered", (player, answerTime) => 
             {
-                playerAnswered?.Invoke(this, new PlayerAnsweredEventArgs(player, answerTime));
+                playerAnswered?.Invoke(this, new PlayerAnsweredArgs(player, answerTime));
             });
 
             connection.On<IList<Player>>("playersLeft", (players) =>
             {
-                playersLeft?.Invoke(this, new PlayersLeftEventArgs(players));
+                playersLeft?.Invoke(this, new PlayersLeftArgs(players));
             });
 
             try

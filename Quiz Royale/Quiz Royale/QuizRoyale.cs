@@ -78,7 +78,7 @@ namespace Quiz_Royale
             _connector.playersLeft += EliminatePlayers;
 
             _connector.gameOver += GameEnded;
-            _connector.win += GameEnded;
+            _connector.win += Win;
 
             _connector.joinStatus += joinStatus;
             _connector.joinPlayer += joinPlayer;
@@ -88,12 +88,24 @@ namespace Quiz_Royale
             _connector.Join(Account.Username);
         }
 
-        private void EliminatePlayers(object sender, PlayersLeftEventArgs e)
+        private void EliminatePlayers(object sender, PlayersLeftArgs e)
         {
             Players = new ObservableCollection<Player>(e.Players);
         }
 
+        private void Win(object sender, WinArgs e)
+        {
+            Account.CurrentXP += e.XP;
+            Account.AmountOfCoins += e.Coins;
+            EndGame();
+        }
+
         private void GameEnded(object sender, EventArgs e)
+        {
+            EndGame();
+        }
+
+        private void EndGame()
         {
             State = State.ENDED;
             _connector.BreakConection();
@@ -130,7 +142,7 @@ namespace Quiz_Royale
             CurrentTime--;
         }
 
-        private void AddFastestPlayer(object sender, PlayerAnsweredEventArgs e)
+        private void AddFastestPlayer(object sender, PlayerAnsweredArgs e)
         {
             if(FastestPlayers.Count < 3)
             {

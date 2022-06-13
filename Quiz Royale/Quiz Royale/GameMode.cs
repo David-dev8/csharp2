@@ -16,15 +16,18 @@ namespace Quiz_Royale
 
         public Mode Mode { get; set; }
 
+        public bool Released { get; set; }
+
         // TODO gamemode toevoegen
 
-        public GameMode(Mode mode, string picture, string title, string subtitle, string description)
+        public GameMode(Mode mode, string picture, string title, string subtitle, string description, bool released = true)
         {
             Picture = picture;
             Title = title;
             Subtitle = subtitle;
             Description = description;
             Mode = mode;
+            Released = released;
         }
     }
 

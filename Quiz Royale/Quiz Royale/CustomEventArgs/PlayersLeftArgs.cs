@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Quiz_Royale
 {
-    public class PlayersLeftEventArgs: EventArgs
+    public class PlayersLeftArgs: EventArgs
     {
         public IList<Player> Players { get; }
 
-        public PlayersLeftEventArgs(IList<Player> players)
+        public PlayersLeftArgs(IList<Player> players)
         {
             Players = players;
         }

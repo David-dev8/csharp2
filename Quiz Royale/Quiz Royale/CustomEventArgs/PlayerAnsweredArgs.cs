@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Quiz_Royale
 {
-    public class PlayerAnsweredEventArgs
+    public class PlayerAnsweredArgs
     {
         public Player Player { get; }
 
-        public PlayerAnsweredEventArgs(Player player, double AnswerTime)
+        public PlayerAnsweredArgs(Player player, double AnswerTime)
         {
             Player = player;
             Player.AnswerTime = AnswerTime;

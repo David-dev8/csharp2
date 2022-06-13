@@ -126,7 +126,7 @@
                                         <Binding Path="ActualHeight" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
                                     </MultiBinding>
                                 </StackPanel.Margin>
-                                <Grid>
+                                <Grid Background="White">
                                     <Image Source="{Binding ProfilePicture}" Height="30" Width="30" HorizontalAlignment="Center"/>
                                     <Image Source="{Binding Border}" Height="40" Width="40" HorizontalAlignment="Center"/>
                                 </Grid>

@@ -61,9 +61,9 @@
                     <TextBlock Text="{Binding Game.ResultMessage}" Style="{StaticResource GameEndedStyle}" Margin="0, 7, 0, 0" VerticalAlignment="Center" 
                                Grid.Column="1" />
                     <Image MaxHeight="30" Source="/Assets/coins.png" Grid.Row="1" />
-                    <TextBlock Style="{StaticResource RewardText}" Grid.Row="1" Text="{Binding Game.Account.CurrentXP}" />
+                    <TextBlock Style="{StaticResource RewardText}" Grid.Row="1" Text="{Binding Game.Account.AmountOfCoins}" />
                     <Image MaxHeight="23" Source="/Assets/xp.png" Grid.Row="2" />
-                    <TextBlock Style="{StaticResource RewardText}" Grid.Row="2" Text="{Binding Game.Account.AmountOfCoins}" />
+                    <TextBlock Style="{StaticResource RewardText}" Grid.Row="2" Text="{Binding Game.Account.CurrentXP}" />
                 </Grid>
                 <Grid Grid.Column="1" Grid.Row="2" Width="100" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Right">
                     <Button Command="{Binding GoToHome}">

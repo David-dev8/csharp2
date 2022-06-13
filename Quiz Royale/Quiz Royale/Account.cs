@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Quiz_Royale
 {
@@ -12,6 +13,7 @@ namespace Quiz_Royale
         
         private int _amountOfCoins;
 
+        [JsonPropertyName("coins")]
         public int AmountOfCoins
         {
             get
@@ -25,9 +27,9 @@ namespace Quiz_Royale
             }
         }
 
-
         private int _currentXP;
 
+        [JsonPropertyName("xp")]
         public int CurrentXP
         {
             get
@@ -75,16 +77,6 @@ namespace Quiz_Royale
             CurrentXP = currentXP;
             TotalWins = totalWins;
             Inventory = new Inventory();
-        }
-
-        public int GetLevel()
-        {
-            return 0;
-        }
-
-        public void GetXPToNextlevel()
-        {
-
         }
     }
 }

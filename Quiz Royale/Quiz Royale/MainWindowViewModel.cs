@@ -123,7 +123,7 @@ namespace Quiz_Royale
 
         private void CloseProgram()
         {
-            CurrentViewModel.Dispose();
+            CurrentViewModel.Dispose(); // todo
             Application.Current.Shutdown();
         }
     }
