@@ -67,18 +67,6 @@ namespace Quiz_Royale
             Account = new NotifyTaskCompletion<Account>(_accountProvider.GetAccount());
             CurrentRank = new NotifyTaskCompletion<Rank>(_accountDataProvider.GetRank());
             Results = new NotifyTaskCompletion<IList<Result>>(_accountDataProvider.GetResults());
-
-            Results.PropertyChanged += Results_PropertyChanged;
-
-                // TODO er zijn geen resultaten toevoegen attribuut op de table
-        }
-
-        private void Results_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if(Results.IsSuccessfullyCompleted)
-            {
-                Console.WriteLine("f ekegkkel");
-            }
         }
     }
 }

@@ -9,34 +9,12 @@ namespace Quiz_Royale
     {
         public Task<IList<Badge>> GetBadges()
         {
-            return new List<Badge>
-            {
-                new Badge("Winner","Win 50 times in quiz royale","/Assets/testBadge.png"),
-                new Badge("On Fire!","Description","/Assets/testBadge.png"),
-                new Badge("Badge3","Description","/Assets/testBadge.png"),
-                new Badge("Badge4","Description","/Assets/testBadge.png"),
-                new Badge("Badge4","Description","/Assets/testBadge.png"),
-                new Badge("Badge4","Description","/Assets/testBadge.png"),
-                new Badge("Badge4","Description","/Assets/testBadge.png"),
-                new Badge("Badge4","Description","/Assets/testBadge.png"),
-                new Badge("Badge4","Description","/Assets/testBadge.png"),
-                new Badge("Badge4","Description","/Assets/testBadge.png"),
-                new Badge("Badge4","Description","/Assets/testBadge.png"),
-            };
+            return _apiHandler.FetchAll<Badge>("/PlayerData/Badges");
         }
 
         public Task<IList<CategoryMastery>> GetCategoryMastery()
         {
-            return new List<Mastery>
-            {
-                new Mastery(new Category("Wetenschap", "/Assets/testCategory.png", "#FFFFFF"), 100),
-                new Mastery(new Category("Wetenschap", "/Assets/testCategory.png", "#b80c0c"), 100),
-                new Mastery(new Category("Wetenschap", "/Assets/testCategory.png", "#FFFFFF"), 100),
-                new Mastery(new Category("Wetenschap", "/Assets/testCategory.png", "#FFFFFF"), 100),
-                new Mastery(new Category("Wetenschap", "/Assets/testCategory.png", "#4fb80c"), 100),
-                new Mastery(new Category("Wetenschap", "/Assets/testCategory.png", "#FFFFFF"), 100),
-                new Mastery(new Category("Wetenschap", "/Assets/testCategory.png", "#FFFFFF"), 100)
-            };
+            return _apiHandler.FetchAll<CategoryMastery>("/PlayerData/Mastery");
         }
 
         public Task<Rank> GetRank()

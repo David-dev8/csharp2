@@ -72,36 +72,15 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style TargetType="StackPanel" x:Key="Disabled">
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.5" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
-    <!--<UserControl.Resources>
-        <Style TargetType="Border">
-            <Setter Property="Background" Value="#DAD9D9"/>
-            <Setter Property="Opacity" Value="0.8"/>
-            <Setter Property="Margin" Value="20"/>
-            <Setter Property="CornerRadius" Value="20"/>
-        </Style>
-        <Style TargetType="TextBlock">
-            <Setter Property="FontSize" Value="24"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-        </Style>
-        <Style TargetType="ListView">
-            <Setter Property="FontSize" Value="24"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="Background" Value="#DAD9D9"/>
-            <Setter Property="Opacity" Value="0.8"/>
-        </Style>
-        <Style TargetType="StackPanel">
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-        </Style>  
-        <Style TargetType="Button">
-            <Setter Property="Background" Value="#85abb5"/>
-            <Setter Property="Height" Value="70"/>
-            <Setter Property="Width" Value="300"/>
-        </Style>
-    </UserControl.Resources>-->
+
     <Grid Margin="50">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -125,7 +104,7 @@
                     <TextBlock Text="Profile" />
                 </StackPanel>
             </Border>
-            <DockPanel Grid.Column="2" DataContext="{Binding Account}" Margin="0, 0, 10, 0">
+            <DockPanel Grid.Column="2" DataContext="{Binding Account.Result}" Margin="0, 0, 10, 0">
                 <Border Style="{StaticResource Box}" DockPanel.Dock="Right" Margin="0" Width="175">
                     <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Margin="0, 0, 50, 0" VerticalAlignment="Center">
                         <Image MaxHeight="25" Margin="15, 0, 13, 0" Source="/Assets/coins.png" />
@@ -143,31 +122,31 @@
                     </StackPanel>
                 </Border>
             </DockPanel>
-            <Border Style="{StaticResource Box}" Grid.Row="2"  Grid.ColumnSpan="3">
+            <Border Style="{StaticResource Box}" Margin="0" Grid.Row="2"  Grid.ColumnSpan="3">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="1.8*" />
                         <ColumnDefinition Width="0.8*" />
                     </Grid.ColumnDefinitions>
-                    <StackPanel Margin="50, 30, 50, 0">
-                        <Grid DataContext="{Binding Account.Inventory}" Height="150" HorizontalAlignment="Left" >
-                            <Image Source="{Binding ActiveProfilePicture.Picture}" Margin="0, 10, 0, 0" />
+                    <StackPanel Margin="40, 30" DataContext="{Binding Account.Result}">
+                        <Grid DataContext="{Binding Inventory}" Height="120" HorizontalAlignment="Left" >
+                            <Image Source="{Binding ActiveProfilePicture.Picture}" Height="90" />
                             <Image Source="{Binding ActiveBorder.Picture}" />
                         </Grid>
                         <StackPanel Margin="0, 18, 0, 0">
-                            <TextBlock FontWeight="Bold" FontSize="22" Text="{Binding Account.Username}" />
-                            <TextBlock FontStyle="Italic" FontWeight="Regular" FontSize="18" Text="{Binding Account.Inventory.ActivePlayerTitle.Name}" />
+                            <TextBlock FontWeight="Bold" FontSize="22" Text="{Binding Username}" />
+                            <TextBlock FontWeight="Regular" FontSize="18" Text="{Binding Inventory.ActivePlayerTitle.Name}" />
                         </StackPanel>
                     </StackPanel>
                     <StackPanel Grid.Column="1" Margin="0, 30, 0, 0">
                         <TextBlock Style="{StaticResource Title}">Category Mastery</TextBlock>
-                        <ItemsControl ItemsSource="{Binding Mastery}">
+                        <ItemsControl ItemsSource="{Binding Mastery.Result}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <StackPanel Orientation="Horizontal" Margin="0, 10, 0, 0">
-                                        <Image MaxHeight="35" Source="{Binding Category.Picture}"/>
-                                        <ProgressBar  Margin="15, 0, 50, 0" Foreground="{Binding Category.Color}" Value="{Binding SuccesRate}" Style="{DynamicResource ProgressBarMastery}">
+                                    <StackPanel Orientation="Horizontal" Margin="0, 15, 0, 0">
+                                        <local:SVGImage MaxHeight="25" Source="{Binding Category.Picture}" Color="{Binding Category.Color}" />
+                                        <ProgressBar Margin="15, 0, 50, 0" Foreground="{Binding Category.Color}" Value="{Binding Mastery}" Style="{DynamicResource ProgressBarMastery}">
                                             <ProgressBar.Effect>
                                                 <DropShadowEffect BlurRadius="15" ShadowDepth="7" Opacity="0.25" Color="Black" />
                                             </ProgressBar.Effect>
@@ -184,14 +163,14 @@
                     </StackPanel>
                     <StackPanel Grid.Column="2" Margin="0, 30, 0, 0">
                         <Image MaxHeight="150" Source="/Assets/cup.png"/>
-                        <TextBlock FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Center">Wins</TextBlock>
-                        <TextBlock FontSize="18" FontWeight="SemiBold" HorizontalAlignment="Center">10</TextBlock>
+                        <TextBlock FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Center" Text="Wins" />
+                        <TextBlock FontSize="18" FontWeight="SemiBold" HorizontalAlignment="Center" Text="{Binding Account.Result.TotalWins}" />
                     </StackPanel>
                 </Grid>
             </Border>
         </Grid>
         <Grid Grid.Row="2">
-           <Grid.RowDefinitions>
+            <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="20" />
                 <RowDefinition Height="5*" />
@@ -207,16 +186,16 @@
                     <TextBlock Text="Badges" />
                 </StackPanel>
             </Border>
-            <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Style="{StaticResource Box}">
+            <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Style="{StaticResource Box}" Margin="0">
                 <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Hidden">
-                    <ItemsControl ItemsSource="{Binding Badge}" Margin="50,30">
+                    <ItemsControl ItemsSource="{Binding Badges.Result}" Margin="30">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Horizontal" Margin="0, 10, 30, 0" Width="330">
-                                    <Image MaxHeight="125" Source="{Binding Picture}"/>
+                                <StackPanel Orientation="Horizontal" Margin="0, 10, 30, 0" Width="360" IsEnabled="{Binding IsEarned}" Style="{StaticResource Disabled}">
+                                    <Image MaxHeight="110" Source="{Binding Picture}"/>
                                     <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                                        <TextBlock Style="{StaticResource Title}" Text="{Binding Name}" ></TextBlock>
-                                        <TextBlock Style="{StaticResource SubTitle}" Text="{Binding Description}" ></TextBlock>
+                                        <TextBlock Style="{StaticResource Title}" Text="{Binding Name}" />
+                                        <TextBlock Style="{StaticResource SubTitle}" Text="{Binding Description}" />
                                     </StackPanel>
                                 </StackPanel>
                             </DataTemplate>

@@ -53,7 +53,7 @@
                     </Button>
                 </StackPanel>
                 <StackPanel Style="{StaticResource MenuItem}" DockPanel.Dock="Top">
-                    <Button Command="{Binding ShowHome}" Style="{StaticResource MenuButton}"
+                    <Button Command="{Binding ShowProfile}" Style="{StaticResource MenuButton}"
                             Visibility="{Binding IsInMenu, Converter={StaticResource VisibilityConverter}}">
                         <Grid Style="{StaticResource MenuGrid}">
                             <Grid.ColumnDefinitions>

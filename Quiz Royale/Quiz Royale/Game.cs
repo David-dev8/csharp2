@@ -101,8 +101,11 @@ namespace Quiz_Royale
 
         public void Dispose()
         {
-            _connector.Leave();
-            _connector.BreakConection();
+            if(_connector != null)
+            {
+                _connector.Leave();
+                _connector.BreakConection();
+            }
         }
     }
 
