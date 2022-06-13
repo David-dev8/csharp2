@@ -9,30 +9,19 @@ using System.Threading.Tasks;
 
 namespace Quiz_Royale
 {
+    /// <summary>
+    /// Deze klasse vertegenwoordigt de inventory van een gebruiker.
+    /// </summary>
     public class Inventory: Observable
     {
-
-        IInventoryProvider provider;
-        IInventoryMutator mutator;
-        ItemFactory itemFactory;
-
-        public IList<Item> items 
-        {
-            get
-            {
-                return new List<Item> 
-                { 
-                    itemFactory.MakeItem(1, ItemType.BORDER, "picture", "picture",10, Payment.XP), 
-                    itemFactory.MakeItem(1, ItemType.PROFILE_PICTURE, "picture2", "picture2",10, Payment.XP)
-                };
-            }
-        }
-
         private IInventoryProvider _provider;
         private IInventoryMutator _mutator;
         private NotifyTaskCompletion<IList<Item>> _activeItems;
         private NotifyTaskCompletion<IList<Item>> _allItems;
 
+        /// <summary>
+        /// Deze property geeft toegang tot de actieve profielfoto van de gebruiker.
+        /// </summary>
         public Item ActiveProfilePicture
         {
             get
@@ -41,6 +30,9 @@ namespace Quiz_Royale
             }
         }
 
+        /// <summary>
+        /// Deze property geeft toegang tot de actieve spelerstitel van de gebruiker.
+        /// </summary>
         public Item ActivePlayerTitle
         {
             get
@@ -49,6 +41,9 @@ namespace Quiz_Royale
             }
         }
 
+        /// <summary>
+        /// Deze property geeft toegang tot de actieve border van de gebruiker.
+        /// </summary>
         public Item ActiveBorder
         {
             get
@@ -57,6 +52,9 @@ namespace Quiz_Royale
             }
         }
 
+        /// <summary>
+        /// Deze property geeft toegang tot alle boosters van de gebruiker.
+        /// </summary>
         public IList<Item> Boosters
         {
             get
@@ -65,6 +63,9 @@ namespace Quiz_Royale
             }
         }
 
+        /// <summary>
+        /// Creëert een inventory voor de gebruiker.
+        /// </summary>
         public Inventory()
         {
             _provider = new APIInventoryProvider();
@@ -73,6 +74,7 @@ namespace Quiz_Royale
             _activeItems = new NotifyTaskCompletion<IList<Item>>(_provider.GetActiveItems());
         }
 
+        // Haalt het actieve item op van het type dat wordt meegegeven.
         private Item GetItemByType(string type)
         {
             if (_activeItems.Result == null)
@@ -94,6 +96,7 @@ namespace Quiz_Royale
  
         }
 
+        // Haalt alle boosters op die de gebruiker heeft.
         private IList<Item> GetBoosters()
         {
             if (_activeItems.Result == null)
@@ -115,15 +118,29 @@ namespace Quiz_Royale
             return boosters;
         }
 
+        /// <summary>
+        /// Selecteert het gegeven item en maakt deze actief.
+        /// </summary>
+        /// <param name="item">Het geselecteerde item.</param>
         public void EquipItem(Item item)
         {
         }
 
+        /// <summary>
+        /// Voegt een item toe aan de inventory.
+        /// </summary>
+        /// <param name="item">Het item dat moet worden toegevoegd.</param>
+        /// <returns></returns>
         public async Task AddItem(Item item)
         {
             await _mutator.ObtainItem(item);
         }
 
+        /// <summary>
+        /// Controleert of de gebruiker het item al in bezit heeft.
+        /// </summary>
+        /// <param name="item">Het item waarop moet worden gecontroleerd.</param>
+        /// <returns>True als de gebruiker het item al heeft, anders false.</returns>
         public bool HasItem(Item item)
         {
             return _allItems.Result.Contains(item);

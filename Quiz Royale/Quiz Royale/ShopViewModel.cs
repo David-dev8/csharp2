@@ -9,14 +9,22 @@ using System.Threading.Tasks;
 
 namespace Quiz_Royale
 {
+    /// <summary>
+    /// Deze klasse dient als ViewModel voor de shop. 
+    /// Het bevat properties en commands voor de desbetreffende view.
+    /// </summary>
     public class ShopViewModel : ItemShowerViewModel
     {
         private Shop _shop;
+        private Item _itemSelected;
+        private IList<Item> _rewards;
+        private IList<Item> _disabledItems;
 
         public NotifyTaskCompletion<Account> Account { get; set; }
 
-        private Item _itemSelected;
-
+        /// <summary>
+        /// Als er een item wordt geselecteerd zal deze worden gekocht met coins.
+        /// </summary>
         public Item ItemSelected
         {
             set
@@ -29,6 +37,9 @@ namespace Quiz_Royale
             }
         }
 
+        /// <summary>
+        /// Als er een reward item wordt geselecteerd zal deze worden gekocht met XP.
+        /// </summary>
         public Item RewardSelected
         {
             set
@@ -41,8 +52,9 @@ namespace Quiz_Royale
             }
         }
 
-        private IList<Item> _rewards;
-
+        /// <summary>
+        /// Deze property geeft toegang tot de rewards van de shop.
+        /// </summary>
         public IList<Item> Rewards
         {
             get
@@ -56,8 +68,11 @@ namespace Quiz_Royale
             }
         }
 
-        private IList<Item> _disabledItems;
 
+        /// <summary>
+        /// Deze property geeft toegang tot alle items die gedisabled zijn.
+        /// Items die al gekocht zijn en die niet meer opnieuw kunnen worden gekocht worden gedisabled.
+        /// </summary>
         public IList<Item> DisabledItems
         {
             get
@@ -71,6 +86,10 @@ namespace Quiz_Royale
             }
         }
 
+        /// <summary>
+        /// Creëert een ShopViewModel met een gegeven navigationStore.
+        /// </summary>
+        /// <param name="navigationStore">De navigationStore die wordt gebruikt voor navigatie.</param>
         public ShopViewModel(NavigationStore navigationStore) : base(navigationStore)
         {
             IsLoading = true;
@@ -79,6 +98,8 @@ namespace Quiz_Royale
             Account = new NotifyTaskCompletion<Account>(_accountProvider.GetAccount());
         }
 
+        // Zorgt ervoor dat de items die gekocht worden en de rewards apart worden opgeslagen zodra alle items in de shop zijn opgehaald.
+        // Filter standaard op de borders.
         private void Items_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (_shop.Items.IsSuccessfullyCompleted && Account.IsSuccessfullyCompleted)
@@ -94,6 +115,8 @@ namespace Quiz_Royale
             }
         }
 
+        // Koopt het huidige geselecteerde item.
+        // Als blijkt dat dit niet mogelijk is, wordt er een foutmelding weergegeven.
         private async Task Buy()
         {
             // todo try catch?
@@ -111,11 +134,13 @@ namespace Quiz_Royale
             }
         }
 
+        // Filtert alle items die gekocht kunnen worden met coins.
         private void FillBuyables(IList<Item> items)
         {
             _allItems = Filter(_filterFactory.GetFilter("Buy"), items);
         }
 
+        // Filtert alle items die gekocht kunnen worden met XP.
         private void FillRewards(IList<Item> items)
         {
             Rewards = Filter(_filterFactory.GetFilter("Reward"), items);

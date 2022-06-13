@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Quiz_Royale
 {
+    /// <summary>
+    /// Deze klasse vertegenwoordigt een categorie.
+    /// </summary>
     public class Category
     {
         public string Picture { get; set; }
@@ -13,6 +16,12 @@ namespace Quiz_Royale
 
         public string Color { get; set; }
 
+        /// <summary>
+        /// Creëert een categorie met de gegeven eigenschappen.
+        /// </summary>
+        /// <param name="name">De naam van de categorie.</param>
+        /// <param name="picture">De afbeelding van de categorie.</param>
+        /// <param name="color">De kleur van de categorie.</param>
         public Category(string name, string picture, string color)
         {
             Name = name;

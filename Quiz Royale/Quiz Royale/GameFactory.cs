@@ -4,10 +4,18 @@ using System.Text;
 
 namespace Quiz_Royale
 {
+    /// <summary>
+    /// Deze klasse zorgt ervoor dat er verschillende gamemodi kunnen worden gemaakt.
+    /// </summary>
     public class GameFactory
     {
-        // TODO met strings of iets anders?
-        public Game CreateGame(Mode mode, Account account)
+        /// <summary>
+        /// Maakt een game van het gegeven type met het gegeven account.
+        /// </summary>
+        /// <param name="mode">De modus van de game.</param>
+        /// <param name="account">Het account dat meedoet aan het spel.</param>
+        /// <returns></returns>
+        public Game CreateGame(Mode mode, Account account) // TODO met strings of iets anders?
         {
             return mode switch
             {

@@ -6,12 +6,18 @@ using System.Threading.Tasks;
 
 namespace Quiz_Royale
 {
+    /// <summary>
+    /// Deze klasse vertegenwoordigt een mastery van een bepaalde categorie.
+    /// </summary>
     public class CategoryMastery
     {
-        public Category Category { get; set; }
-
         private double _mastery;
 
+        public Category Category { get; set; }
+
+        /// <summary>
+        /// Deze property geeft toegang tot de mastery van een bepaalde categorie.
+        /// </summary>
         public double Mastery
         {
             get 
@@ -25,6 +31,11 @@ namespace Quiz_Royale
         }
 
 
+        /// <summary>
+        /// Creëert een mastery van een gegeven categorie.
+        /// </summary>
+        /// <param name="category">De categorie waarvan vragen zijn beantwoord.</param>
+        /// <param name="mastery">Het percentage van goede antwoorden ten opzichte van alle vragen.</param>
         public CategoryMastery(Category category, double mastery)
         {
             Category = category;

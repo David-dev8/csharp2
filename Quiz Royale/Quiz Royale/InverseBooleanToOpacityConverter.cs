@@ -14,12 +14,12 @@ namespace Quiz_Royale
         {
             bool isTrue = System.Convert.ToBoolean(value);
 
-            return isTrue ? 0.4 : 1;
+            return isTrue ? 0.4 : 1; // TODO moet de 0.4 geen const worden?
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException(); // TODO wat moet met dit gebeuren?
         }
     }
 }

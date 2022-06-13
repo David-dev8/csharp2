@@ -8,10 +8,17 @@ using Microsoft.Toolkit.Helpers;
 
 namespace Quiz_Royale
 {
+    /// <summary>
+    /// Deze klasse dient als de basis ViewModel voor de pagina's op de applicatie.
+    /// In deze klasse zijn commands en properties aanwezig voor de werking van de navigatiebalk.
+    /// </summary>
     public class MainWindowViewModel: Observable
     {
         private readonly NavigationStore _navigationStore;
 
+        /// <summary>
+        /// Deze property geeft toegang tot de huidige ViewModel.
+        /// </summary>
         public BaseViewModel CurrentViewModel 
         {
             get
@@ -24,6 +31,9 @@ namespace Quiz_Royale
             }
         }
 
+        /// <summary>
+        /// Deze property geeft aan of een item in het menu aanwezig moet zijn of niet.
+        /// </summary>
         public bool IsInMenu
         {
             get
@@ -32,6 +42,9 @@ namespace Quiz_Royale
             }
         }
 
+        /// <summary>
+        /// Deze property geeft toegang tot de error.
+        /// </summary>
         public string Error
         {
             get
@@ -40,6 +53,9 @@ namespace Quiz_Royale
             }
         }
 
+        /// <summary>
+        /// Deze property geeft aan of er een error aanwezig is of niet.
+        /// </summary>
         public bool HasError
         {
             get
@@ -54,11 +70,14 @@ namespace Quiz_Royale
 
         public ICommand ExitProgram { get; set; }
 
-
         public ICommand ShowProfile { get; set; }
 
         public ICommand Dismiss { get; set; }
 
+        /// <summary>
+        /// Creëert een ViewModel voor de MainWindow met een navigationStore.
+        /// </summary>
+        /// <param name="navigationStore">De navigationStore die wordt gebruikt voor navigatie.</param>
         public MainWindowViewModel(NavigationStore navigationStore)
         {
             _navigationStore = navigationStore;
@@ -72,6 +91,7 @@ namespace Quiz_Royale
             Dismiss = new RelayCommand(DismissAllErrors);
         }
 
+        // Update de properties wanneer er wordt genavigeeerd. 
         private void NotifyForUpdates()
         {
             _navigationStore.Navigated += (object sender, EventArgs e) =>
@@ -83,11 +103,13 @@ namespace Quiz_Royale
             };
         }
 
+        // Verwijder alle errors.
         private void DismissAllErrors()
         {
             _navigationStore.Error = null;
         }
 
+        // Haal de eerste ViewModel bij het opstarten.
         private void GetFirstViewModel()
         {
             // Controleer of de gebruiker al een account heeft, dit is het geval wanneer er een access token aanwezig is
@@ -101,6 +123,7 @@ namespace Quiz_Royale
             }
         }
 
+        // TODO COMMENT
         private async void TryToGoToHome()
         {
             try
@@ -116,21 +139,25 @@ namespace Quiz_Royale
 
         }
 
+        // Selecteert de homepagina als huidige pagina.
         private void SelectHomeAsCurrentPage()
         {
             CurrentViewModel = new HomeViewModel(_navigationStore);
         }
 
+        // Selecteert de shop als de huidige pagina.
         private void SelectShopAsCurrentPage()
         {
             CurrentViewModel = new ShopViewModel(_navigationStore);
         }
 
+        // Selecteert de profielpagina als huidige pagina.
         private void SelectProfileAsCurrentPage()
         {
             CurrentViewModel = new ProfileViewModel(_navigationStore);
         }
 
+        // Sluit het programma af.
         private void CloseProgram()
         {
             CurrentViewModel.Dispose(); // todo

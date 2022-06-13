@@ -13,11 +13,17 @@ namespace Quiz_Royale
         public class ItemDTO
         {
             public int Id { get; set; }
+
             public ItemType ItemType { get; set; }
+
             public string Name { get; set; }
+
             public string Picture { get; set; }
+
             public int Cost { get; set; }
+
             public Payment PaymentType { get; set; }
+
             public string Description { get; set; }
         }
 

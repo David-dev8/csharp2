@@ -52,6 +52,6 @@ namespace Quiz_Royale
 
     public class Settings
     {
-        public TokenCredentials Credentials { get; set; }
+        public TokenCredentials Credentials { get; set; } // TODO Hoort deze niet in apart bestand
     }
 }

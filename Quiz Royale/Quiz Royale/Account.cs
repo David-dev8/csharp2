@@ -5,15 +5,22 @@ using System.Text.Json.Serialization;
 
 namespace Quiz_Royale
 {
+    /// <summary>
+    /// Deze klasse vertegenwoordigt een account van een gebruiker op de applicatie.
+    /// </summary>
     public class Account: Observable
     {
         private const int NEEDED_XP_TO_REACH_NEXT_LEVEL = 1000;
 
-        public string Username { get; set; }
-        
         private int _amountOfCoins;
+        private int _currentXP;
 
-        [JsonPropertyName("coins")]
+        public string Username { get; set; }
+
+        /// <summary>
+        /// Deze property geeft toegang tot de hoeveelheid coins die de gebruiker heeft.
+        /// </summary>
+		[JsonPropertyName("coins")]
         public int AmountOfCoins
         {
             get
@@ -27,9 +34,10 @@ namespace Quiz_Royale
             }
         }
 
-        private int _currentXP;
-
-        [JsonPropertyName("xp")]
+        /// <summary>
+        /// Deze property geeft toegang tot de hoeveelheid XP die de gebruiker heeft.
+        /// </summary>
+		[JsonPropertyName("xp")]
         public int CurrentXP
         {
             get
@@ -44,9 +52,12 @@ namespace Quiz_Royale
         }
 
         public int TotalWins { get; set; }
+
         public Inventory Inventory { get; set; }
 
-
+        /// <summary>
+        /// Deze property geeft toegang tot het huidige level van de gebruiker.
+        /// </summary>
         public int Level
         {
             get
@@ -55,6 +66,9 @@ namespace Quiz_Royale
             }
         }
 
+        /// <summary>
+        /// Deze property geeft toegang tot het aantal xp dat nog nodig is om het volgende level te bereiken.
+        /// </summary>
         public int XPToNextLevel
         {
             get
@@ -63,6 +77,9 @@ namespace Quiz_Royale
             }
         }
 
+        /// <summary>
+        /// Deze property geeft toegang tot de progressie van het level die door de gebruiker is geboekt.
+        /// </summary>
         public int PercentOfLevelProgress
         {
             get
@@ -71,6 +88,13 @@ namespace Quiz_Royale
             }
         }
 
+        /// <summary>
+        /// Creëert een account van een gebruiker op de applicatie.
+        /// </summary>
+        /// <param name="username">De gebruikersnaam van het account.</param>
+        /// <param name="amountOfCoins">De hoeveelheid coins die een gebruiker heeft.</param>
+        /// <param name="currentXP">De hoeveelheid XP die een gebruiker heeft.</param>
+        /// <param name="totalWins">Het aantal overwinningen dat de gebruiker heeft behaald.</param>
         public Account(string username, int amountOfCoins, int currentXP, int totalWins)
         {
             Username = username;

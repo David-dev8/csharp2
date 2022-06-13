@@ -7,14 +7,25 @@ using System.Threading.Tasks;
 
 namespace Quiz_Royale
 {
-    public abstract class Game : Observable // TODO geen constr?
+    /// <summary>
+    /// Deze klasse vertegenwoordigt de basis van een game in de applicatie.
+    /// </summary>
+    public abstract class Game : Observable // TODO geen constructor?
     {
         private ObservableCollection<Item> _boosters;
         protected HubConnector _connector;
+        private State _state;
+        private string _statusMessage;
 
         public Question CurrentQuestion { get; set; }
+
         public IList<CategoryMastery> Chances { get; set; } // TODO categorie wordt meegegeven aan de question nu, hoe wordt dat gedaan met de float
+
         public Account Account { get; set; }
+
+        /// <summary>
+        /// Deze property geeft toegang tot de boosters die kunnen worden gebruikt in de game.
+        /// </summary>
         public ObservableCollection<Item> Boosters 
         {
             get
@@ -26,6 +37,10 @@ namespace Quiz_Royale
                 _boosters = value;
             }
         }
+
+        /// <summary>
+        /// Deze property geeft toegang tot het bericht dat is gebaseerd op het resultaat van de gebruiker.
+        /// </summary>
         public string ResultMessage
         {
             get
@@ -33,9 +48,14 @@ namespace Quiz_Royale
                 return GetResultMessage();
             }
         }
+
         public ObservableCollection<Player> FastestPlayers { get; set; }
+
         public int CurrentPosition { get; set; }
 
+        /// <summary>
+        /// Deze property geeft toegang tot de huidige categorie in het spel.
+        /// </summary>
         public CategoryMastery CurrentCategory
         {
             get
@@ -49,9 +69,9 @@ namespace Quiz_Royale
             }
         }
 
-
-        private State _state;
-
+        /// <summary>
+        /// Deze property geeft toegang tot de staat van een game.
+        /// </summary>
         public State State
         {
             get
@@ -65,9 +85,9 @@ namespace Quiz_Royale
             }
         }
 
-
-        private string _statusMessage;
-
+        /// <summary>
+        /// Deze property geeft toegang tot het huidge statusbericht.
+        /// </summary>
         public string StatusMessage
         {
             get
@@ -81,24 +101,40 @@ namespace Quiz_Royale
             }
         }
 
+        /// <summary>
+        /// Haalt het bericht op dat is gebaseerd op het resultaat van de gebruiker.
+        /// </summary>
+        /// <returns>Het resultaatbericht.</returns>
         protected abstract string GetResultMessage();
 
+        /// <summary>
+        /// Antwoordt op de huidige vraag.
+        /// </summary>
+        /// <param name="answer">Het antwoord dat is gekozen door de gebruiker.</param>
+        /// <returns></returns>
         public async Task Answer(Answer answer)
         {
             await _connector.AnswerQuestion(answer.Code);
         }
 
+        /// <summary>
+        /// Gebruikt een booster en verwijdert deze uit de actieve boosters in een spel.
+        /// </summary>
+        /// <param name="booster">De geselecteerde booster.</param>
+        /// <returns></returns>
         public async Task UseBoost(Item booster)
         {
             await _connector.UseBoost(booster.Name, ""); // todo
             RemoveBooster(booster);
         }
 
+        // Verwijder een booster uit de lijst in de game.
         private void RemoveBooster(Item booster)
         {
             Boosters.Remove(booster);
         }
 
+        // Verlaat de game.
         public void Dispose()
         {
             if(_connector != null)
@@ -109,6 +145,9 @@ namespace Quiz_Royale
         }
     }
 
+    /// <summary>
+    /// Deze enum vertegenwoordigt de verschillende staten waarin de game zich kan bevinden.
+    /// </summary>
     public enum State
     {
         WAITING,

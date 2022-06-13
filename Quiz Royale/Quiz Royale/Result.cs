@@ -5,9 +5,20 @@ using System.Text;
 
 namespace Quiz_Royale
 {
+    /// <summary>
+    /// Deze klasse vertegenwoordigt het resultaat van een spel die de gebruiker heeft gespeeld.
+    /// </summary>
     public class Result
     {
         private DateTime _time;
+        
+        public int Position { get; set; }
+        
+        public string Mode { get; set; }
+
+        /// <summary>
+        /// Deze property geeft toegang tot de datum en tijd waarop de game is gespeeld.
+        /// </summary>
         public string Time
         {
             get
@@ -19,10 +30,14 @@ namespace Quiz_Royale
                 _time = DateTime.Parse(value);
             }
         }
+
         public int Position { get; set; }
 
         public Mode Mode { get; set; }
 
+        /// <summary>
+        /// Deze property geeft toegang tot de naam van de modus van dit resultaat.
+        /// </summary>
         public string ModeString
         {
             get
@@ -31,6 +46,12 @@ namespace Quiz_Royale
             }
         }
 
+        /// <summary>
+        /// Creëert het resultaat van een gespeelde game door de gebruiker.
+        /// </summary>
+        /// <param name="time">De datum en tijd waarop de game is gespeeld</param>
+        /// <param name="position">De behaalde positie van de gebruiker</param>
+        /// <param name="mode">De gespeelde modus</param>
         public Result(string time, int position, Mode mode)
         {
             Time = time;

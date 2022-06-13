@@ -4,9 +4,18 @@ using System.Text;
 
 namespace Quiz_Royale
 {
+    /// <summary>
+    /// Deze klasse dient als opslagplek voor de huidige pagina.
+    /// </summary>
     public class NavigationStore
     {
         private BaseViewModel _currentViewModel;
+        private bool _isInMenu;
+        private string _error;
+
+        /// <summary>
+        /// Deze property geeft toegang tot de huidige ViewModel.
+        /// </summary>
         public BaseViewModel CurrentViewModel
         {
             get
@@ -24,9 +33,9 @@ namespace Quiz_Royale
             }
         }
 
-
-        private bool _isInMenu;
-
+        /// <summary>
+        /// Deze property geeft aan of iets in het menu moet worden weergegeven of niet.
+        /// </summary>
         public bool IsInMenu
         {
             get
@@ -40,8 +49,9 @@ namespace Quiz_Royale
             }
         }
 
-        private string _error;
-
+        /// <summary>
+        /// Deze property geeft toegang tot de error.
+        /// </summary>
         public string Error
         {
             get
@@ -55,8 +65,15 @@ namespace Quiz_Royale
             }
         }
 
+        /// <summary>
+        /// Dit event zorgt ervoor dat de gesubscribede klassen op de hoogte worden gesteld van dat de gebruiker is genavigeerd.
+        /// </summary>
         public event EventHandler Navigated;
 
+        /// <summary>
+        /// Creëert een navigationStore met een eventuele ViewModel.
+        /// </summary>
+        /// <param name="currentViewModel">De huidige ViewModel die wordt gebruikt.</param>
         public NavigationStore(BaseViewModel currentViewModel = null)
         {
             CurrentViewModel = currentViewModel;

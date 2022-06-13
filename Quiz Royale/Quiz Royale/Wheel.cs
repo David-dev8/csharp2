@@ -40,8 +40,14 @@ namespace Quiz_Royale
 
         public object RotateTowards
         {
-            get { return GetValue(RotateTowardsProperty); }
-            set { SetValue(RotateTowardsProperty, value); }
+            get 
+            { 
+                return GetValue(RotateTowardsProperty); 
+            }
+            set 
+            { 
+                SetValue(RotateTowardsProperty, value); 
+            }
         }
 
         public Wheel()

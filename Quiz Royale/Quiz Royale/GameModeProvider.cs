@@ -6,10 +6,16 @@ using System.Text.RegularExpressions;
 
 namespace Quiz_Royale
 {
+    /// <summary>
+    /// Deze klasse levert de verschillende gamemodi in de applicatie.
+    /// </summary>
     public class GameModeProvider
     {
-        // todo wrm geen interface?
-        public static IList<GameMode> GetGameModes()
+        /// <summary>
+        /// Haalt alle verschillende gamemodi op.
+        /// </summary>
+        /// <returns>Een lijst met alle gamemodi.</returns>
+        public static IList<GameMode> GetGameModes() // todo wrm geen interface?
         {
             return new List<GameMode>
             {
@@ -27,6 +33,7 @@ namespace Quiz_Royale
             };
         }
 
+        // Verwijdert indentingen in de gegeven string.
         private static string RemoveIndent(string subject)
         {
             subject = subject.Replace("  ", "");

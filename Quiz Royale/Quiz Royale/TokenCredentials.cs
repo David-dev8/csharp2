@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Quiz_Royale
 {
+    /// <summary>
+    /// Deze klasse heeft toegang tot het access token van de gebruiker.
+    /// </summary>
     public class TokenCredentials
     {
         [JsonPropertyName("accessToken")]

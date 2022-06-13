@@ -7,10 +7,14 @@ using System.Timers;
 
 namespace Quiz_Royale
 {
+    /// <summary>
+    /// Deze klasse vertegenwoordigt de gamemodus Quiz Royale.
+    /// </summary>
     public class QuizRoyale : Game
     {
-        public ObservableCollection<Player> Players { get; set; }
-
+        private const int TIME_AFTER_BOOST = 3;
+        private const int START_TIME = 10;
+        private static readonly string WINNER_MESSAGE = "Congratulations!";
         private static readonly IDictionary<int, string> LOSE_MESSAGES = new Dictionary<int, string>
         {
             { 100, "That's quite unfortunate!" },
@@ -20,13 +24,15 @@ namespace Quiz_Royale
             { 10, "Outsting " },
             { 1, "That was close..." },
         };
-        private static readonly string WINNER_MESSAGE = "Congratulations!";
-        private const int TIME_AFTER_BOOST = 3;
-        private const int START_TIME = 10;
 
         private Timer _timer;
         private int _currentTime;
 
+        public ObservableCollection<Player> Players { get; set; }
+
+        /// <summary>
+        /// Deze property geeft toegang tot het aantal spelers dat nog in de huidige game zitten.
+        /// </summary>
         public int CurrentAmountOfPlayers 
         {
             get
@@ -37,6 +43,10 @@ namespace Quiz_Royale
 
         public int TotalAmountOfPlayersStarted { get; set; }
 
+
+        /// <summary>
+        /// Deze property geeft toegang tot de tijd die nog over is om de vraag te beantwoorden.
+        /// </summary>
         public int CurrentTime
         {
             get
@@ -57,10 +67,15 @@ namespace Quiz_Royale
             }
         }
 
+
+        /// <summary>
+        /// Creëert een game van de gamemodus Quiz Royale.
+        /// </summary>
+        /// <param name="account">Het account dat meedoet aan Quiz Royale.</param>
         public QuizRoyale(Account account)
         {
             Account = account;
-            Boosters = new ObservableCollection<Item>(Account.Inventory.Boosters);
+            Boosters = new ObservableCollection<Item>(Account.Inventory.Boosters); // TODO in een methode een aantal dingen
             FastestPlayers = new ObservableCollection<Player>();
             Players = new ObservableCollection<Player>();
             Chances = new List<CategoryMastery>();
@@ -80,19 +95,21 @@ namespace Quiz_Royale
             _connector.gameOver += GameEnded;
             _connector.win += Win;
 
-            _connector.joinStatus += joinStatus;
-            _connector.joinPlayer += joinPlayer;
-            _connector.updateStatus += updateStatus;
-            _connector.start += startGame;
+            _connector.joinStatus += JoinStatus;
+            _connector.joinPlayer += JoinPlayer;
+            _connector.updateStatus += UpdateStatus;
+            _connector.start += StartGame;
 
             _connector.Join(Account.Username);
         }
 
+        // Elimineert de spelers die zijn afgevallen.
         private void EliminatePlayers(object sender, PlayersLeftArgs e)
         {
             Players = new ObservableCollection<Player>(e.Players);
         }
 
+        // Handelt een winst voor de gebruiker af.
         private void Win(object sender, WinArgs e)
         {
             Account.CurrentXP += e.XP;
@@ -100,23 +117,27 @@ namespace Quiz_Royale
             EndGame();
         }
 
+        // Eidingt de game voor de gebruiker.
         private void GameEnded(object sender, EventArgs e)
         {
             EndGame();
         }
 
+        // Eidingt de game voor de gebruiker.
         private void EndGame()
         {
             State = State.ENDED;
             _connector.BreakConection();
         }
 
+        // Telt de juiste aantal XP en coins erbij op.
         private void Result(object sender, ResultArgs e)
         {
             Account.CurrentXP += e.XP;
             Account.AmountOfCoins += e.Coins;
         }
 
+        // Stelt de juiste instellingen in voor de volgende vraag.
         private void StartQuestion(object sender, EventArgs e)
         {
             _timer.AutoReset = true;
@@ -125,6 +146,7 @@ namespace Quiz_Royale
             State = State.QUESTION;
         }
 
+        // Creëert een nieuwe vraag.
         private void SetCurrentQuestion(object sender, NewQuestionArgs e)
         {
             CurrentQuestion = e.Question;
@@ -132,16 +154,20 @@ namespace Quiz_Royale
             CurrentTime = START_TIME;
         }
 
+        // Verminderd de tijd naar een aantal seconden.
         private void ReduceTime(object sender, EventArgs e)
         {
             CurrentTime = TIME_AFTER_BOOST; // TODO zelfde tijd als op de socket?
         }
 
+        // Vermindert de tijd met een seconde.
         private void DecreaseTime(object sender, EventArgs e)
         {
             CurrentTime--;
         }
 
+        // Voegt een speler toe aan de lijst van de snelste spelers.
+        // Wanneer er in totaal drie spelers zijn toegevoegd, wordt de rest genegeerd.
         private void AddFastestPlayer(object sender, PlayerAnsweredArgs e)
         {
             if(FastestPlayers.Count < 3)
@@ -150,6 +176,10 @@ namespace Quiz_Royale
             }
         }
 
+        /// <summary>
+        /// Haalt het juiste bericht op, gebaseerd op het resultaat van de gebruiker.
+        /// </summary>
+        /// <returns>Een bericht dat gebaseerd is op het resultaat van de gebruiker.</returns>
         protected override string GetResultMessage()
         {
             CurrentPosition = CurrentAmountOfPlayers;
@@ -161,18 +191,27 @@ namespace Quiz_Royale
             return LOSE_MESSAGES.Where(x => x.Key >= percent).Reverse().First().Value;
         }
 
-        public void addPlayer(Player player)
+        /// <summary>
+        /// Voegt een speler toe aan de lijst met deelnemers van een game.
+        /// </summary>
+        /// <param name="player">De speler die wil meedoen aan een spel.</param>
+        public void AddPlayer(Player player)
         {
             Players.Add(player);
         }
 
-        private void joinStatus(Object sender, JoinStatusArgs e)
+        /// <summary>
+        /// Zorgt ervoor dat de staat van het spel wordt geüpdatet wanneer de speler in een spel komt.
+        /// </summary>
+        /// <param name="sender">De zender van het event.</param>
+        /// <param name="e">Informatie over de staat van het spel wanneer er gejoind is.</param>
+        private void JoinStatus(object sender, JoinStatusArgs e)
         {
             if (e.Status)
             {
                 foreach (Player player in e.Players)
                 {
-                    addPlayer(player);
+                    AddPlayer(player);
                 }
                 State = State.JOINED;
                 Chances = e.categories;
@@ -186,19 +225,34 @@ namespace Quiz_Royale
             StatusMessage = e.Message;
         }
 
-        private void joinPlayer(Object sender, PlayerArgs e)
+        /// <summary>
+        /// Zorgt ervoor dat nieuwe spelers die joinen terwijl de speler wacht, worden toegevoegd aan de collectie met spelers.
+        /// </summary>
+        /// <param name="sender">De zender van het event.</param>
+        /// <param name="e">Informatie over de speler die gejoind is.</param>
+        private void JoinPlayer(Object sender, PlayerArgs e)
         {
-            addPlayer(e.Player);
+            AddPlayer(e.Player);
             StatusMessage = e.Message;
         }
 
-        private void startGame(Object sender, EventArgs e)
+        /// <summary>
+        /// Zorgt ervoor dat het spel wordt gestart. 
+        /// </summary>
+        /// <param name="sender">De zender van het event.</param>
+        /// <param name="e">Informatie over het event.</param>
+        private void StartGame(Object sender, EventArgs e)
         {
             TotalAmountOfPlayersStarted = Players.Count;
             StatusMessage = "The game is starting!";
         }
 
-        private void updateStatus(Object sender, UpdateStatusArgs e)
+        /// <summary>
+        /// Zorgt ervoor dat het statusbericht wordt veranderd.
+        /// </summary>
+        /// <param name="sender">De zender van het event.</param>
+        /// <param name="e">Informatie over het statusbericht.</param>
+        private void UpdateStatus(Object sender, UpdateStatusArgs e)
         {
             StatusMessage = e.Message;
         }
