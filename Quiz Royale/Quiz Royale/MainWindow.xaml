@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Quiz_Royale"
         mc:Ignorable="d"
         Title="MainWindow" Height="700" Width="1000" WindowState="Maximized"
-        AllowsTransparency="True" WindowStyle="None">
+        >
     <Window.Resources>
         <ResourceDictionary Source="ResourceDictionaries/WindowResources.xaml" />
     </Window.Resources>
