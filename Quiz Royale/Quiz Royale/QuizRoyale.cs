@@ -12,7 +12,8 @@ namespace Quiz_Royale
     /// </summary>
     public class QuizRoyale : Game
     {
-        private const int TIME_AFTER_BOOST = 3;
+        private const int TIME_AFTER_BOOST = 2;
+        private const int PERCENTAGE_TO_INCREASE = 10;
         private const int START_TIME = 10;
         private static readonly string WINNER_MESSAGE = "Congratulations!";
         private static readonly IDictionary<int, string> LOSE_MESSAGES = new Dictionary<int, string>
@@ -101,6 +102,8 @@ namespace Quiz_Royale
             _connector.start += StartGame;
 
             _connector.Join(Account.Username);
+
+            _connector.catIncrease += increaseCatChance;
         }
 
         // Elimineert de spelers die zijn afgevallen.
@@ -173,6 +176,31 @@ namespace Quiz_Royale
             if(FastestPlayers.Count < 3)
             {
                 FastestPlayers.Add(e.Player);
+            }
+        }
+
+        // Maakt de kans hoger dat een catogorie wordt gekozen
+        private void increaseCatChance(object sender, CategoryIncreaseArgs e)
+        {
+            foreach (CategoryMastery chance in Chances)
+            {
+                if (chance.Category.Name == e.CatId)
+                {
+                    chance.Mastery += 10;
+                }
+                else
+                {
+                    chance.Mastery -= (float)(10.0 / (Chances.Count - 1));
+                }
+
+                if (chance.Mastery < 1)
+                {
+                    chance.Mastery = 1;
+                }
+                if (chance.Mastery > (101 - Chances.Count))
+                {
+                    chance.Mastery = (101 - Chances.Count);
+                }
             }
         }
 

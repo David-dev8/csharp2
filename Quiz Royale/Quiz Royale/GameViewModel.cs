@@ -79,6 +79,7 @@ namespace Quiz_Royale
             {
                 if (value != null)
                 {
+                    Game.UseBoost(value);
                     _selectedBooster = value;
                     CanUseBooster = false;
                     NotifyPropertyChanged();

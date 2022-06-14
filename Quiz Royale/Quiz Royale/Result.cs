@@ -14,8 +14,6 @@ namespace Quiz_Royale
         
         public int Position { get; set; }
         
-        public string Mode { get; set; }
-
         /// <summary>
         /// Deze property geeft toegang tot de datum en tijd waarop de game is gespeeld.
         /// </summary>
@@ -30,8 +28,6 @@ namespace Quiz_Royale
                 _time = DateTime.Parse(value);
             }
         }
-
-        public int Position { get; set; }
 
         public Mode Mode { get; set; }
 

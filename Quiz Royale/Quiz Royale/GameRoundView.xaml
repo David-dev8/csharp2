@@ -146,7 +146,7 @@
                     <TextBlock Style="{StaticResource SubTitle}" >
                         Boosts
                     </TextBlock>
-                    <ListBox ItemContainerStyle="{StaticResource BoostStyle}" Background="Transparent" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemsSource="{Binding Boosters}">
+                    <ListBox ItemContainerStyle="{StaticResource BoostStyle}" Background="Transparent" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemsSource="{Binding Boosters}" SelectedItem="{Binding SelectedBooster}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Image MaxHeight="40" Source="{Binding Picture}" ToolTip="{Binding Description}" />

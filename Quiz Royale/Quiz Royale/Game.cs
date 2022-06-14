@@ -124,7 +124,15 @@ namespace Quiz_Royale
         /// <returns></returns>
         public async Task UseBoost(Item booster)
         {
-            await _connector.UseBoost(booster.Name, ""); // todo
+            if (booster.Name == "Category increase")
+            {
+                await _connector.UseBoost(booster.Name, CurrentQuestion.Category.Name);
+            }
+            else 
+            {
+                await _connector.UseBoost(booster.Name, ""); 
+            }
+            Account.Inventory.Boosters.Remove(booster);
             RemoveBooster(booster);
         }
 
