@@ -84,9 +84,9 @@ namespace Quiz_Royale
             throw new Exception();
         }
 
-        public async Task Update(string endpoint)
+        public async Task Update(string endpoint, int id)
         {
-            using (HttpResponseMessage response = await s_httpClient.PatchAsync(endpoint, null))
+            using (HttpResponseMessage response = await s_httpClient.PatchAsync(endpoint + "/" + id, null))
             {
                 if (!response.IsSuccessStatusCode)
                 {

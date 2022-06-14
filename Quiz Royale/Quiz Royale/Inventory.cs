@@ -16,8 +16,35 @@ namespace Quiz_Royale
     {
         private IInventoryProvider _provider;
         private IInventoryMutator _mutator;
-        private NotifyTaskCompletion<IList<Item>> _activeItems;
-        private NotifyTaskCompletion<IList<Item>> _allItems;
+
+        private NotifyTaskCompletion<IList<Item>> _activeItems { get; set; }
+
+        public NotifyTaskCompletion<IList<Item>> ActiveItems
+        {
+            get
+            {
+                return _activeItems;
+            }
+            set
+            {
+                _activeItems = value;
+                OnPropertyChanged();
+            }
+        }
+        private NotifyTaskCompletion<IList<Item>> _allItems { get; set; }
+
+        public NotifyTaskCompletion<IList<Item>> AllItems
+        {
+            get
+            {
+                return _allItems;
+            }
+            set
+            {
+                _allItems = value;
+                OnPropertyChanged();
+            }
+        }
 
         /// <summary>
         /// Deze property geeft toegang tot de actieve profielfoto van de gebruiker.
@@ -70,14 +97,14 @@ namespace Quiz_Royale
         {
             _provider = new APIInventoryProvider();
             _mutator = new APIInventoryMutator();
-            _allItems = new NotifyTaskCompletion<IList<Item>>(_provider.GetAcquiredItems());
-            _activeItems = new NotifyTaskCompletion<IList<Item>>(_provider.GetActiveItems());
+            AllItems = new NotifyTaskCompletion<IList<Item>>(_provider.GetAcquiredItems());
+            ActiveItems = new NotifyTaskCompletion<IList<Item>>(_provider.GetActiveItems());
         }
 
         // Haalt het actieve item op van het type dat wordt meegegeven.
         private Item GetItemByType(string type)
         {
-            if (_activeItems.Result == null)
+            if (ActiveItems.Result == null)
             {
                 return null;
             }
@@ -85,7 +112,7 @@ namespace Quiz_Royale
             var filterFactory = new FilterFactory();
             IItemFilter filter = filterFactory.GetFilter(type);
 
-            foreach(var item in _activeItems.Result)
+            foreach(var item in ActiveItems.Result)
             {
                 if(filter.Filter(item))
                 {
@@ -99,7 +126,7 @@ namespace Quiz_Royale
         // Haalt alle boosters op die de gebruiker heeft.
         private IList<Item> GetBoosters()
         {
-            if (_activeItems.Result == null)
+            if (ActiveItems.Result == null)
             {
                 return null;
             }
@@ -108,7 +135,7 @@ namespace Quiz_Royale
             var filterFactory = new FilterFactory();
             IItemFilter filter = filterFactory.GetFilter("Booster");
 
-            foreach (var item in _activeItems.Result)
+            foreach (var item in ActiveItems.Result)
             {
                 if (filter.Filter(item))
                 {
@@ -122,8 +149,19 @@ namespace Quiz_Royale
         /// Selecteert het gegeven item en maakt deze actief.
         /// </summary>
         /// <param name="item">Het geselecteerde item.</param>
-        public void EquipItem(Item item)
+        public async Task EquipItem(Item item)
         {
+            await _mutator.EquipItem(item);
+            ActiveItems = new NotifyTaskCompletion<IList<Item>>(_provider.GetActiveItems());
+            ActiveItems.PropertyChanged += ActiveItems_PropertyChanged;
+        }
+
+        private void ActiveItems_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(ActiveItems));
+            OnPropertyChanged(nameof(ActiveBorder));
+            OnPropertyChanged(nameof(ActivePlayerTitle));
+            OnPropertyChanged(nameof(ActiveProfilePicture));
         }
 
         /// <summary>
@@ -134,6 +172,13 @@ namespace Quiz_Royale
         public async Task AddItem(Item item)
         {
             await _mutator.ObtainItem(item);
+            AllItems = new NotifyTaskCompletion<IList<Item>>(_provider.GetAcquiredItems());
+            AllItems.PropertyChanged += AllItems_PropertyChanged;
+        }
+
+        private void AllItems_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(AllItems));
         }
 
         /// <summary>
@@ -143,7 +188,7 @@ namespace Quiz_Royale
         /// <returns>True als de gebruiker het item al heeft, anders false.</returns>
         public bool HasItem(Item item)
         {
-            return _allItems.Result.Contains(item);
+            return AllItems.Result.Contains(item);
         }
     }
 }
