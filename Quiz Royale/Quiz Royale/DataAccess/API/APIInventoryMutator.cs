@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace Quiz_Royale.DataAccess.API
 {
+    /// <summary>
+    /// Deze klasse bewerkt de inventory van een gebruiker.
+    /// Items kunnen worden toegevoegd en geselecteerd.
+    /// </summary>
     public class APIInventoryMutator : APIProcessor, IInventoryMutator
     {
         public Task EquipItem(Item item)

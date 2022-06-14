@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace Quiz_Royale
 {
+    /// <summary>
+    /// Deze klasse levert het account van de gebruiker.
+    /// </summary>
     public class APIAccountProvider : APIProcessor, IAccountProvider
     {
         private static Account s_account;

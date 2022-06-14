@@ -10,7 +10,16 @@ namespace Quiz_Royale
     /// </summary>
     public interface IInventoryProvider
     {
+        /// <summary>
+        /// Haalt alle items op die de gebruiker in zijn bezit heeft.
+        /// </summary>
+        /// <returns>Een lijst van de items die de gebruiker in zijn bezit heeft.</returns>
         public Task<IList<Item>> GetAcquiredItems();
+
+        /// <summary>
+        /// Haalt alle actieve items op die de gebruiker heeft geselecteerd.
+        /// </summary>
+        /// <returns>Een lijst van de actieve items.</returns>
         public Task<IList<Item>> GetActiveItems();
     }
 }

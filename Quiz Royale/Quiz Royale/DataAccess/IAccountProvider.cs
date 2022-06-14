@@ -10,6 +10,10 @@ namespace Quiz_Royale
     /// </summary>
     public interface IAccountProvider
     {
+        /// <summary>
+        /// Haalt een account op voor de gebruiker.
+        /// </summary>
+        /// <returns>Het account van de gebruiker.</returns>
         public Task<Account> GetAccount();
     }
 }
