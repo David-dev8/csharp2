@@ -4,9 +4,17 @@ using System.Text;
 
 namespace Quiz_Royale.Filters
 {
+    /// <summary>
+    /// Deze klasse zorgt ervoor dat er verschillende type filters kunnen worden gemaakt.
+    /// </summary>
     public class FilterFactory
     {
-        public IItemFilter GetFilter(string filter)
+        /// <summary>
+        /// Maakt een filter van het gegeven type.
+        /// </summary>
+        /// <param name="filter">Het type filter waarop gefilterd moet worden.</param>
+        /// <returns>Het filter van het gegeven type.</returns>
+        public IItemFilter GetFilter(string filter) // TODO met enum???
         {
             return filter switch
             {

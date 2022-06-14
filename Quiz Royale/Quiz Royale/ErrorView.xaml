@@ -11,12 +11,18 @@
     </UserControl.Resources>
     <Grid Panel.ZIndex="1" Background="Transparent" Visibility="{Binding HasError, Converter={StaticResource VisibilityConverter}}">
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Background="White">
-            <Border BorderBrush="Aqua" BorderThickness="5" Height="200" Width="400">
-                <StackPanel>
-                    <TextBlock FontSize="14" Text="Error" />
-                    <TextBlock Text="{Binding Error}" FontSize="64" Foreground="Red" />
-                    <Button Command="{Binding Dismiss}" Content="Dismiss" />
-                </StackPanel>
+            <Border Background="#DAD9D9" BorderThickness="0" Height="200" Width="400">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Margin="10">
+                        <TextBlock FontSize="24" FontWeight="SemiBold" Text="Error" />
+                        <TextBlock Text="{Binding Error}" FontSize="18" />
+                    </StackPanel>
+                    <Button Grid.Row="1" Command="{Binding Dismiss}" Content="Dismiss" Margin="0, 0, 20, 0" HorizontalAlignment="Right" Height="35" Width="100" />
+                </Grid>
             </Border>
         </StackPanel>
         <Grid.Style>

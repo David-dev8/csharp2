@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace Quiz_Royale
 {
+    /// <summary>
+    /// Haalt de items op die in de inventory zitten van de gebruiker.
+    /// </summary>
     public class APIInventoryProvider : APIProcessor, IInventoryProvider
     {
         public Task<IList<Item>> GetAcquiredItems()

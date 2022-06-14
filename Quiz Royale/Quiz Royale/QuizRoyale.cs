@@ -82,24 +82,24 @@ namespace Quiz_Royale
             Chances = new List<CategoryMastery>();
 
             _connector = new HubConnector();
-            _connector.newQuestion += SetCurrentQuestion;
-            _connector.reduceTime += ReduceTime;
-            _connector.playerAnswered += AddFastestPlayer;
+            _connector.NewQuestion += SetCurrentQuestion;
+            _connector.ReduceTime += ReduceTime;
+            _connector.PlayerAnswered += AddFastestPlayer;
             _timer = new Timer(1000);
             _timer.Elapsed += DecreaseTime;
 
-            _connector.startQuestion += StartQuestion;
-            _connector.results += Result;
+            _connector.StartQuestion += StartQuestion;
+            _connector.Results += Result;
 
-            _connector.playersLeft += EliminatePlayers;
+            _connector.PlayersLeft += EliminatePlayers;
 
-            _connector.gameOver += GameEnded;
-            _connector.win += Win;
+            _connector.GameOver += GameEnded;
+            _connector.Win += Win;
 
-            _connector.joinStatus += JoinStatus;
-            _connector.joinPlayer += JoinPlayer;
-            _connector.updateStatus += UpdateStatus;
-            _connector.start += StartGame;
+            _connector.JoinStatus += JoinStatus;
+            _connector.JoinPlayer += JoinPlayer;
+            _connector.UpdateStatus += UpdateStatus;
+            _connector.Start += StartGame;
 
             _connector.Join(Account.Username);
 

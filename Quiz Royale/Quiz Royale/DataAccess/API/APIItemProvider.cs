@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Quiz_Royale.DataAccess.API
 {
+    /// <summary>
+    /// Haalt alle items op die in de shop kunnen worden gekocht.
+    /// </summary>
     public class APIItemProvider : APIProcessor, IItemProvider
     {
         public async Task<IList<Item>> GetItems()

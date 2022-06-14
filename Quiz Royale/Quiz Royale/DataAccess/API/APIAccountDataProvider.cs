@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace Quiz_Royale
 {
+    /// <summary>
+    /// Deze klasse levert alle statistieken van de gebruiker.
+    /// </summary>
     public class APIAccountDataProvider : APIProcessor, IAccountDataProvider
     {
         public Task<IList<Badge>> GetBadges()

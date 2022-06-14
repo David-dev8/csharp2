@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Quiz_Royale
 {
+    /// <summary>
+    /// Deze klasse creëert een account voor de gebruiker.
+    /// </summary>
     public class APIAccountCreator : APIProcessor, IAccountCreator
     {
         private const int USERNAME_MAX_LENGTH = 20;

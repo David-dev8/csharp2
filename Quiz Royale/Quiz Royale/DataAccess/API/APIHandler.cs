@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 
 namespace Quiz_Royale
 {
+    /// <summary>
+    /// Deze klasse voert requests uit naar de API.
+    /// </summary>
     public class APIHandler
     {
         private const string BASE_URL = "https://localhost:7264/";
