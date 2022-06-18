@@ -130,6 +130,10 @@ namespace Quiz_Royale
 
         private double GetItemWidth()
         {
+            if(Items.Count == 0)
+            {
+                return 1;
+            }
             return ((FrameworkElement) ItemContainerGenerator.ContainerFromItem(Items[0])).ActualWidth;
         }
 

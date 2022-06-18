@@ -133,7 +133,7 @@
                             <ColumnDefinition Width="0.8*" />
                         </Grid.ColumnDefinitions>
                         <StackPanel Margin="40, 30" DataContext="{Binding Account.Result}">
-                            <Grid DataContext="{Binding Inventory}" Height="120" HorizontalAlignment="Left" >
+                            <Grid DataContext="{Binding Inventory}" Height="120" HorizontalAlignment="Left" Background="White">
                                 <Image Source="{Binding ActiveProfilePicture.Picture}" Height="90" />
                                 <Image Source="{Binding ActiveBorder.Picture}" />
                             </Grid>

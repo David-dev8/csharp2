@@ -138,6 +138,7 @@ namespace Quiz_Royale
         // Eidingt de game voor de gebruiker.
         private void EndGame()
         {
+            CurrentPosition = CurrentAmountOfPlayers;
             State = State.ENDED;
             _connector.BreakConection();
         }
@@ -219,7 +220,6 @@ namespace Quiz_Royale
         /// <returns>Een bericht dat gebaseerd is op het resultaat van de gebruiker.</returns>
         protected override string GetResultMessage()
         {
-            CurrentPosition = CurrentAmountOfPlayers;
             if(CurrentPosition == 1)
             {
                 return WINNER_MESSAGE;

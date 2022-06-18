@@ -132,8 +132,8 @@ namespace Quiz_Royale
             {
                 await _connector.UseBoost(booster.Name, ""); 
             }
-            Account.Inventory.Boosters.Remove(booster);
             RemoveBooster(booster);
+            Account.Inventory.RemoveItem(booster);
         }
 
         // Verwijder een booster uit de lijst in de game.

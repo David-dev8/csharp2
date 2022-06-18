@@ -176,6 +176,12 @@ namespace Quiz_Royale
             AllItems.PropertyChanged += AllItems_PropertyChanged;
         }
 
+        public void RemoveItem(Item item)
+        {
+            AllItems.Result.Remove(item);
+            ActiveItems.Result.Remove(item);
+        }
+
         private void AllItems_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             OnPropertyChanged(nameof(AllItems));
