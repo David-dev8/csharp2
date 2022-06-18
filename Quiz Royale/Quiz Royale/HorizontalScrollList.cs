@@ -20,12 +20,16 @@ namespace Quiz_Royale
     {
         public static readonly DependencyProperty DisabledItemsProperty =
             DependencyProperty.Register("DisabledItems", typeof(IEnumerable), typeof(HorizontalScrollList), 
-                new PropertyMetadata(DisableItems));
+                new FrameworkPropertyMetadata(DisableItems));
+
+        public static readonly DependencyProperty ItemsSelectedProperty =
+            DependencyProperty.Register("ItemsSelected", typeof(IEnumerable), typeof(HorizontalScrollList),
+                new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, SelectItems));
 
         static HorizontalScrollList()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(HorizontalScrollList), new FrameworkPropertyMetadata(typeof(HorizontalScrollList)));
-            ItemsSourceProperty.OverrideMetadata(typeof(HorizontalScrollList), new FrameworkPropertyMetadata(DisableItems));
+            ItemsSourceProperty.OverrideMetadata(typeof(HorizontalScrollList), new FrameworkPropertyMetadata(Refresh));
         }
 
         private static void DisableItems(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -33,6 +37,19 @@ namespace Quiz_Royale
             ((HorizontalScrollList) d).DisableItems();
         }
 
+        private static void SelectItems(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            ((HorizontalScrollList)d).SelectItems();
+        }
+
+        private static void Refresh(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var scrollList = (HorizontalScrollList)d;
+            scrollList.DisableItems();
+            scrollList.SelectItems();
+        }
+
+        private bool _isReselecting;
         private int _currentDisplayedItem;
 
         public IEnumerable DisabledItems
@@ -47,9 +64,38 @@ namespace Quiz_Royale
             }
         }
 
+        public IEnumerable ItemsSelected
+        {
+            get
+            {
+                return (IEnumerable) GetValue(ItemsSelectedProperty);
+            }
+            set
+            {
+                SetValue(ItemsSelectedProperty, value);
+            }
+        }
+
         public HorizontalScrollList()
         {
             Loaded += HorizontalScrollList_Loaded;
+            SelectionChanged += HorizontalScrollList_SelectionChanged;
+        }
+
+        private void HorizontalScrollList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (SelectionMode == SelectionMode.Multiple && e.AddedItems.Count > 0)
+            {
+                Type type = e.AddedItems[0].GetType().BaseType;
+                Type listType = typeof(List<>).MakeGenericType(new[] { type });
+                IList itemsSelected = (IList)Activator.CreateInstance(listType);
+
+                foreach (var item in SelectedItems)
+                {
+                    itemsSelected.Add(item);
+                }
+                ItemsSelected = itemsSelected;
+            }
         }
 
         private void HorizontalScrollList_Loaded(object sender, RoutedEventArgs e)
@@ -97,6 +143,26 @@ namespace Quiz_Royale
                     if (container != null)
                     {
                         container.IsEnabled = false;
+                    }
+                }
+            }
+        }
+
+        private void SelectItems()
+        {
+            if(SelectionMode == SelectionMode.Multiple)
+            {
+                if (!_isReselecting)
+                {
+                    if (ItemsSelected != null)
+                    {
+                        _isReselecting = true;
+                        SelectedItems.Clear();
+                        foreach (var item in ItemsSelected)
+                        {
+                            SelectedItems.Add(item);
+                        }
+                        _isReselecting = false;
                     }
                 }
             }

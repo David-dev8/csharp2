@@ -94,8 +94,17 @@ namespace Quiz_Royale
         {
             IsLoading = true;
             _shop = new Shop();
-            _shop.Items.PropertyChanged += Items_PropertyChanged; // t
+            _shop.Items.PropertyChanged += Items_PropertyChanged;
             Account = new NotifyTaskCompletion<Account>(_accountProvider.GetAccount());
+            Account.Result.Inventory.PropertyChanged += Inventory_PropertyChanged;
+        }
+
+        private void Inventory_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if(Account.Result.Inventory.AllItems.IsSuccessfullyCompleted)
+            {
+                DisabledItems = _shop.GetItemsOutOfStock(Account.Result);
+            }
         }
 
         // Zorgt ervoor dat de items die gekocht worden en de rewards apart worden opgeslagen zodra alle items in de shop zijn opgehaald.

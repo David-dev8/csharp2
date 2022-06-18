@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Quiz_Royale"
+             xmlns:local="clr-namespace:Quiz_Royale" xmlns:fa="http://schemas.fontawesome.io/icons/"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -81,76 +81,125 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid Margin="50">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+        <Grid Margin="50" Height="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=UserControl}}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
-                <RowDefinition Height="20" />
-                <RowDefinition Height="5*" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="3*" />
-            </Grid.ColumnDefinitions>
-            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource HeaderBox}">
-                <StackPanel>
-                    <Image Source="Assets/profile.png" />
-                    <TextBlock Text="Profile" />
-                </StackPanel>
-            </Border>
-            <DockPanel Grid.Column="2" DataContext="{Binding Account.Result}" Margin="0, 0, 10, 0">
-                <Border Style="{StaticResource Box}" DockPanel.Dock="Right" Margin="0" Width="175">
-                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Margin="0, 0, 50, 0" VerticalAlignment="Center">
-                        <Image MaxHeight="25" Margin="15, 0, 13, 0" Source="/Assets/coins.png" />
-                        <TextBlock FontSize="18" Text="{Binding AmountOfCoins}" />
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="5*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="3*" />
+                </Grid.ColumnDefinitions>
+                <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource HeaderBox}">
+                    <StackPanel>
+                        <Image Source="Assets/profile.png" />
+                        <TextBlock Text="Profile" />
                     </StackPanel>
                 </Border>
-                <Border Style="{StaticResource Box}" DockPanel.Dock="Right" Margin="0" Width="300">
-                    <StackPanel Orientation="Horizontal">
-                        <Grid Height="25" Margin="15, 0, 13, 0">
-                            <Image Source="/Assets/star.png" />
-                            <TextBlock Text="{Binding Level}" FontWeight="SemiBold" Style="{StaticResource Caption}" HorizontalAlignment="Center" 
-                                   VerticalAlignment="Center" />
-                        </Grid>
-                        <ProgressBar Margin="0, 3, 0, 0" Style="{DynamicResource ProgressBarStyle1}" Value="{Binding PercentOfLevelProgress, Mode=OneWay}" />
-                    </StackPanel>
-                </Border>
-            </DockPanel>
-            <Border Style="{StaticResource Box}" Margin="0" Grid.Row="2"  Grid.ColumnSpan="3">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="1.8*" />
-                        <ColumnDefinition Width="0.8*" />
-                    </Grid.ColumnDefinitions>
-                    <StackPanel Margin="40, 30" DataContext="{Binding Account.Result}">
-                        <Grid DataContext="{Binding Inventory}" Height="120" HorizontalAlignment="Left" >
-                            <Image Source="{Binding ActiveProfilePicture.Picture}" Height="90" />
-                            <Image Source="{Binding ActiveBorder.Picture}" />
-                        </Grid>
-                        <StackPanel Margin="0, 18, 0, 0">
-                            <TextBlock FontWeight="Bold" FontSize="22" Text="{Binding Username}" />
-                            <TextBlock FontWeight="Regular" FontSize="18" Text="{Binding Inventory.ActivePlayerTitle.Name}" />
+                <DockPanel Grid.Column="2" DataContext="{Binding Account.Result}" Margin="0, 0, 10, 0">
+                    <Border Style="{StaticResource Box}" DockPanel.Dock="Right" Margin="0" Width="175">
+                        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Margin="0, 0, 50, 0" VerticalAlignment="Center">
+                            <Image MaxHeight="25" Margin="15, 0, 13, 0" Source="/Assets/coins.png" />
+                            <TextBlock FontSize="18" Text="{Binding AmountOfCoins}" />
                         </StackPanel>
+                    </Border>
+                    <Border Style="{StaticResource Box}" DockPanel.Dock="Right" Margin="0" Width="300">
+                        <StackPanel Orientation="Horizontal">
+                            <Grid Height="25" Margin="15, 0, 13, 0">
+                                <Image Source="/Assets/star.png" />
+                                <TextBlock Text="{Binding Level}" FontWeight="SemiBold" Style="{StaticResource Caption}" HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center" />
+                            </Grid>
+                            <ProgressBar Margin="0, 3, 0, 0" Style="{DynamicResource ProgressBarStyle1}" Value="{Binding PercentOfLevelProgress, Mode=OneWay}" />
+                        </StackPanel>
+                    </Border>
+                </DockPanel>
+                <Border Style="{StaticResource Box}" Margin="0" Grid.Row="2"  Grid.ColumnSpan="3">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="1.8*" />
+                            <ColumnDefinition Width="0.8*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Margin="40, 30" DataContext="{Binding Account.Result}">
+                            <Grid DataContext="{Binding Inventory}" Height="120" HorizontalAlignment="Left" >
+                                <Image Source="{Binding ActiveProfilePicture.Picture}" Height="90" />
+                                <Image Source="{Binding ActiveBorder.Picture}" />
+                            </Grid>
+                            <StackPanel Margin="0, 18, 0, 0">
+                                <TextBlock FontWeight="Bold" FontSize="22" Text="{Binding Username}" />
+                                <TextBlock FontWeight="Regular" FontSize="18" Text="{Binding Inventory.ActivePlayerTitle.Name}" />
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Margin="0, 30, 0, 0">
+                            <TextBlock Style="{StaticResource Title}">Category Mastery</TextBlock>
+                            <ItemsControl ItemsSource="{Binding Mastery.Result}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" Margin="0, 15, 0, 0">
+                                            <local:SVGImage MaxHeight="25" Source="{Binding Category.Picture}" Color="{Binding Category.Color}" />
+                                            <ProgressBar Margin="15, 0, 50, 0" Foreground="{Binding Category.Color}" Value="{Binding Mastery}" Style="{DynamicResource ProgressBarMastery}">
+                                                <ProgressBar.Effect>
+                                                    <DropShadowEffect BlurRadius="15" ShadowDepth="7" Opacity="0.25" Color="Black" />
+                                                </ProgressBar.Effect>
+                                            </ProgressBar>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2" Margin="0, 30, 0, 0">
+                            <Image MaxHeight="150" Source="/Assets/cup.png"/>
+                            <TextBlock FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Center" Text="Wins" />
+                            <TextBlock FontSize="18" FontWeight="SemiBold" HorizontalAlignment="Center" Text="{Binding Account.Result.TotalWins}" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="5*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="3*" />
+                </Grid.ColumnDefinitions>
+                <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource HeaderBox}">
+                    <StackPanel>
+                        <Image Source="Assets/badge.png" />
+                        <TextBlock Text="Badges" />
                     </StackPanel>
-                    <StackPanel Grid.Column="1" Margin="0, 30, 0, 0">
-                        <TextBlock Style="{StaticResource Title}">Category Mastery</TextBlock>
-                        <ItemsControl ItemsSource="{Binding Mastery.Result}">
+                </Border>
+                <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Style="{StaticResource Box}" Margin="0">
+                    <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                        <ItemsControl ItemsSource="{Binding Badges.Result}" Margin="30">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <StackPanel Orientation="Horizontal" Margin="0, 15, 0, 0">
-                                        <local:SVGImage MaxHeight="25" Source="{Binding Category.Picture}" Color="{Binding Category.Color}" />
-                                        <ProgressBar Margin="15, 0, 50, 0" Foreground="{Binding Category.Color}" Value="{Binding Mastery}" Style="{DynamicResource ProgressBarMastery}">
-                                            <ProgressBar.Effect>
-                                                <DropShadowEffect BlurRadius="15" ShadowDepth="7" Opacity="0.25" Color="Black" />
-                                            </ProgressBar.Effect>
-                                        </ProgressBar>
+                                    <StackPanel Orientation="Horizontal" Margin="0, 10, 30, 0" Width="360" IsEnabled="{Binding IsEarned}" Style="{StaticResource Disabled}">
+                                        <Image MaxHeight="110" Source="{Binding Picture}"/>
+                                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                            <TextBlock Style="{StaticResource Title}" Text="{Binding Name}" />
+                                            <TextBlock Style="{StaticResource SubTitle}" Text="{Binding Description}" />
+                                        </StackPanel>
                                     </StackPanel>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
@@ -160,54 +209,105 @@
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
                         </ItemsControl>
+                    </ScrollViewer>
+                </Border>
+            </Grid>
+            <Grid Grid.Row="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="5*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="3*" />
+                </Grid.ColumnDefinitions>
+                <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource HeaderBox}">
+                    <StackPanel>
+                        <local:SVGImage Source="Assets/suitcase.svg" />
+                        <TextBlock Text="Inventory" />
                     </StackPanel>
-                    <StackPanel Grid.Column="2" Margin="0, 30, 0, 0">
-                        <Image MaxHeight="150" Source="/Assets/cup.png"/>
-                        <TextBlock FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Center" Text="Wins" />
-                        <TextBlock FontSize="18" FontWeight="SemiBold" HorizontalAlignment="Center" Text="{Binding Account.Result.TotalWins}" />
-                    </StackPanel>
+                </Border>
+                <Grid Grid.Row="2" Grid.Column="0" Margin="0, 0, 0, 20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Button Grid.Row="0" Style="{StaticResource Option}" Command="{Binding ShowBorders}">
+                        <StackPanel>
+                            <Image Source="Assets/border.png" />
+                            <TextBlock Text="Borders" />
+                        </StackPanel>
+                    </Button>
+                    <Button Grid.Row="1" Style="{StaticResource Option}" Command="{Binding ShowProfilePictures}">
+                        <StackPanel>
+                            <Image Source="Assets/profilePicture.png" />
+                            <TextBlock Text="Profile pictures" />
+                        </StackPanel>
+                    </Button>
+                    <Button Grid.Row="2" Style="{StaticResource Option}" Command="{Binding ShowTitles}">
+                        <StackPanel>
+                            <Image Source="Assets/tag.png" />
+                            <TextBlock Text="Titles" />
+                        </StackPanel>
+                    </Button>
+                    <Button Grid.Row="3" Style="{StaticResource Option}" Command="{Binding ShowBoosters}">
+                        <StackPanel>
+                            <Image Source="Assets/boost.png" />
+                            <TextBlock Text="Boosters" />
+                        </StackPanel>
+                    </Button>
                 </Grid>
-            </Border>
-        </Grid>
-        <Grid Grid.Row="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="20" />
-                <RowDefinition Height="5*" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="3*" />
-            </Grid.ColumnDefinitions>
-            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource HeaderBox}">
-                <StackPanel>
-                    <Image Source="Assets/badge.png" />
-                    <TextBlock Text="Badges" />
-                </StackPanel>
-            </Border>
-            <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Style="{StaticResource Box}" Margin="0">
-                <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Hidden">
-                    <ItemsControl ItemsSource="{Binding Badges.Result}" Margin="30">
-                        <ItemsControl.ItemTemplate>
+                <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Background="Transparent">
+                    <fa:ImageAwesome Icon="Spinner" Panel.ZIndex="1" Spin="True" SpinDuration="1.5" Height="60"
+                                     Visibility="{Binding IsLoading, Converter={StaticResource VisibilityConverter}}"/>
+                    <local:HorizontalScrollList ItemsSource="{Binding SelectedItems}" VerticalContentAlignment="Stretch" Margin="20, 0"
+                                                SelectionMode="Multiple" ItemsSelected="{Binding EquippedItems, UpdateSourceTrigger=PropertyChanged}">
+                        <local:HorizontalScrollList.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ListViewItem">
+                                            <Border>
+                                                <ContentPresenter />
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsSelected" Value="True">
+                                                    <Setter Property="Opacity" Value="0.7"/>
+                                                    <Setter Property="IsEnabled" Value="False" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </local:HorizontalScrollList.ItemContainerStyle>
+                        <local:HorizontalScrollList.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Horizontal" Margin="0, 10, 30, 0" Width="360" IsEnabled="{Binding IsEarned}" Style="{StaticResource Disabled}">
-                                    <Image MaxHeight="110" Source="{Binding Picture}"/>
-                                    <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                                        <TextBlock Style="{StaticResource Title}" Text="{Binding Name}" />
-                                        <TextBlock Style="{StaticResource SubTitle}" Text="{Binding Description}" />
-                                    </StackPanel>
-                                </StackPanel>
+                                <Grid Style="{StaticResource Hover}">
+                                    <Border Style="{StaticResource Box}" VerticalAlignment="Stretch" Width="200" Margin="10, 5, 10, 10">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="2*" />
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+                                            <Image Grid.Row="0" Source="{Binding Picture}" Margin="20, 10" />
+                                            <StackPanel Grid.Row="1">
+                                                <TextBlock Text="{Binding Name}" FontSize="14" TextAlignment="Center" Margin="0, 0, 0, 10" />
+                                                <fa:ImageAwesome Icon="Check" Width="30"
+                                                                 Visibility="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListViewItem}, Converter={StaticResource VisibilityConverter}}" />
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
                             </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                    </ItemsControl>
-                </ScrollViewer>
-            </Border>
+                        </local:HorizontalScrollList.ItemTemplate>
+                    </local:HorizontalScrollList>
+                </Grid>
+            </Grid>
         </Grid>
-    </Grid>
+    </ScrollViewer>
 </UserControl>
