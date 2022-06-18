@@ -16,7 +16,6 @@
             <Setter Property="Height" Value="75" />
             <Setter Property="Width" Value="435" />
             <Setter Property="Margin" Value="3" />
-            <Setter Property="Focusable" Value="{Binding DataContext.CanAnswerQuestion, RelativeSource={RelativeSource AncestorType=UserControl}}" />
             <Setter Property="IsEnabled" Value="{Binding DataContext.CanAnswerQuestion, RelativeSource={RelativeSource AncestorType=UserControl}}" />
             <Setter Property="Template">
                 <Setter.Value>
@@ -119,9 +118,21 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Grid DataContext="{Binding Game.Account.Inventory}">
-                    <Image Source="{Binding ActiveProfilePicture.Picture}" Margin="0, 5, 0, 0" />
-                    <Image Source="{Binding ActiveBorder.Picture}" />
+                <Grid Margin="5, 0" HorizontalAlignment="Left" MaxWidth="100" DataContext="{Binding Game.Account.Inventory}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="12.5*" />
+                        <RowDefinition Height="75*" />
+                        <RowDefinition Height="12.5*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="12.5*" />
+                        <ColumnDefinition Width="75*" />
+                        <ColumnDefinition Width="12.5*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid Background="White" Grid.Column="1" Grid.Row="1" >
+                        <Image Source="{Binding ActiveProfilePicture.Picture}" />
+                    </Grid>
+                    <Image Source="{Binding ActiveBorder.Picture}" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Grid.RowSpan="3"/>
                 </Grid>
                 <StackPanel DataContext="{Binding Game.Account}" Grid.Column="1" Margin="0, 8, 0, 0">
                     <TextBlock FontWeight="Bold" FontSize="15" Text="{Binding Username}" />
@@ -135,9 +146,9 @@
                 <ProgressBar Grid.Row="1" Grid.Column="1" Style="{DynamicResource ProgressBarStyle1}" Width="150" HorizontalAlignment="Left"
                              Value="{Binding Game.Account.PercentOfLevelProgress, Mode=OneWay}" />
                 <Image MaxHeight="20" Source="/Assets/coins.png" Grid.Row="2" />
-                <TextBlock Padding="0, 3, 0, 0" FontSize="16" Grid.Row="2" Grid.Column="1" Text="{Binding Game.Account.CurrentXP}" />
+                <TextBlock Padding="0, 3, 0, 0" FontSize="16" Grid.Row="2" Grid.Column="1" Text="{Binding Game.Account.AmountOfCoins}" />
                 <Image MaxHeight="15" Source="/Assets/xp.png" Grid.Row="3" />
-                <TextBlock Padding="0, 4, 0, 0" FontSize="16" Grid.Row="3" Grid.Column="1" Text="{Binding Game.Account.AmountOfCoins}" />
+                <TextBlock Padding="0, 4, 0, 0" FontSize="16" Grid.Row="3" Grid.Column="1" Text="{Binding Game.Account.CurrentXP}" />
             </Grid>
         </Border>
         <Border Grid.Column="1" Grid.Row="2" Style="{StaticResource Box}">
@@ -175,7 +186,7 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <DockPanel>
-                                    <Grid MaxHeight="45" DockPanel.Dock="Left" Margin="0, 0, 5, 0">
+                                    <Grid MaxHeight="45" DockPanel.Dock="Left" Margin="0, 0, 5, 5">
                                         <Image Source="{Binding ProfilePicture}" Margin="0, 5, 0, 0" />
                                         <Image Source="{Binding Border}" />
                                     </Grid>
@@ -196,7 +207,7 @@
                     <ItemsControl ItemsSource="{Binding Game.Players}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Grid MaxHeight="45" Margin="0, 0, 10, 0" ToolTip="{Binding Username}">
+                                <Grid MaxHeight="45" Margin="0, 0, 10, 5" ToolTip="{Binding Username}">
                                     <Image Source="{Binding ProfilePicture}" Margin="0, 5, 0, 0" />
                                     <Image Source="{Binding Border}" />
                                 </Grid>

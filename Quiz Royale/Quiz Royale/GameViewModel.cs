@@ -179,9 +179,12 @@ namespace Quiz_Royale
         // Reset de instellingen voor een vraag.
         private void Reset()
         {
-            CanPickCategory = false; // todo
-            CanAnswerQuestion = true;
-            CanUseBooster = true;
+            if(CanPickCategory)
+            {
+                CanPickCategory = false; // todo
+                CanAnswerQuestion = true;
+                CanUseBooster = true;
+            }
         }
 
         /// <summary>

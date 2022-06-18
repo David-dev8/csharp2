@@ -32,7 +32,7 @@
             <Border BorderBrush="White" BorderThickness="5" CornerRadius="8" Grid.Column="2" Grid.Row="2" 
                     Visibility="{Binding WaitingLobby, Converter={StaticResource InverseVisibilityConverter}}">
                 <StackPanel Background="White">
-                    <fa:ImageAwesome Icon="Spinner" Spin="True" Height="75" Width="75" Margin="10, 25, 10, 25"/>
+                    <fa:ImageAwesome Icon="Spinner" Style="{StaticResource Spin}" Margin="10, 25, 10, 25"/>
                     <TextBlock Style="{StaticResource Title}" HorizontalAlignment="Center" VerticalAlignment="Bottom">
 				        Trying to join a match...
                     </TextBlock>

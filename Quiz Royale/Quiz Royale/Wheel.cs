@@ -67,6 +67,10 @@ namespace Quiz_Royale
                     {
                         double currentAngle = GetAngleFromItem(item);
                         double nextAngle = GetAngleFromItem(Items.GetItemAt((i + 1) % Items.Count));
+                        if(nextAngle == ANGLE_CORRECTION)
+                        {
+                            nextAngle -= 360;
+                        }
                         double randomAngle = GetRandomAngleInBetween(currentAngle, nextAngle);
 
                         DoubleAnimation rotateAnimation = GetRotateAnimation(randomAngle);
@@ -102,7 +106,8 @@ namespace Quiz_Royale
 
         private double GetRandomAngleInBetween(double firstAngle, double secondAngle)
         {
-            return 360 * random.Next(MIN_ROTATIONS, MAX_ROTATIONS) + GetRandomDouble(firstAngle, secondAngle);
+            return 360 * random.Next(MIN_ROTATIONS, MAX_ROTATIONS) + 
+                GetRandomDouble(Math.Min(firstAngle, secondAngle), Math.Max(secondAngle, firstAngle));
         }
 
         private double GetAngleFromItem(object item)
@@ -110,7 +115,7 @@ namespace Quiz_Royale
             DependencyObject itemContainer = ItemContainerGenerator.ContainerFromItem(item);
             Path p = FindByType<Path>(itemContainer);
             RotateTransform rotation = p.RenderTransform as RotateTransform;
-            return ANGLE_CORRECTION - rotation.Angle;
+            return (ANGLE_CORRECTION - rotation.Angle) % 360;
         }
 
         private double GetRandomDouble(double minimum, double maximum)

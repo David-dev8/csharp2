@@ -144,25 +144,30 @@
                         </StackPanel>
                         <StackPanel Grid.Column="1" Margin="0, 30, 0, 0">
                             <TextBlock Style="{StaticResource Title}">Category Mastery</TextBlock>
-                            <ItemsControl ItemsSource="{Binding Mastery.Result}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal" Margin="0, 15, 0, 0">
-                                            <local:SVGImage MaxHeight="25" Source="{Binding Category.Picture}" Color="{Binding Category.Color}" />
-                                            <ProgressBar Margin="15, 0, 50, 0" Foreground="{Binding Category.Color}" Value="{Binding Mastery}" Style="{DynamicResource ProgressBarMastery}">
-                                                <ProgressBar.Effect>
-                                                    <DropShadowEffect BlurRadius="15" ShadowDepth="7" Opacity="0.25" Color="Black" />
-                                                </ProgressBar.Effect>
-                                            </ProgressBar>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <WrapPanel />
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                            </ItemsControl>
+                            <Grid>
+                                <fa:ImageAwesome Style="{StaticResource Spin}" Icon="Spinner" 
+                                                 Visibility="{Binding Mastery.IsNotCompleted, Converter={StaticResource VisibilityConverter}}" />
+                                <ItemsControl Visibility="{Binding Mastery.IsNotCompleted, Converter={StaticResource InverseVisibilityConverter}}" 
+                                              ItemsSource="{Binding Mastery.Result}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" Margin="0, 15, 0, 0">
+                                                <local:SVGImage MaxWidth="25" Margin="5, 0" Source="{Binding Category.Picture}" Color="{Binding Category.Color}" />
+                                                <ProgressBar Margin="15, 0, 50, 0" Foreground="{Binding Category.Color}" Value="{Binding Mastery}" Style="{DynamicResource ProgressBarMastery}">
+                                                    <ProgressBar.Effect>
+                                                        <DropShadowEffect BlurRadius="15" ShadowDepth="7" Opacity="0.25" Color="Black" />
+                                                    </ProgressBar.Effect>
+                                                </ProgressBar>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                </ItemsControl>
+                            </Grid>
                         </StackPanel>
                         <StackPanel Grid.Column="2" Margin="0, 30, 0, 0">
                             <Image MaxHeight="150" Source="/Assets/cup.png"/>
@@ -190,26 +195,30 @@
                     </StackPanel>
                 </Border>
                 <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Style="{StaticResource Box}" Margin="0">
-                    <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Hidden">
-                        <ItemsControl ItemsSource="{Binding Badges.Result}" Margin="30">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal" Margin="0, 10, 30, 0" Width="360" IsEnabled="{Binding IsEarned}" Style="{StaticResource Disabled}">
-                                        <Image MaxHeight="110" Source="{Binding Picture}"/>
-                                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                                            <TextBlock Style="{StaticResource Title}" Text="{Binding Name}" />
-                                            <TextBlock Style="{StaticResource SubTitle}" Text="{Binding Description}" />
+                    <Grid>
+                        <fa:ImageAwesome Style="{StaticResource Spin}" Icon="Spinner" Visibility="{Binding Badges.IsNotCompleted, Converter={StaticResource VisibilityConverter}}" />
+                        <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Hidden" 
+                                      Visibility="{Binding Badges.IsNotCompleted, Converter={StaticResource InverseVisibilityConverter}}">
+                            <ItemsControl ItemsSource="{Binding Badges.Result}" Margin="30">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" Margin="0, 10, 30, 0" Width="360" IsEnabled="{Binding IsEarned}" Style="{StaticResource Disabled}">
+                                            <Image MaxHeight="110" Source="{Binding Picture}"/>
+                                            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                                <TextBlock Style="{StaticResource Title}" Text="{Binding Name}" />
+                                                <TextBlock Style="{StaticResource SubTitle}" Text="{Binding Description}" />
+                                            </StackPanel>
                                         </StackPanel>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <WrapPanel />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                        </ItemsControl>
-                    </ScrollViewer>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Grid>
                 </Border>
             </Grid>
             <Grid Grid.Row="4">
@@ -262,8 +271,7 @@
                     </Button>
                 </Grid>
                 <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Background="Transparent">
-                    <fa:ImageAwesome Icon="Spinner" Panel.ZIndex="1" Spin="True" SpinDuration="1.5" Height="60"
-                                     Visibility="{Binding IsLoading, Converter={StaticResource VisibilityConverter}}"/>
+                    <fa:ImageAwesome Style="{StaticResource Spin}" Icon="Spinner" Visibility="{Binding IsLoading, Converter={StaticResource VisibilityConverter}}"/>
                     <local:HorizontalScrollList ItemsSource="{Binding SelectedItems}" VerticalContentAlignment="Stretch" Margin="20, 0"
                                                 SelectionMode="Multiple" ItemsSelected="{Binding EquippedItems, UpdateSourceTrigger=PropertyChanged}">
                         <local:HorizontalScrollList.ItemContainerStyle>

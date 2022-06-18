@@ -23,6 +23,7 @@ namespace Quiz_Royale
         public event EventHandler ReduceTime;
         public event EventHandler<PlayerAnsweredArgs> PlayerAnswered;
         public event EventHandler<PlayersLeftArgs> PlayersLeft;
+        public event EventHandler<ReduceAnswersArgs> ReduceAnswers;
 
         public HubConnector()
         {
@@ -99,6 +100,11 @@ namespace Quiz_Royale
             _connection.On<IList<Player>>("playersLeft", (players) =>
             {
                 PlayersLeft?.Invoke(this, new PlayersLeftArgs(players));
+            });
+
+            _connection.On<IList<Answer>>("reduceAnswers", (answers) =>
+            {
+                ReduceAnswers?.Invoke(this, new ReduceAnswersArgs(answers));
             });
 
             try

@@ -52,7 +52,7 @@ namespace Quiz_Royale
         public override void Dispose()
         {
             Game.PropertyChanged -= _game_PropertyChanged;
-            if(Game.State == State.ENDED)
+            if(Game.State == State.ENDED || Game.State == State.JOINED)
             {
                 Game.Dispose();
             }

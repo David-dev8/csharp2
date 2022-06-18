@@ -9,6 +9,10 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <local:InverseBooleanConverter x:Key="InverseConverter" />
+        <Style TargetType="ListViewItem">
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="VerticalContentAlignment" Value="Top" />
+        </Style>
     </UserControl.Resources>
     <Grid Margin="50">
         <Grid.RowDefinitions>
@@ -85,7 +89,7 @@
                 </Button>
             </Grid>
             <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Background="Transparent">
-                <fa:ImageAwesome Icon="Spinner" Panel.ZIndex="1" Spin="True" SpinDuration="1.5" Height="60"
+                <fa:ImageAwesome Icon="Spinner" Style="{StaticResource Spin}"
                                  Visibility="{Binding IsLoading, Converter={StaticResource VisibilityConverter}}"/>
                 <local:HorizontalScrollList ItemsSource="{Binding SelectedItems}" VerticalContentAlignment="Stretch" Margin="20, 0"
                                             SelectedItem="{Binding ItemSelected, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
@@ -132,7 +136,7 @@
                 </StackPanel>
             </Border>
             <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Background="Transparent">
-                <fa:ImageAwesome Icon="Spinner" Panel.ZIndex="1" Spin="True" SpinDuration="1.5" Height="60"
+                <fa:ImageAwesome Icon="Spinner" Style="{StaticResource Spin}"
                                  Visibility="{Binding IsLoading, Converter={StaticResource VisibilityConverter}}"/>
                 <local:HorizontalScrollList ItemsSource="{Binding Rewards}" VerticalContentAlignment="Stretch"
                                             SelectedItem="{Binding RewardSelected, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"

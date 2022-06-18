@@ -23,5 +23,22 @@ namespace Quiz_Royale
             Code = code;
             Description = description;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            Answer otherAnswer = (Answer)obj;
+
+            return Code.Equals(otherAnswer.Code);
+        }
+
+        public override int GetHashCode()
+        {
+            return Code.GetHashCode();
+        }
     }
 }

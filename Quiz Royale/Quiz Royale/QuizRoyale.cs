@@ -101,9 +101,18 @@ namespace Quiz_Royale
             _connector.UpdateStatus += UpdateStatus;
             _connector.Start += StartGame;
 
-            _connector.Join(Account.Username);
+            _connector.CategoryIncrease += IncreaseCategoryChance;
+            _connector.ReduceAnswers += ReduceAnswers;
 
-            _connector.catIncrease += increaseCatChance;
+            _connector.Join(Account.Username);
+        }
+
+        private void ReduceAnswers(object sender, ReduceAnswersArgs e)
+        {
+            foreach(Answer answer in e.WrongAnswers)
+            {
+                CurrentQuestion.Possibilities.Remove(answer);
+            }
         }
 
         // Elimineert de spelers die zijn afgevallen.
@@ -180,7 +189,7 @@ namespace Quiz_Royale
         }
 
         // Maakt de kans hoger dat een catogorie wordt gekozen
-        private void increaseCatChance(object sender, CategoryIncreaseArgs e)
+        private void IncreaseCategoryChance(object sender, CategoryIncreaseArgs e)
         {
             foreach (CategoryMastery chance in Chances)
             {

@@ -71,7 +71,7 @@ namespace Quiz_Royale
         // Controleert of het gegeven item al in bezit is van het account en of het item geen booster is.
         private bool IsOutOfStock(Account account, Item item)
         {
-            return !(item is Booster) && account.Inventory.HasItem(item);
+            return account.Inventory.HasItem(item);
         }
 
         // Controleert of het gegeven item kan worden gekocht door de gebruiker.

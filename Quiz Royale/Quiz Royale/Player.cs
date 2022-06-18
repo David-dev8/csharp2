@@ -27,7 +27,7 @@ namespace Quiz_Royale
         /// <param name="username">De gebruikersnaam van de speler.</param>
         /// <param name="title">De actieve spelerstitel van de gebruiker.</param>
         /// <param name="profilePicture">De actieve profielpagina van de gebruiker.</param>
-        /// <param name="border">De avtieve border van de gebruiker.</param>
+        /// <param name="border">De actieve border van de gebruiker.</param>
         public Player(string username, string title, string profilePicture, string border)
         {
             Username = username;
