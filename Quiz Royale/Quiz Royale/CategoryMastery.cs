@@ -16,13 +16,13 @@ namespace Quiz_Royale
         public Category Category { get; set; }
 
         /// <summary>
-        /// Deze property geeft toegang tot de mastery van een bepaalde categorie.
+        /// Deze property geeft toegang tot de mastery van een bepaalde categorie. Er wordt afgerond op tweee decimalen.
         /// </summary>
         public double Mastery
         {
             get 
             {
-                return Math.Round(_mastery, 3);
+                return Math.Round(_mastery, 2);
             }
             set 
             { 

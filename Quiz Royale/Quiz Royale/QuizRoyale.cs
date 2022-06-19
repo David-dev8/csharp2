@@ -13,7 +13,6 @@ namespace Quiz_Royale
     public class QuizRoyale : Game
     {
         private const int TIME_AFTER_BOOST = 2;
-        private const int PERCENTAGE_TO_INCREASE = 10;
         private const int START_TIME = 10;
         private static readonly string WINNER_MESSAGE = "Congratulations!";
         private static readonly IDictionary<int, string> LOSE_MESSAGES = new Dictionary<int, string>
@@ -28,8 +27,25 @@ namespace Quiz_Royale
 
         private Timer _timer;
         private int _currentTime;
+        private bool? _isCorrect;
 
         public ObservableCollection<Player> Players { get; set; }
+
+        /// <summary>
+        /// Deze property geeft aan of het gegeven antwoord correct is.
+        /// </summary>
+        public bool? IsCorrect
+        {
+            get
+            {
+                return _isCorrect;
+            }
+            set
+            {
+                _isCorrect = value;
+                OnPropertyChanged();
+            }
+        }
 
         /// <summary>
         /// Deze property geeft toegang tot het aantal spelers dat nog in de huidige game zitten.
@@ -56,13 +72,15 @@ namespace Quiz_Royale
             }
             set
             {
-                if(value >= 0)
+                if(value > 0)
                 {
                     _currentTime = value;
                     NotifyPropertyChanged();
                 }
                 else
                 {
+                    _currentTime = value;
+                    NotifyPropertyChanged();
                     _timer.Stop();
                 }
             }
@@ -152,6 +170,7 @@ namespace Quiz_Royale
         // Telt de juiste aantal XP en coins erbij op.
         private void Result(object sender, ResultArgs e)
         {
+            IsCorrect = e.Result;
             Account.CurrentXP += e.XP;
             Account.AmountOfCoins += e.Coins;
         }
@@ -159,6 +178,7 @@ namespace Quiz_Royale
         // Stelt de juiste instellingen in voor de volgende vraag.
         private void StartQuestion(object sender, EventArgs e)
         {
+            IsCorrect = null;
             _timer.AutoReset = true;
             _timer.Enabled = true;
             FastestPlayers.Clear();
@@ -168,9 +188,9 @@ namespace Quiz_Royale
         // Creëert een nieuwe vraag.
         private void SetCurrentQuestion(object sender, NewQuestionArgs e)
         {
+            CurrentTime = START_TIME;
             CurrentQuestion = e.Question;
             State = State.NEXT_CATEGORY;
-            CurrentTime = START_TIME;
         }
 
         // Verminderd de tijd naar een aantal seconden.

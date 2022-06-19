@@ -75,7 +75,7 @@
                     <RowDefinition Height="1.5*" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0" DataContext="{Binding Account.Result}" Orientation="Horizontal" Margin="50, 20, 50, 0">
+                <StackPanel Grid.Row="0" DataContext="{Binding Account.Result}" Orientation="Horizontal" Margin="45, 20, 50, 0">
                     <Grid DataContext="{Binding Inventory}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="12.5*" />
@@ -94,7 +94,7 @@
                     </Grid>
                     <StackPanel Margin="25, 18, 0, 0">
                         <TextBlock FontWeight="Bold" FontSize="22" Text="{Binding Username}" />
-                        <TextBlock FontStyle="Italic" FontWeight="Regular" FontSize="18" Text="{Binding Inventory.ActivePlayerTitle.Name}" />
+                        <TextBlock FontWeight="Regular" FontSize="18" Text="{Binding Inventory.ActivePlayerTitle.Name}" />
                     </StackPanel>
                 </StackPanel>
                 <DockPanel DataContext="{Binding Account.Result}" Grid.Row="1" VerticalAlignment="Top" Margin="23, 10, 0, 0">

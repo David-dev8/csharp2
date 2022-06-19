@@ -50,7 +50,7 @@
                     </Grid>
                     <StackPanel DataContext="{Binding Game.Account}" Margin="10, 8, 0, 0">
                         <TextBlock FontWeight="Bold" Style="{StaticResource GameEndedStyle}" Text="{Binding Username}" />
-                        <TextBlock FontStyle="Italic" FontSize="16" FontWeight="Regular" Text="{Binding Inventory.ActivePlayerTitle.Name}" />
+                        <TextBlock FontSize="16" FontWeight="Regular" Text="{Binding Inventory.ActivePlayerTitle.Name}" />
                     </StackPanel>
                 </StackPanel>
                 <Grid Grid.Column="1" Height="175" Margin="0, 10, 0, 12">
