@@ -21,8 +21,7 @@ namespace Quiz_Royale
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             double percentage = System.Convert.ToDouble(values[0]);
-            double radius = System.Convert.ToInt32(values[1]);
-            radius *= 0.6;
+            double radius = System.Convert.ToInt32(values[1]) * 0.6;
 
             // Bereken de hoek in radialen
             double angle = percentage * 3.6 * (Math.PI / 180);
