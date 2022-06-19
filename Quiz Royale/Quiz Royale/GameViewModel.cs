@@ -181,7 +181,7 @@ namespace Quiz_Royale
         {
             if(CanPickCategory)
             {
-                CanPickCategory = false; // todo
+                CanPickCategory = false;
                 CanAnswerQuestion = true;
                 CanUseBooster = true;
             }

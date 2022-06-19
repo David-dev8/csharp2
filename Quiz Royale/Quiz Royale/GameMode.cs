@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Quiz_Royale.Enums;
 
 namespace Quiz_Royale
 {
@@ -21,7 +22,15 @@ namespace Quiz_Royale
 
         public bool Released { get; set; }
         
-        // TODO comment 
+        /// <summary>
+        /// Dit is de constructor voor het GameMode object
+        /// </summary>
+        /// <param name="mode">De naam van de mode als enum</param>
+        /// <param name="picture">een link naar het logo van de mode als string</param>
+        /// <param name="title">De naam van de mode als string</param>
+        /// <param name="subtitle">Het bijschrift van de mode als string</param>
+        /// <param name="description">De discriptie van de mode als string</param>
+        /// <param name="released">De toegangkelijkheid van de mode, bij false is de modus niet toegankelijk, en bij true wel</param>
         public GameMode(Mode mode, string picture, string title, string subtitle, string description, bool released = true)
         {
             Picture = picture;
@@ -31,15 +40,5 @@ namespace Quiz_Royale
             Mode = mode;
             Released = released;
         }
-    }
-
-    /// <summary>
-    /// Deze enum vertegenwoordigd de verschillende gamemodi van de applicatie.
-    /// </summary>
-    public enum Mode // TODO moet dit in een apart bestand?
-    {
-        QUIZ_ROYALE,
-        LEAGUE_OF_QUESTIONS,
-        TRAINING
     }
 }

@@ -63,7 +63,7 @@ namespace Quiz_Royale
                 }
                 else
                 {
-                    _timer.Stop(); // TODO moet je eigenlijk wel stoppen?
+                    _timer.Stop();
                 }
             }
         }
@@ -76,11 +76,17 @@ namespace Quiz_Royale
         public QuizRoyale(Account account)
         {
             Account = account;
-            Boosters = new ObservableCollection<Item>(Account.Inventory.Boosters); // TODO in een methode een aantal dingen
+            Boosters = new ObservableCollection<Item>(Account.Inventory.Boosters);
             FastestPlayers = new ObservableCollection<Player>();
             Players = new ObservableCollection<Player>();
             Chances = new List<CategoryMastery>();
 
+            setupConection();
+        }
+
+        // Deze methode doet de setup voor de hub en bind alle events
+        private void setupConection()
+        {
             _connector = new HubConnector();
             _connector.NewQuestion += SetCurrentQuestion;
             _connector.ReduceTime += ReduceTime;
@@ -170,7 +176,7 @@ namespace Quiz_Royale
         // Verminderd de tijd naar een aantal seconden.
         private void ReduceTime(object sender, EventArgs e)
         {
-            CurrentTime = TIME_AFTER_BOOST; // TODO zelfde tijd als op de socket?
+            CurrentTime = TIME_AFTER_BOOST; // De soccet tijd is 2 seconden
         }
 
         // Vermindert de tijd met een seconde.

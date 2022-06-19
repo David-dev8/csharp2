@@ -30,7 +30,7 @@ namespace Quiz_Royale
 
         private const int MIN_ROTATIONS = 4;
 
-        private const int MAX_ROTATIONS = 8; // todo resourcedict voor players.xaml?
+        private const int MAX_ROTATIONS = 8;
 
         private const int ROTATION_DURATION = 5;
 

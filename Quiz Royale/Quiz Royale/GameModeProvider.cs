@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Text.RegularExpressions;
+using Quiz_Royale.Enums;
 
 namespace Quiz_Royale
 {
@@ -15,7 +16,7 @@ namespace Quiz_Royale
         /// Haalt alle verschillende gamemodi op.
         /// </summary>
         /// <returns>Een lijst met alle gamemodi.</returns>
-        public static IList<GameMode> GetGameModes() // todo wrm geen interface?
+        public static IList<GameMode> GetGameModes()
         {
             return new List<GameMode>
             {
@@ -33,7 +34,11 @@ namespace Quiz_Royale
             };
         }
 
-        // Verwijdert indentingen in de gegeven string.
+        /// <summary>
+        /// Verwijdert indentingen in de gegeven string
+        /// </summary>
+        /// <param name="subject">De string waarvan je indenting weg wil halen</param>
+        /// <returns>De iput string zonder indenting</returns>
         private static string RemoveIndent(string subject)
         {
             subject = subject.Replace("  ", "");

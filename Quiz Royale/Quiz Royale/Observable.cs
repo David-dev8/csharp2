@@ -17,7 +17,11 @@ namespace Quiz_Royale
         public event PropertyChangedEventHandler PropertyChanged;
 
 
-       // TODO allebei bewaren?, zo ja commenten dit
+        /// <summary>
+        /// Deze methode kan worden aangeroepen in een bepaalde property, waarbij de naam van deze property 
+        /// moet worden vermeld. Hierdoor wordt de PropertyChanged event afgevuurd.
+        /// </summary>
+        /// <param name="propertyName">De naam van de property die is veranderd</param>
         protected void OnPropertyChanged(string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

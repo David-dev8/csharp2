@@ -10,7 +10,7 @@ namespace Quiz_Royale
     /// <summary>
     /// Deze klasse vertegenwoordigt de basis van een game in de applicatie.
     /// </summary>
-    public abstract class Game : Observable // TODO geen constructor?
+    public abstract class Game : Observable
     {
         private ObservableCollection<Item> _boosters;
         protected HubConnector _connector;
@@ -19,7 +19,7 @@ namespace Quiz_Royale
 
         public Question CurrentQuestion { get; set; }
 
-        public IList<CategoryMastery> Chances { get; set; } // TODO categorie wordt meegegeven aan de question nu, hoe wordt dat gedaan met de float
+        public IList<CategoryMastery> Chances { get; set; }
 
         public Account Account { get; set; }
 
@@ -65,7 +65,7 @@ namespace Quiz_Royale
                     return null;
                 }
 
-                return Chances.Where(c => c.Category.Equals(CurrentQuestion.Category)).SingleOrDefault(); // todo
+                return Chances.Where(c => c.Category.Equals(CurrentQuestion.Category)).SingleOrDefault();
             }
         }
 

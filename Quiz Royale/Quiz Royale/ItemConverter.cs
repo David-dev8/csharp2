@@ -29,7 +29,7 @@ namespace Quiz_Royale
 
         public override Item Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            ItemDTO item = JsonSerializer.Deserialize<ItemDTO>(ref reader, options); // todo reuse factory
+            ItemDTO item = JsonSerializer.Deserialize<ItemDTO>(ref reader, options);
             return new ItemFactory().MakeItem(
                 item.Id, 
                 item.ItemType, 

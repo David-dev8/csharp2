@@ -14,7 +14,7 @@ namespace Quiz_Royale.Filters
         /// </summary>
         /// <param name="filter">Het type filter waarop gefilterd moet worden.</param>
         /// <returns>Het filter van het gegeven type.</returns>
-        public IItemFilter GetFilter(string filter) // TODO met enum???
+        public IItemFilter GetFilter(string filter)
         {
             return filter switch
             {
@@ -27,7 +27,5 @@ namespace Quiz_Royale.Filters
                 _ => null,
             };
         }
-
-        // todo return null of except?
-    }
+        }
 }

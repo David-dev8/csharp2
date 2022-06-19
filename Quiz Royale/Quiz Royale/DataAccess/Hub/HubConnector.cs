@@ -25,7 +25,7 @@ namespace Quiz_Royale
         public event EventHandler<PlayersLeftArgs> PlayersLeft;
         public event EventHandler<ReduceAnswersArgs> ReduceAnswers;
 
-        public HubConnector()
+        public HubConnector() 
         {
             _connection = new HubConnectionBuilder()
                 .WithUrl("http://localhost:5264/GameHub")
@@ -113,21 +113,14 @@ namespace Quiz_Royale
             }
             catch (Exception ex)
             {
-                //TODO afhandelen als de api niet beschikbaar is
+                throw new Exceptions.UnableToConnectException();
             }
 
         }
 
         public async Task Join(string username)
         {
-            try
-            {
-                await _connection.InvokeAsync("join", username);
-            }
-            catch (Exception ex)
-            {
-                //TODO afhandelen
-            }
+            await _connection.InvokeAsync("join", username);
         }
 
         public async Task Leave()

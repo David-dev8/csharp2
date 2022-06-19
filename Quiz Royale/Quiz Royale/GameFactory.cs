@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Quiz_Royale.Enums;
 
 namespace Quiz_Royale
 {
@@ -15,12 +16,12 @@ namespace Quiz_Royale
         /// <param name="mode">De modus van de game.</param>
         /// <param name="account">Het account dat meedoet aan het spel.</param>
         /// <returns></returns>
-        public Game CreateGame(Mode mode, Account account) // TODO met strings of iets anders?
+        public Game CreateGame(Mode mode, Account account)
         {
             return mode switch
             {
                 Mode.QUIZ_ROYALE => new QuizRoyale(account),
-                _ => null // todo
+                _ => null
             };
         }
     }

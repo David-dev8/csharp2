@@ -52,12 +52,19 @@ namespace Quiz_Royale
             }
         }
 
-        // TODO COMMENT EN MET HOOFDLETTER
-        private void startGame()
+        // Probeert een game te starten door een game object te maken en je naar de lobby pagina te sturen
+        private void InitiateGame()
         {
             var factory = new GameFactory();
-            Game game = factory.CreateGame(SelectedGameMode.Mode, Account.Result);
-            _navigationStore.CurrentViewModel = new LobbyViewModel(_navigationStore, game);
+            try
+            {
+                Game game = factory.CreateGame(SelectedGameMode.Mode, Account.Result);
+                _navigationStore.CurrentViewModel = new LobbyViewModel(_navigationStore, game);
+            }
+            catch (Exceptions.UnableToConnectException e)
+            {
+                _navigationStore.Error = e.Message;
+            }
         }
 
         private bool CanStartGame(object parameter)
@@ -75,7 +82,7 @@ namespace Quiz_Royale
             _accountProvider = new APIAccountProvider();
             _gameModes = GameModeProvider.GetGameModes();
             SelectedGameMode = _gameModes.FirstOrDefault();
-            StartGame = new RelayCommand(startGame, CanStartGame);
+            StartGame = new RelayCommand(InitiateGame, CanStartGame);
             _navigationStore.IsInMenu = true;
 
             Account = new NotifyTaskCompletion<Account>(_accountProvider.GetAccount());

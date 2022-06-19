@@ -25,7 +25,7 @@ namespace Quiz_Royale
         /// </summary>
         public Shop()
         {
-            _itemProvider = new APIItemProvider(); // todo hebben we deze nog nodig als property?
+            _itemProvider = new APIItemProvider();
             Items = new NotifyTaskCompletion<IList<Item>>(_itemProvider.GetItems());
         }
 
@@ -87,7 +87,7 @@ namespace Quiz_Royale
             {
                 Payment.XP => account.Level >= item.RequiredAmount,
                 Payment.COINS => account.AmountOfCoins >= item.RequiredAmount,
-                _ => false // todo exception?
+                _ => false
             };
         }
 

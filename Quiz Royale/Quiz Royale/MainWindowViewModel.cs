@@ -123,7 +123,7 @@ namespace Quiz_Royale
             }
         }
 
-        // TODO COMMENT
+        // Probeert de app naar de homepagina te sturen als dit mogelijk is, als dit niet mogelijk is dan komt de app op de login pagina
         private async void TryToGoToHome()
         {
             try
@@ -160,7 +160,7 @@ namespace Quiz_Royale
         // Sluit het programma af.
         private void CloseProgram()
         {
-            CurrentViewModel.Dispose(); // todo
+            CurrentViewModel.Dispose();
             Application.Current.Shutdown();
         }
     }

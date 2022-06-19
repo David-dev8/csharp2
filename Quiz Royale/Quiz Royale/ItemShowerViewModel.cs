@@ -106,7 +106,6 @@ namespace Quiz_Royale
         /// </summary>
         protected void FilterTitles()
         {
-            // todo enum van filters?
             FilterAll(_filterFactory.GetFilter("Title"));
         }
 

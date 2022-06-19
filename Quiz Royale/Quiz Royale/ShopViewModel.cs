@@ -128,7 +128,6 @@ namespace Quiz_Royale
         // Als blijkt dat dit niet mogelijk is, wordt er een foutmelding weergegeven.
         private async Task Buy()
         {
-            // todo try catch?
             try
             {
                 await _shop.BuyItem(Account.Result, _itemSelected);
