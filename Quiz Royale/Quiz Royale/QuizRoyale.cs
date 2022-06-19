@@ -228,6 +228,7 @@ namespace Quiz_Royale
         {
             if(CurrentPosition == 1)
             {
+                Account.TotalWins++;
                 return WINNER_MESSAGE;
             }
             double percent = (double) CurrentPosition / TotalAmountOfPlayersStarted * 100;

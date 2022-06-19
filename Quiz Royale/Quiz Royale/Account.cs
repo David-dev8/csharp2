@@ -51,6 +51,7 @@ namespace Quiz_Royale
             }
         }
 
+        [JsonPropertyName("AmountOfWins")]
         public int TotalWins { get; set; }
 
         public Inventory Inventory { get; set; }
