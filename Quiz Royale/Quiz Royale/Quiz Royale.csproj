@@ -5,6 +5,7 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <RootNamespace>Quiz_Royale</RootNamespace>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>AppIcon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -38,6 +39,10 @@
     <None Remove="Assets\tag.png" />
     <None Remove="Assets\trainingMode.png" />
     <None Remove="Assets\xp.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="AppIcon.ico" />
   </ItemGroup>
 
   <ItemGroup>
