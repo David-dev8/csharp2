@@ -19,7 +19,7 @@ namespace Quiz_Royale
             {
                 throw new ArgumentException("username");
             }
-            return await _apiHandler.Create<TokenCredentials, dynamic>("Player", new { username = username}); // todo mag dit?
+            return await _apiHandler.Create<TokenCredentials, PlayerCreationData>("Player", new PlayerCreationData(username));
         }
     }
 }

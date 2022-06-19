@@ -28,11 +28,7 @@ namespace Quiz_Royale
             int randomY = s_random.Next(Math.Max(0, availableHeight));
 
             // Geef de willekeurige positie als margin door aan het element zodat deze op een willekeurige plek komt
-            element.SetCurrentValue(FrameworkElement.MarginProperty, new Thickness(randomX, randomY, 0, 0));
-            element.UpdateLayout();
-
-            // todo return margin
-            return Binding.DoNothing;
+            return new Thickness(randomX, randomY, 0, 0);
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
