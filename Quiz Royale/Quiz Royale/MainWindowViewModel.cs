@@ -81,7 +81,6 @@ namespace Quiz_Royale
         public MainWindowViewModel(NavigationStore navigationStore)
         {
             _navigationStore = navigationStore;
-            GetFirstViewModel();
             NotifyForUpdates();
 
             ShowHome = new RelayCommand(SelectHomeAsCurrentPage);
@@ -107,36 +106,6 @@ namespace Quiz_Royale
         private void DismissAllErrors()
         {
             _navigationStore.Error = null;
-        }
-
-        // Haal de eerste ViewModel bij het opstarten.
-        private void GetFirstViewModel()
-        {
-            // Controleer of de gebruiker al een account heeft, dit is het geval wanneer er een access token aanwezig is
-            if(Storage.Settings.Credentials?.AccessToken == null)
-            {
-                CurrentViewModel = new LoginViewModel(_navigationStore);
-            } 
-            else
-            {
-                TryToGoToHome();
-            }
-        }
-
-        // Probeert de app naar de homepagina te sturen als dit mogelijk is, als dit niet mogelijk is dan komt de app op de login pagina
-        private async void TryToGoToHome()
-        {
-            try
-            {
-                Account account = await new APIAccountProvider().GetAccount();
-                CurrentViewModel = new HomeViewModel(_navigationStore);
-            }
-            catch(Exception)
-            {
-                CurrentViewModel = new LoginViewModel(_navigationStore);
-                _navigationStore.Error = "Cannot connect to the server. Please try again";
-            }
-
         }
 
         // Selecteert de homepagina als huidige pagina.

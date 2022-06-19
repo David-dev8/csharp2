@@ -15,35 +15,11 @@ namespace Quiz_Royale
 
         public RelayCommand Login { get; set; }
 
-        private string _errorMessage;
-
-        public string ErrorMessage
-        {
-            get
-            {
-                return _errorMessage;
-            }
-            set
-            {
-                _errorMessage = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public bool HasErrors
-        {
-            get
-            {
-                return !string.IsNullOrEmpty(ErrorMessage);
-            }
-        }
-
         public LoginViewModel(NavigationStore store) : base(store)
         {
             _creator = new APIAccountCreator();
             Login = new RelayCommand(async () => { 
                 await LoginUser();
-                Account acocunt = await new APIAccountProvider().GetAccount();
             }, CanLogin);
         }
 
@@ -52,19 +28,20 @@ namespace Quiz_Royale
             try
             {
                 await CreateUser();
+                Account acocunt = await new APIAccountProvider().GetAccount();
                 _navigationStore.CurrentViewModel = new HomeViewModel(_navigationStore);
             }
             catch(ArgumentException)
             {
-                ErrorMessage = "Username must be non empty and less than 20 characters";
+                _navigationStore.Error = "Username must be non empty and less than 20 characters";
             }
             catch (InvalidDataException)
             {
-                ErrorMessage = "Username is already taken";
+                _navigationStore.Error = "Username is already taken";
             }
             catch (Exception)
             {
-                ErrorMessage = "Something went wrong";
+                _navigationStore.Error = "Something went wrong";
             }
         }
 

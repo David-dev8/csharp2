@@ -34,6 +34,7 @@
     <None Remove="Assets\shop.png" />
     <None Remove="Assets\shoppingBag.png" />
     <None Remove="Assets\signOut.png" />
+    <None Remove="Assets\splashscreen.png" />
     <None Remove="Assets\star.png" />
     <None Remove="Assets\suitcase.svg" />
     <None Remove="Assets\tag.png" />
@@ -46,6 +47,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\splashscreen.png" />
     <Resource Include="Assets\suitcase.svg" />
   </ItemGroup>
 

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Quiz_Royale"
+             xmlns:local="clr-namespace:Quiz_Royale" xmlns:fa="http://schemas.fontawesome.io/icons/"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -145,34 +145,37 @@
             </Grid>
         </Border>
         <Border Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" Margin="20, 20, 20, 10" Style="{StaticResource Box}">
-            <Grid Background="Transparent">
-                <TextBlock Margin="50, 23" Style="{StaticResource Caption}">
-                    Recent results
-                </TextBlock>
-                <DataGrid Margin="50, 50, 50, 30" BorderThickness="0" Background="Transparent" ItemsSource="{Binding Results.Result}" AutoGenerateColumns="False" 
+            <Grid>
+                <fa:ImageAwesome Icon="Spinner" Style="{StaticResource Spin}" Visibility="{Binding Results.IsNotCompleted, Converter={StaticResource VisibilityConverter}}" />
+                <Grid Background="Transparent" Visibility="{Binding Results.IsNotCompleted, Converter={StaticResource InverseVisibilityConverter}}">
+                    <TextBlock Margin="50, 23" Style="{StaticResource Caption}">
+                        Recent results
+                    </TextBlock>
+                    <DataGrid Margin="50, 50, 50, 30" BorderThickness="0" Background="Transparent" ItemsSource="{Binding Results.Result}" AutoGenerateColumns="False" 
                           HeadersVisibility="Column" VerticalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="False" GridLinesVisibility="None" 
                           Height="275" >
-                    <DataGrid.Style>
-                        <Style TargetType="DataGrid">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding HasItems, RelativeSource={RelativeSource Self}}" Value="false">
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="DataGrid">
-                                                <TextBlock Style="{StaticResource Caption}" Text="Currently, there are no results." />
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </DataGrid.Style>
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Time" Binding="{Binding Time}" Width="*" ElementStyle="{StaticResource CellStyle}"/>
-                        <DataGridTextColumn Header="Mode" Binding="{Binding ModeString}" Width="*" ElementStyle="{StaticResource CellStyle}"/>
-                        <DataGridTextColumn Header="Position" Binding="{Binding Position}" Width="*" ElementStyle="{StaticResource CellStyle}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
+                        <DataGrid.Style>
+                            <Style TargetType="DataGrid">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding HasItems, RelativeSource={RelativeSource Self}}" Value="false">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="DataGrid">
+                                                    <TextBlock Style="{StaticResource Caption}" Text="Currently, there are no results." />
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.Style>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Time" Binding="{Binding Time}" Width="*" ElementStyle="{StaticResource CellStyle}"/>
+                            <DataGridTextColumn Header="Mode" Binding="{Binding ModeString}" Width="*" ElementStyle="{StaticResource CellStyle}"/>
+                            <DataGridTextColumn Header="Position" Binding="{Binding Position}" Width="*" ElementStyle="{StaticResource CellStyle}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
             </Grid>
         </Border>
     </Grid>
