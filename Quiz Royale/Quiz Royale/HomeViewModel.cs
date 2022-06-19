@@ -1,4 +1,6 @@
 ﻿using Microsoft.Toolkit.Helpers;
+using Quiz_Royale.DataAccess;
+using Quiz_Royale.DataAccess.API;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

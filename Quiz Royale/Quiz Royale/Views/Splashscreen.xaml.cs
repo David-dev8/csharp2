@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Quiz_Royale
+namespace Quiz_Royale.Views
 {
     /// <summary>
-    /// Interaction logic for ErrorView.xaml
+    /// Interaction logic for Splashscreen.xaml
     /// </summary>
-    public partial class ErrorView : UserControl
+    public partial class Splashscreen : Window
     {
-        public ErrorView()
+        public Splashscreen()
         {
             InitializeComponent();
         }

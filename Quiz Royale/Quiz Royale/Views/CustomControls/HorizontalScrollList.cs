@@ -14,12 +14,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Quiz_Royale
+namespace Quiz_Royale.Views.CustomControls
 {
     public class HorizontalScrollList : ListView
     {
         public static readonly DependencyProperty DisabledItemsProperty =
-            DependencyProperty.Register("DisabledItems", typeof(IEnumerable), typeof(HorizontalScrollList), 
+            DependencyProperty.Register("DisabledItems", typeof(IEnumerable), typeof(HorizontalScrollList),
                 new FrameworkPropertyMetadata(DisableItems));
 
         public static readonly DependencyProperty ItemsSelectedProperty =
@@ -34,7 +34,7 @@ namespace Quiz_Royale
 
         private static void DisableItems(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ((HorizontalScrollList) d).DisableItems();
+            ((HorizontalScrollList)d).DisableItems();
         }
 
         private static void SelectItems(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -56,7 +56,7 @@ namespace Quiz_Royale
         {
             get
             {
-                return (IEnumerable) GetValue(DisabledItemsProperty);
+                return (IEnumerable)GetValue(DisabledItemsProperty);
             }
             set
             {
@@ -68,7 +68,7 @@ namespace Quiz_Royale
         {
             get
             {
-                return (IEnumerable) GetValue(ItemsSelectedProperty);
+                return (IEnumerable)GetValue(ItemsSelectedProperty);
             }
             set
             {
@@ -106,7 +106,7 @@ namespace Quiz_Royale
         private void Shop_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
             ShiftCurrent(e.Delta);
-            ScrollIntoView(Items.GetItemAt(_currentDisplayedItem));  
+            ScrollIntoView(Items.GetItemAt(_currentDisplayedItem));
             e.Handled = true;
         }
 
@@ -130,16 +130,16 @@ namespace Quiz_Royale
 
         private double GetItemWidth()
         {
-            if(Items.Count == 0)
+            if (Items.Count == 0)
             {
                 return 1;
             }
-            return ((FrameworkElement) ItemContainerGenerator.ContainerFromItem(Items[0])).ActualWidth;
+            return ((FrameworkElement)ItemContainerGenerator.ContainerFromItem(Items[0])).ActualWidth;
         }
 
         private void DisableItems()
         {
-            if(DisabledItems != null)
+            if (DisabledItems != null)
             {
                 foreach (object item in DisabledItems)
                 {
@@ -154,7 +154,7 @@ namespace Quiz_Royale
 
         private void SelectItems()
         {
-            if(SelectionMode == SelectionMode.Multiple)
+            if (SelectionMode == SelectionMode.Multiple)
             {
                 if (!_isReselecting)
                 {

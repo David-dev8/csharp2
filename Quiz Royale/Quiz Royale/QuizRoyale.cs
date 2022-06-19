@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Quiz_Royale.CustomEventArgs;
+using Quiz_Royale.DataAccess.Hub;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -97,7 +99,7 @@ namespace Quiz_Royale
             Boosters = new ObservableCollection<Item>(Account.Inventory.Boosters);
             FastestPlayers = new ObservableCollection<Player>();
             Players = new ObservableCollection<Player>();
-            Chances = new List<CategoryMastery>();
+            Chances = new List<CategoryIntensity>();
 
             setupConection();
         }
@@ -218,24 +220,24 @@ namespace Quiz_Royale
         // Maakt de kans hoger dat een catogorie wordt gekozen
         private void IncreaseCategoryChance(object sender, CategoryIncreaseArgs e)
         {
-            foreach (CategoryMastery chance in Chances)
+            foreach (CategoryIntensity chance in Chances)
             {
                 if (chance.Category.Name == e.CatId)
                 {
-                    chance.Mastery += 10;
+                    chance.Intensity += 10;
                 }
                 else
                 {
-                    chance.Mastery -= (float)(10.0 / (Chances.Count - 1));
+                    chance.Intensity -= (float)(10.0 / (Chances.Count - 1));
                 }
 
-                if (chance.Mastery < 1)
+                if (chance.Intensity < 1)
                 {
-                    chance.Mastery = 1;
+                    chance.Intensity = 1;
                 }
-                if (chance.Mastery > (101 - Chances.Count))
+                if (chance.Intensity > (101 - Chances.Count))
                 {
-                    chance.Mastery = (101 - Chances.Count);
+                    chance.Intensity = (101 - Chances.Count);
                 }
             }
         }

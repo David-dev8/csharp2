@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quiz_Royale
+namespace Quiz_Royale.DataAccess.API
 {
     /// <summary>
     /// Deze klasse levert het account van de gebruiker.

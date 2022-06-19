@@ -16,7 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Quiz_Royale
+namespace Quiz_Royale.Views.CustomControls
 {
     public class SVGImage : SvgViewbox
     {
@@ -30,7 +30,7 @@ namespace Quiz_Royale
 
         public string Color
         {
-            get { return (string) GetValue(ColorProperty); }
+            get { return (string)GetValue(ColorProperty); }
             set { SetValue(ColorProperty, value); }
         }
 
@@ -41,7 +41,7 @@ namespace Quiz_Royale
 
         private void SVGImage_Loaded(object sender, RoutedEventArgs e)
         {
-            if(Color != null)
+            if (Color != null)
             {
                 SvgDrawingCanvas canvas = (SvgDrawingCanvas)Child;
                 List<Drawing> drawings = (List<Drawing>)typeof(SvgDrawingCanvas)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Quiz_Royale.DataAccess.Hub;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace Quiz_Royale
 
         public Question CurrentQuestion { get; set; }
 
-        public IList<CategoryMastery> Chances { get; set; }
+        public IList<CategoryIntensity> Chances { get; set; }
 
         public Account Account { get; set; }
 
@@ -56,7 +57,7 @@ namespace Quiz_Royale
         /// <summary>
         /// Deze property geeft toegang tot de huidige categorie in het spel.
         /// </summary>
-        public CategoryMastery CurrentCategory
+        public CategoryIntensity CurrentCategory
         {
             get
             {

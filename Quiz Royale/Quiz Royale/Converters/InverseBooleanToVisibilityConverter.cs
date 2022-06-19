@@ -7,8 +7,12 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 
-namespace Quiz_Royale
+namespace Quiz_Royale.Converters
 {
+    /// <summary>
+    /// Deze klasse is verantwoordelijk voor het omgekeerd omzetten van een boolean naar een Visibility. 
+    /// True zorgt voor geen zichtbaarheid, false geeft juist wel zichtbaarheid.
+    /// </summary>
     public class InverseBooleanToVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

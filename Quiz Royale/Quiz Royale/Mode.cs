@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quiz_Royale.Enums
+namespace Quiz_Royale
 {
     /// <summary>
     /// Deze enum vertegenwoordigd de verschillende gamemodi van de applicatie.

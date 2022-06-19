@@ -8,8 +8,12 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace Quiz_Royale
+namespace Quiz_Royale.Converters
 {
+    /// <summary>
+    /// Deze klasse is verantwoordelijk voor het omzetten van een percentage tussen de 0 en 100 naar een geometrische vorm van een cirkelsector.
+    /// Het percentage geeft aan hoe groot de sector is. Een percentage van 100 betekent een volle cirkel, bij 50 procent wordt een halve cirkel teruggegeven.
+    /// </summary>
     public class PercentageToArcConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)

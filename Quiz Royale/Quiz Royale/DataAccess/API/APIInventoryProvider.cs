@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quiz_Royale
+namespace Quiz_Royale.DataAccess.API
 {
     /// <summary>
     /// Haalt de items op die in de inventory zitten van de gebruiker.

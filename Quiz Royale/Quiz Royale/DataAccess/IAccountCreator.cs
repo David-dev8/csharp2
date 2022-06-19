@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quiz_Royale
+namespace Quiz_Royale.DataAccess
 {
     /// <summary>
     /// Deze interface geeft de verplichte methodes aan om de juiste implementatie van een account creator te maken.

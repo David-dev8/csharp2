@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quiz_Royale
+namespace Quiz_Royale.DataAccess.API
 {
     /// <summary>
     /// Deze klasse dient als basis voor de providers en mutators om bewerkingen te doen aan de gegevens van de gebruiker.

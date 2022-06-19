@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -13,14 +11,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Quiz_Royale
+namespace Quiz_Royale.Views
 {
     /// <summary>
-    /// Interaction logic for GameEndedView.xaml
+    /// Interaction logic for ShopView.xaml
     /// </summary>
-    public partial class GameEndedView : UserControl
+    public partial class ShopView : UserControl
     {
-        public GameEndedView()
+        public ShopView()
         {
             InitializeComponent();
         }

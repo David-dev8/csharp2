@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Quiz_Royale.DataAccess.API;
+using Quiz_Royale.Views;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;

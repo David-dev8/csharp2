@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quiz_Royale
+namespace Quiz_Royale.DataAccess.API
 {
     /// <summary>
     /// Deze klasse creëert een account voor de gebruiker.

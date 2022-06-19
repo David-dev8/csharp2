@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quiz_Royale
+namespace Quiz_Royale.DataAccess
 {
     /// <summary>
     /// Deze interface geeft de verplichte methodes aan om de juiste implementatie van een klasse te maken die de 
@@ -27,7 +27,7 @@ namespace Quiz_Royale
         ///  Haalt de categorie mastery op van de gebruiker.
         /// </summary>
         /// <returns>De categorie mastery van de gebruiker.</returns>
-        Task<IList<CategoryMastery>> GetCategoryMastery();
+        Task<IList<CategoryIntensity>> GetCategoryMastery();
 
         /// <summary>
         /// Haalt alle badges op die de gebruiker heeft behaald tijdens het spelen van de game.

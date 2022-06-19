@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Quiz_Royale
+namespace Quiz_Royale.Views.CustomControls
 {
     public class Wheel : ItemsControl
     {
@@ -40,13 +40,13 @@ namespace Quiz_Royale
 
         public object RotateTowards
         {
-            get 
-            { 
-                return GetValue(RotateTowardsProperty); 
+            get
+            {
+                return GetValue(RotateTowardsProperty);
             }
-            set 
-            { 
-                SetValue(RotateTowardsProperty, value); 
+            set
+            {
+                SetValue(RotateTowardsProperty, value);
             }
         }
 
@@ -58,7 +58,7 @@ namespace Quiz_Royale
 
         private void LoadedCallback(object sender, EventArgs args)
         {
-            if(RotateTowards != null)
+            if (RotateTowards != null)
             {
                 for (int i = 0; i < Items.Count; i++)
                 {
@@ -67,7 +67,7 @@ namespace Quiz_Royale
                     {
                         double currentAngle = GetAngleFromItem(item);
                         double nextAngle = GetAngleFromItem(Items.GetItemAt((i + 1) % Items.Count));
-                        if(nextAngle == ANGLE_CORRECTION)
+                        if (nextAngle == ANGLE_CORRECTION)
                         {
                             nextAngle -= 360;
                         }
@@ -106,7 +106,7 @@ namespace Quiz_Royale
 
         private double GetRandomAngleInBetween(double firstAngle, double secondAngle)
         {
-            return 360 * random.Next(MIN_ROTATIONS, MAX_ROTATIONS) + 
+            return 360 * random.Next(MIN_ROTATIONS, MAX_ROTATIONS) +
                 GetRandomDouble(Math.Min(firstAngle, secondAngle), Math.Max(secondAngle, firstAngle));
         }
 
@@ -127,7 +127,7 @@ namespace Quiz_Royale
         {
             if (element is null)
             {
-                return default(T);
+                return default;
             }
             else if (element is T t)
             {
@@ -145,7 +145,7 @@ namespace Quiz_Royale
                     }
                 }
             }
-            return default(T);
+            return default;
         }
     }
 }

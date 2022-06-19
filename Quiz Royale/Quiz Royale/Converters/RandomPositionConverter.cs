@@ -7,8 +7,12 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 
-namespace Quiz_Royale
+namespace Quiz_Royale.Converters
 {
+    /// <summary>
+    /// Deze klasse is verantwoordelijk voor het genereren van een willekeurige x en y positie binnen een bepaalde hoogte en breedte.
+    /// Bij het converten wordt daarvoor een Thickness met de x en y positie teruggegeven.
+    /// </summary>
     public class RandomPositionConverter: IMultiValueConverter
     {
         private static Random s_random = new Random();

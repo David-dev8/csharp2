@@ -6,8 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace Quiz_Royale
+namespace Quiz_Royale.Converters
 {
+    /// <summary>
+    /// Deze klasse is verantwoordelijk voor het inverten van een boolean waarde. True wordt dus false en vice versa.
+    /// </summary>
     public class InverseBooleanConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

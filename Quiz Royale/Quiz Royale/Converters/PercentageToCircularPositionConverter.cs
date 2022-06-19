@@ -7,12 +7,21 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 
-namespace Quiz_Royale
+namespace Quiz_Royale.Converters
 {
+    /// <summary>
+    /// Deze klasse zorgt ervoor dat een percentage tussen de 0 en 100 wordt omgezet naar een x en y positie op een cirkel met een bepaalde radius.
+    /// Bij het converten wordt daarvoor een Thickness met de x en y positie teruggegeven.
+    /// Een instantie van deze klasse houdt een totaal bij, zodat de x en y positie wordt bepaald vanaf de vorige x en y positie.
+    /// Zo wordt er in feite een cirkel "rond gelopen".
+    /// </summary>
     public class PercentageToCircularPositionAdditionConverter : IMultiValueConverter
     {
         private double _totalOfAll;
 
+        /// <summary>
+        /// Creëert een PercentageToCircularPositionAdditionConverter.
+        /// </summary>
         public PercentageToCircularPositionAdditionConverter()
         {
             _totalOfAll = 0;

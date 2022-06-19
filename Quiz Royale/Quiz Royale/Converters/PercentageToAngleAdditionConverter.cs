@@ -6,13 +6,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace Quiz_Royale
+namespace Quiz_Royale.Converters
 {
+    /// <summary>
+    /// Deze klasse zorgt ervoor dat een percentage tussen de 0 en 100 wordt omgezet naar een hoek in graden.
+    /// Een instantie van deze klasse zal ook een totaal bijhouden van alle hoeken waar hij naar heeft omgezet.
+    /// Op deze wijze kan een hoek vanaf de laatste hoek verdergaan en ontstaat een cirkel.
+    /// </summary>
     public class PercentageToAngleAdditionConverter : IValueConverter
     {
-        // We houden bij hoeveel de som totaal is tot nu toe
+        // Bijhouden hoeveel de som totaal is tot nu toe
         private double _totalOfAll;
 
+        /// <summary>
+        /// Creëert een PercentageToAngleAdditionConverter.
+        /// </summary>
         public PercentageToAngleAdditionConverter()
         {
             _totalOfAll = 0;

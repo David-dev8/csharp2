@@ -6,9 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace Quiz_Royale
+namespace Quiz_Royale.Converters
 {
-    public class InverseBooleanToOpacityConverter: IValueConverter
+    /// <summary>
+    /// Deze klasse is verantwoordelijk voor het omgekeerd omzetten van een boolean naar een waarde voor opacity. 
+    /// True zorgt voor verminderde opacity, false geeft juist volledige opacity.
+    /// </summary>
+    public class InverseBooleanToOpacityConverter : IValueConverter
     {
         private const double _opacity = 0.4;
 

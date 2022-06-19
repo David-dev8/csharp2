@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Quiz_Royale
+namespace Quiz_Royale.Views
 {
     /// <summary>
-    /// Interaction logic for Login.xaml
+    /// Interaction logic for LoginView.xaml
     /// </summary>
-    public partial class Login : UserControl
+    public partial class LoginView : UserControl
     {
-        public Login()
+        public LoginView()
         {
             InitializeComponent();
         }

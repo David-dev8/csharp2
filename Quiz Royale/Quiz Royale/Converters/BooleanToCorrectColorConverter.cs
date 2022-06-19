@@ -7,8 +7,11 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace Quiz_Royale
+namespace Quiz_Royale.Converters
 {
+    /// <summary>
+    /// Deze klasse is verantwoordelijk voor het omzetten van een boolean naar een kleur die aangeeft of iets goed of fout is.
+    /// </summary>
     public class BooleanToCorrectColorConverter : IValueConverter
     {
         private static readonly string CORRECT_COLOR = "#006400";

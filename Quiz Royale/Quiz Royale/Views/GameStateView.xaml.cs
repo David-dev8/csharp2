@@ -16,14 +16,14 @@ using SharpVectors.Runtime;
 using System.Reflection;
 using SharpVectors.Converters;
 
-namespace Quiz_Royale
+namespace Quiz_Royale.Views
 {
     /// <summary>
-    /// Interaction logic for Players.xaml
+    /// Interaction logic for GameStateView.xaml
     /// </summary>
-    public partial class Players : UserControl
+    public partial class GameStateView : UserControl
     {
-        public Players()
+        public GameStateView()
         {
             InitializeComponent();
         }

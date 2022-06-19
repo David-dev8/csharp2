@@ -2,44 +2,46 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Quiz_Royale
 {
     /// <summary>
-    /// Deze klasse vertegenwoordigt een mastery van een bepaalde categorie.
+    /// Deze klasse vertegenwoordigt een intensiteit van een bepaalde categorie.
+    /// Er wordt een waarde tussen de 0 en 100 gekoppeld aan een categorie, waardoor dit een percentuele indicatie van de intensiteit geeft.
     /// </summary>
-    public class CategoryMastery
+    public class CategoryIntensity
     {
-        private double _mastery;
+        private double _intensity;
 
         public Category Category { get; set; }
 
         /// <summary>
-        /// Deze property geeft toegang tot de mastery van een bepaalde categorie. Er wordt afgerond op tweee decimalen.
+        /// Deze property geeft toegang tot de intensiteit van een bepaalde categorie. Er wordt afgerond op tweee decimalen.
         /// </summary>
-        public double Mastery
+        public double Intensity
         {
             get 
             {
-                return Math.Round(_mastery, 2);
+                return Math.Round(_intensity, 2);
             }
             set 
-            { 
-                _mastery = value; 
+            {
+                _intensity = value; 
             }
         }
 
 
         /// <summary>
-        /// Creëert een mastery van een gegeven categorie.
+        /// Creëert een intensiteit van een gegeven categorie.
         /// </summary>
         /// <param name="category">De categorie waarvan vragen zijn beantwoord.</param>
-        /// <param name="mastery">Het percentage van goede antwoorden ten opzichte van alle vragen.</param>
-        public CategoryMastery(Category category, double mastery)
+        /// <param name="intensity">Het percentage tussen 0 en 100 dat hoort bij de categorie.</param>
+        public CategoryIntensity(Category category, double intensity)
         {
             Category = category;
-            _mastery = mastery;
+            Intensity = intensity;
         }
 
         public override bool Equals(object obj)
@@ -49,14 +51,14 @@ namespace Quiz_Royale
                 return false;
             }
 
-            CategoryMastery otherMastery = (CategoryMastery) obj;
+            CategoryIntensity otherIntensity = (CategoryIntensity) obj;
 
-            return Category.Name.Equals(otherMastery.Category.Name);
+            return Category.Name.Equals(otherIntensity.Category.Name);
         }
 
         public override int GetHashCode()
         {
-            return 1000 * Category.GetHashCode() + Mastery.GetHashCode();
+            return 1000 * Category.GetHashCode() + Intensity.GetHashCode();
         }
     }
 }

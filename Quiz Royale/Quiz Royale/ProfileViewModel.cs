@@ -1,4 +1,6 @@
 ﻿using Microsoft.Toolkit.Helpers;
+using Quiz_Royale.DataAccess;
+using Quiz_Royale.DataAccess.API;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +13,7 @@ namespace Quiz_Royale
     {
         private IAccountDataProvider _accountDataProvider;
 
-        public NotifyTaskCompletion<IList<CategoryMastery>> Mastery { get; set; }
+        public NotifyTaskCompletion<IList<CategoryIntensity>> Mastery { get; set; }
 
         public NotifyTaskCompletion<IList<Badge>> Badges { get; set; }
 
@@ -22,7 +24,7 @@ namespace Quiz_Royale
             _accountDataProvider = new APIAccountDataProvider();
             _accountProvider = new APIAccountProvider();
 
-            Mastery = new NotifyTaskCompletion<IList<CategoryMastery>>(_accountDataProvider.GetCategoryMastery());
+            Mastery = new NotifyTaskCompletion<IList<CategoryIntensity>>(_accountDataProvider.GetCategoryMastery());
             Badges = new NotifyTaskCompletion<IList<Badge>>(_accountDataProvider.GetBadges());
             Account = new NotifyTaskCompletion<Account>(_accountProvider.GetAccount());
 

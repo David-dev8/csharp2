@@ -1,14 +1,20 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
+using Quiz_Royale.CustomEventArgs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quiz_Royale
+namespace Quiz_Royale.DataAccess.Hub
 {
+    /// <summary>
+    /// Deze klasse is verantwoordelijk voor verbinden met en regelen van events van een hub op de server zodat een spel gespeeld kan worden.
+    /// </summary>
     public class HubConnector
     {
+        private const string HUB_URL = "http://localhost:5264/GameHub";
+
         private HubConnection _connection;
         public event EventHandler<JoinStatusArgs> JoinStatus;
         public event EventHandler<PlayerArgs> JoinPlayer;
@@ -25,10 +31,71 @@ namespace Quiz_Royale
         public event EventHandler<PlayersLeftArgs> PlayersLeft;
         public event EventHandler<ReduceAnswersArgs> ReduceAnswers;
 
+        /// <summary>
+        /// Creëert een HubConnector.
+        /// </summary>
+        /// <exception cref="Exceptions.UnableToConnectException">Gegooid wanneer geen verbinding met de hub op de server kon worden gemaakt</exception>
         public HubConnector() 
         {
+            InitializeConnection();
+            InitializeEvents();
+            StartConnection();
+        }
+
+        /// <summary>
+        /// Laat een speler met de gegeven username joinen bij de hub.
+        /// </summary>
+        /// <param name="username">De username van de speler die joint.</param>
+        /// <returns></returns>
+        public async Task Join(string username)
+        {
+            await _connection.InvokeAsync("join", username);
+        }
+
+        /// <summary>
+        /// Geef door aan de hub dat een speler het spel verlaat.
+        /// </summary>
+        /// <returns></returns>
+        public async Task Leave()
+        {
+            await _connection.InvokeAsync("leave");
+        }
+
+        /// <summary>
+        /// Geef de hub een antwoord door.
+        /// </summary>
+        /// <param name="awnserId">Het id van het antwoord dat moet worden doorgegeven.</param>
+        /// <returns></returns>
+        public async Task AnswerQuestion(char awnserId)
+        {
+            await _connection.InvokeAsync("answerQuestion", awnserId);
+        }
+
+        /// <summary>
+        /// Geef de hub door dat een booster gebruikt dient te worden.
+        /// </summary>
+        /// <param name="type">Het type booster.</param>
+        /// <param name="options">Opties voor het gebruiken van de booster</param>
+        /// <returns></returns>
+        public async Task UseBoost(string type, string options)
+        {
+            await _connection.InvokeAsync("useBoost", type, options);
+        }
+
+        /// <summary>
+        /// Breek de connectie met de hub.
+        /// </summary>
+        /// <returns></returns>
+        public async Task BreakConection()
+        { 
+            await _connection.DisposeAsync();
+        }
+
+        // Zorgt ervoor dat er een connectie wordt gebouwd.
+        private void InitializeConnection()
+        {
             _connection = new HubConnectionBuilder()
-                .WithUrl("http://localhost:5264/GameHub")
+                .WithUrl(HUB_URL)
                 .Build();
 
             _connection.Closed += async (error) =>
@@ -36,8 +103,12 @@ namespace Quiz_Royale
                 await Task.Delay(new Random().Next(0, 5) * 1000);
                 await _connection.StartAsync();
             };
+        }
 
-            _connection.On<bool, string, IList<Player>, IList<CategoryMastery>>("joinStatus", (status, message, players, cats) =>
+        // Zorgt ervoor dat alle benodigde event handlers worden aangeroepen wanneer er vanuit de hub een gebeurtenis plaatsvindt.
+        private void InitializeEvents()
+        {
+            _connection.On<bool, string, IList<Player>, IList<CategoryIntensity>>("joinStatus", (status, message, players, cats) =>
             {
                 JoinStatus?.Invoke(this, new JoinStatusArgs(status, message, players, cats));
             });
@@ -66,12 +137,12 @@ namespace Quiz_Royale
             {
                 StartQuestion?.Invoke(this, new EventArgs());
             });
-            
+
             _connection.On<Question>("newQuestion", (question) =>
             {
                 NewQuestion?.Invoke(this, new NewQuestionArgs(question));
             });
-            
+
             _connection.On<bool, int, int>("result", (result, xp, coins) =>
             {
                 Results?.Invoke(this, new ResultArgs(result, xp, coins));
@@ -92,7 +163,7 @@ namespace Quiz_Royale
                 ReduceTime?.Invoke(this, new EventArgs());
             });
 
-            _connection.On<Player, double>("playerAnswered", (player, answerTime) => 
+            _connection.On<Player, double>("playerAnswered", (player, answerTime) =>
             {
                 PlayerAnswered?.Invoke(this, new PlayerAnsweredArgs(player, answerTime));
             });
@@ -106,41 +177,19 @@ namespace Quiz_Royale
             {
                 ReduceAnswers?.Invoke(this, new ReduceAnswersArgs(answers));
             });
+        }
 
+        // Start de connectie
+        private void StartConnection()
+        {
             try
             {
-                 _connection.StartAsync();
+                _connection.StartAsync();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw new Exceptions.UnableToConnectException();
             }
-
-        }
-
-        public async Task Join(string username)
-        {
-            await _connection.InvokeAsync("join", username);
-        }
-
-        public async Task Leave()
-        {
-            await _connection.InvokeAsync("leave");
-        }
-
-        public async Task AnswerQuestion(char awnserId)
-        {
-            await _connection.InvokeAsync("answerQuestion", awnserId);
-        }
-
-        public async Task UseBoost(string type, string options)
-        {
-            await _connection.InvokeAsync("useBoost", type, options);
-        }
-
-        public async Task BreakConection()
-        { 
-            await _connection.DisposeAsync();
         }
     }
 }
