@@ -23,7 +23,7 @@ namespace Quiz_Royale
             { 75, "Better luck next time" },
             { 50, "Good job!" },
             { 25, "Excellent achievement!" },
-            { 10, "Outsting " },
+            { 10, "Outstanding " },
             { 1, "That was close..." },
         };
 
