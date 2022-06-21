@@ -17,22 +17,22 @@
                                 <local:GameRoundView />
                             </DataTemplate>
                         </Setter.Value>
-                    </Setter> 
+                    </Setter>
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding HasGameEnded}" Value="True">
-                            <Setter Property="ContentTemplate">
-                                <Setter.Value>
-                                    <DataTemplate>
-                                        <local:GameEndedView />
-                                    </DataTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </DataTrigger>
                         <DataTrigger Binding="{Binding CanPickCategory}" Value="True">
                             <Setter Property="ContentTemplate">
                                 <Setter.Value>
                                     <DataTemplate>
                                         <local:GameStateView />
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding HasGameEnded}" Value="True">
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <local:GameEndedView />
                                     </DataTemplate>
                                 </Setter.Value>
                             </Setter>
