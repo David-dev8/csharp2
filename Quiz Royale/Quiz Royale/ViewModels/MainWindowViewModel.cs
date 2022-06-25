@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Windows;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
 using System.Windows.Input;
-using Microsoft.Toolkit.Helpers;
 using Quiz_Royale.Base;
 
 namespace Quiz_Royale.ViewModels

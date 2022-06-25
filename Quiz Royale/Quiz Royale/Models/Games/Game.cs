@@ -2,11 +2,9 @@
 using Quiz_Royale.DataAccess.Hub;
 using Quiz_Royale.Models.Items;
 using Quiz_Royale.Models.User;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Quiz_Royale.Models.Games

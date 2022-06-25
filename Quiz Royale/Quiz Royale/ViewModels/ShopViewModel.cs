@@ -1,13 +1,10 @@
 ﻿using Microsoft.Toolkit.Helpers;
 using Quiz_Royale.Base;
 using Quiz_Royale.Exceptions;
-using Quiz_Royale.Filters;
 using Quiz_Royale.Models.Items;
 using Quiz_Royale.Models.User;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Quiz_Royale.ViewModels

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Quiz_Royale.Filters
+﻿namespace Quiz_Royale.Filters
 {
     /// <summary>
     /// Deze klasse zorgt ervoor dat er verschillende type filters kunnen worden gemaakt.

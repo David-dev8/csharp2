@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Quiz_Royale.Models.Games
+﻿namespace Quiz_Royale.Models.Games
 {
     /// <summary>
     /// Deze klasse vertegenwoordigt het antwoord op een vraag.

@@ -1,7 +1,5 @@
 ﻿using Quiz_Royale.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Quiz_Royale.Base
 {

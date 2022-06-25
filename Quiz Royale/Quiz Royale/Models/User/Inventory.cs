@@ -4,10 +4,7 @@ using Quiz_Royale.DataAccess;
 using Quiz_Royale.DataAccess.API;
 using Quiz_Royale.Filters;
 using Quiz_Royale.Models.Items;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Quiz_Royale.Models.User

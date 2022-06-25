@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Quiz_Royale.Models.User
+﻿namespace Quiz_Royale.Models.User
 {
     /// <summary>
     /// Deze klasse vertegenwoordigt een badge die de gebruiker kan verdienen tijdens het spelen.

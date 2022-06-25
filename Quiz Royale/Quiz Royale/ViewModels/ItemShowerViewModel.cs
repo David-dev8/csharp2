@@ -1,15 +1,10 @@
-﻿using Microsoft.Toolkit.Helpers;
-using Quiz_Royale.Base;
+﻿using Quiz_Royale.Base;
 using Quiz_Royale.DataAccess;
 using Quiz_Royale.DataAccess.API;
 using Quiz_Royale.Filters;
 using Quiz_Royale.Models.Items;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Quiz_Royale.ViewModels

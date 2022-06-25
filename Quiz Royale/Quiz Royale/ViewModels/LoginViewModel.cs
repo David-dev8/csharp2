@@ -5,9 +5,6 @@ using Quiz_Royale.Exceptions;
 using Quiz_Royale.Models.User;
 using Quiz_Royale.Storage;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Quiz_Royale.ViewModels

@@ -4,10 +4,6 @@ using Quiz_Royale.Storage;
 using Quiz_Royale.ViewModels;
 using Quiz_Royale.Views;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 

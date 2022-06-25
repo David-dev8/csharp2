@@ -1,8 +1,4 @@
-﻿using Castle.MicroKernel;
-using Quiz_Royale.Models.Items;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Quiz_Royale.Models.Items;
 
 namespace Quiz_Royale.Models.Factories
 {

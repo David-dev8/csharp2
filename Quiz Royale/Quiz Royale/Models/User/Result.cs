@@ -1,8 +1,6 @@
 ﻿using Quiz_Royale.Models.Games;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
 
 namespace Quiz_Royale.Models.User
 {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Quiz_Royale.Models.Items
+﻿namespace Quiz_Royale.Models.Items
 {
     /// <summary>
     /// Deze enum vertegenwoordigt de betaalwijzes die worden gebruikt in de shop.

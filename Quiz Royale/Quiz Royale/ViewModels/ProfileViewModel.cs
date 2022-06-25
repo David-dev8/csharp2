@@ -5,11 +5,8 @@ using Quiz_Royale.DataAccess.API;
 using Quiz_Royale.Models;
 using Quiz_Royale.Models.Items;
 using Quiz_Royale.Models.User;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Windows.Input;
 
 namespace Quiz_Royale.ViewModels
 {

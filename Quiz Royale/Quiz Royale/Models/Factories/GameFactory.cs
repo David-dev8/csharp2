@@ -1,8 +1,5 @@
 ﻿using Quiz_Royale.Models.Games;
 using Quiz_Royale.Models.User;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Quiz_Royale.Models.Factories
 {

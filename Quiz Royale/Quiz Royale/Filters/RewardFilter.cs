@@ -1,7 +1,4 @@
 ﻿using Quiz_Royale.Models.Items;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Quiz_Royale.Filters
 {
