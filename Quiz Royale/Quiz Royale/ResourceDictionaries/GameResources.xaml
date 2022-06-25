@@ -5,6 +5,7 @@
     <converters:PercentageToArcConverter x:Key="PercentageToArc" />
     <converters:PercentageToAngleAdditionConverter x:Key="PercentageToAngle" />
     <converters:PercentageToCircularPositionAdditionConverter x:Key="PercentageToCircularPosition" />
+    <converters:BooleanToCorrectColorConverter x:Key="CorrectColorConverter" />
     <SolidColorBrush x:Key="WheelBorder" Color="#606060" />
     <SolidColorBrush x:Key="WheelFill" Color="Black" />
     <Style x:Key="GameEndedStyle"  TargetType="TextBlock">
@@ -13,5 +14,50 @@
     <Style x:Key="RewardText" TargetType="TextBlock" BasedOn="{StaticResource GameEndedStyle}">
         <Setter Property="Grid.Column" Value="1" />
         <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style x:Key="QuestionAnswerFontStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="17" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+    <Style x:Key="AnswerStyle" TargetType="ListViewItem">
+        <Setter Property="Height" Value="75" />
+        <Setter Property="Width" Value="435" />
+        <Setter Property="Margin" Value="3" />
+        <Setter Property="IsEnabled" Value="{Binding DataContext.CanAnswerQuestion, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListViewItem">
+                    <ContentPresenter />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="False">
+                <Setter Property="Opacity" Value="0.7" />
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Opacity" Value="1" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="BoostStyle" TargetType="ListBoxItem">
+        <Setter Property="Focusable" Value="{Binding DataContext.CanUseBooster, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+        <Setter Property="IsEnabled" Value="{Binding DataContext.CanUseBooster, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <ContentPresenter />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Opacity" Value="0.6" />
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Opacity" Value="0.6" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 </ResourceDictionary>

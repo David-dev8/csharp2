@@ -7,6 +7,9 @@ using System.Windows.Media;
 
 namespace Quiz_Royale.Views.CustomControls
 {
+    /// <summary>
+    /// Deze CustomControl kan een SVG weergeven.
+    /// </summary>
     public class SVGImage : SvgViewbox
     {
         public static readonly DependencyProperty ColorProperty =
@@ -17,17 +20,30 @@ namespace Quiz_Royale.Views.CustomControls
             DefaultStyleKeyProperty.OverrideMetadata(typeof(SVGImage), new FrameworkPropertyMetadata(typeof(SVGImage)));
         }
 
+        /// <summary>
+        /// Deze property geeft toegang tot de kleur van de SVG
+        /// </summary>
         public string Color
         {
-            get { return (string)GetValue(ColorProperty); }
-            set { SetValue(ColorProperty, value); }
+            get 
+            { 
+                return (string)GetValue(ColorProperty); 
+            }
+            set 
+            { 
+                SetValue(ColorProperty, value); 
+            }
         }
 
+        /// <summary>
+        /// Creëert een SVGImage.
+        /// </summary>
         public SVGImage()
         {
             Loaded += SVGImage_Loaded;
         }
 
+        // Laat de SVG zien in de kleur die is meegegeven, zodra de control is geladen.
         private void SVGImage_Loaded(object sender, RoutedEventArgs e)
         {
             if(Color != null)
