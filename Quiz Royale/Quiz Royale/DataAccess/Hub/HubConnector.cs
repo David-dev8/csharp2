@@ -15,7 +15,6 @@ namespace Quiz_Royale.DataAccess.Hub
     {
         private const string HUB_URL = "http://localhost:5264/GameHub";
 
-        private HubConnection _connection;
         public event EventHandler<JoinStatusArgs> JoinStatus;
         public event EventHandler<PlayerArgs> JoinPlayer;
         public event EventHandler<UpdateStatusArgs> UpdateStatus;
@@ -30,11 +29,12 @@ namespace Quiz_Royale.DataAccess.Hub
         public event EventHandler<PlayerAnsweredArgs> PlayerAnswered;
         public event EventHandler<PlayersLeftArgs> PlayersLeft;
         public event EventHandler<ReduceAnswersArgs> ReduceAnswers;
+        private HubConnection _connection;
 
         /// <summary>
         /// Creëert een HubConnector.
         /// </summary>
-        /// <exception cref="Exceptions.UnableToConnectException">Gegooid wanneer geen verbinding met de hub op de server kon worden gemaakt</exception>
+        /// <exception cref="Exceptions.UnableToConnectException">Gegooit wanneer geen verbinding met de hub op de server kon worden gemaakt</exception>
         public HubConnector() 
         {
             InitializeConnection();
@@ -49,7 +49,7 @@ namespace Quiz_Royale.DataAccess.Hub
         /// <returns></returns>
         public async Task Join(string username)
         {
-            await _connection.InvokeAsync("join", username);
+            await _connection.InvokeAsync("Join", username);
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace Quiz_Royale.DataAccess.Hub
         /// <returns></returns>
         public async Task Leave()
         {
-            await _connection.InvokeAsync("leave");
+            await _connection.InvokeAsync("Leave");
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace Quiz_Royale.DataAccess.Hub
         /// <returns></returns>
         public async Task AnswerQuestion(char awnserId)
         {
-            await _connection.InvokeAsync("answerQuestion", awnserId);
+            await _connection.InvokeAsync("AnswerQuestion", awnserId);
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace Quiz_Royale.DataAccess.Hub
         /// <returns></returns>
         public async Task UseBoost(string type, string options)
         {
-            await _connection.InvokeAsync("useBoost", type, options);
+            await _connection.InvokeAsync("UseBoost", type, options);
         }
 
         /// <summary>
