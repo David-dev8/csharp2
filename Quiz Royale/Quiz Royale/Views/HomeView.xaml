@@ -77,7 +77,7 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0" DataContext="{Binding Account.Result}" Orientation="Horizontal" Margin="45, 20, 50, 0">
-                    <Grid DataContext="{Binding Inventory}">
+                    <Grid Background="White" DataContext="{Binding Inventory}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="12.5*" />
                             <RowDefinition Height="75*" />
@@ -88,7 +88,7 @@
                             <ColumnDefinition Width="75*" />
                             <ColumnDefinition Width="12.5*" />
                         </Grid.ColumnDefinitions>
-                        <Grid Background="White" Grid.Column="1" Grid.Row="1" >
+                        <Grid Grid.Column="1" Grid.Row="1" >
                             <Image Source="{Binding ActiveProfilePicture.Picture}" />
                         </Grid>
                         <Image Source="{Binding ActiveBorder.Picture}" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Grid.RowSpan="3"/>

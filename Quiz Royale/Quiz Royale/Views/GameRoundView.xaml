@@ -8,6 +8,9 @@
              xmlns:converters="clr-namespace:Quiz_Royale.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary Source="../ResourceDictionaries/GameResources.xaml" />
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2.5*" />

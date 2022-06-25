@@ -118,6 +118,7 @@ namespace Quiz_Royale.ViewModels
                     _currentAnswer = value;
                     Game.Answer(value);
                     CanAnswerQuestion = false;
+                    CanUseBooster = false;
                     NotifyPropertyChanged();
                 }
             }
