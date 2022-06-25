@@ -1,10 +1,14 @@
-﻿using Quiz_Royale.Base;
+﻿using Microsoft.Toolkit.Helpers;
+using Quiz_Royale.Base;
 using Quiz_Royale.DataAccess;
 using Quiz_Royale.DataAccess.API;
 using Quiz_Royale.Exceptions;
+using Quiz_Royale.Models.Items;
 using Quiz_Royale.Models.User;
 using Quiz_Royale.Storage;
 using System;
+using System.ComponentModel;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Quiz_Royale.ViewModels
@@ -15,6 +19,7 @@ namespace Quiz_Royale.ViewModels
     public class LoginViewModel : BaseViewModel
     {
         private IAccountCreator _creator;
+        private Account _account;
 
         public string Username { get; set; }
 
@@ -40,8 +45,9 @@ namespace Quiz_Royale.ViewModels
             try
             {
                 await CreateUser();
-                Account acocunt = await new APIAccountProvider().GetAccount();
-                _navigationStore.CurrentViewModel = new HomeViewModel(_navigationStore);
+                _account = await new APIAccountProvider().GetAccount();
+                _account.Inventory.PropertyChanged += Inventory_PropertyChanged;
+                NavigateToHome();
             }
             catch(ArgumentException)
             {
@@ -54,6 +60,22 @@ namespace Quiz_Royale.ViewModels
             catch(Exception)
             {
                 _navigationStore.Error = "Something went wrong";
+            }
+        }
+
+        // Navigeer naar de homepagina
+        private void Inventory_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            NavigateToHome();
+        }
+
+        // Navigeer naar de homepagina
+        private void NavigateToHome()
+        {
+            if(_account.Inventory.ActiveBorder != null)
+            {
+                _account.Inventory.PropertyChanged -= Inventory_PropertyChanged;
+                _navigationStore.CurrentViewModel = new HomeViewModel(_navigationStore);
             }
         }
 
