@@ -26,7 +26,8 @@ namespace Quiz_Royale
             MainWindow = splashScreen;
             splashScreen.Show();
 
-            Task.Factory.StartNew(async () => {
+            Task.Factory.StartNew(async () =>
+            {
                 await Initialize(navigationStore);
 
                 Dispatcher.Invoke(() =>
@@ -52,14 +53,14 @@ namespace Quiz_Royale
         private async Task Initialize(NavigationStore navigationStore)
         {
             // Controleer of de gebruiker al een account heeft, dit is het geval wanneer er een access token aanwezig is
-            if (LocalStorage.Settings.Credentials?.AccessToken != null)
+            if(LocalStorage.Settings.Credentials?.AccessToken != null)
             {
                 try
                 {
                     await InitializeData();
                     navigationStore.CurrentViewModel = new HomeViewModel(navigationStore);
                 }
-                catch (Exception)
+                catch(Exception)
                 {
                     navigationStore.CurrentViewModel = new LoginViewModel(navigationStore);
                     navigationStore.Error = "Cannot connect to the server. Please try again";

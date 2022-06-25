@@ -23,14 +23,14 @@ namespace Quiz_Royale.DataAccess.API
         private static HttpClient s_httpClient;
 
         private static JsonSerializerOptions _serializerOptions = new JsonSerializerOptions
-            {
-                WriteIndented = true,
-                PropertyNameCaseInsensitive = true,
-                Converters =
+        {
+            WriteIndented = true,
+            PropertyNameCaseInsensitive = true,
+            Converters =
                 {
                     new ItemConverter()
                 }
-            };
+        };
 
         public APIHandler()
         {
@@ -73,9 +73,9 @@ namespace Quiz_Royale.DataAccess.API
 
         public async Task<R> Create<R, T>(string endpoint, T data)
         {
-            using (HttpResponseMessage response = await s_httpClient.PostAsync(endpoint, ToJSON<T>(data)))
+            using(HttpResponseMessage response = await s_httpClient.PostAsync(endpoint, ToJSON<T>(data)))
             {
-                if (response.IsSuccessStatusCode)
+                if(response.IsSuccessStatusCode)
                 {
                     return await FromJSON<R>(response);
                 }
@@ -90,9 +90,9 @@ namespace Quiz_Royale.DataAccess.API
 
         public async Task Update(string endpoint, int id)
         {
-            using (HttpResponseMessage response = await s_httpClient.PatchAsync(endpoint + "/" + id, null))
+            using(HttpResponseMessage response = await s_httpClient.PatchAsync(endpoint + "/" + id, null))
             {
-                if (!response.IsSuccessStatusCode)
+                if(!response.IsSuccessStatusCode)
                 {
                     DetermineException(response.StatusCode);
                 }
@@ -101,7 +101,7 @@ namespace Quiz_Royale.DataAccess.API
 
         private async Task<T> GetFromAPI<T>(string endpoint)
         {
-            using (HttpResponseMessage response = await s_httpClient.GetAsync(endpoint))
+            using(HttpResponseMessage response = await s_httpClient.GetAsync(endpoint))
             {
                 if(response.IsSuccessStatusCode)
                 {

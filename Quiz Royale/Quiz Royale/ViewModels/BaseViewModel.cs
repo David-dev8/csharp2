@@ -8,7 +8,7 @@ namespace Quiz_Royale.ViewModels
     public class BaseViewModel : Observable
     {
         protected NavigationStore _navigationStore;
-        
+
         /// <summary>
         /// Creëert een basis ViewModel met een gegeven navigationStore.
         /// </summary>

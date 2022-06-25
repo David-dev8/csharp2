@@ -6,7 +6,7 @@
     public class Player
     {
         public string Username { get; set; }
-        
+
         public string Title { get; set; }
 
         public string ProfilePicture { get; set; }

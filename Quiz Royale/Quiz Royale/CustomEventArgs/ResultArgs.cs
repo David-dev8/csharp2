@@ -20,7 +20,7 @@ namespace Quiz_Royale.CustomEventArgs
         /// <param name="xp">De xp die verdiend is met het geven van het antwoord.</param>
         /// <param name="coins">De munten die verdiend zijn met het geven van het antwoord.</param>
         public ResultArgs(bool result, int xp, int coins)
-        { 
+        {
             Result = result;
             XP = xp;
             Coins = coins;

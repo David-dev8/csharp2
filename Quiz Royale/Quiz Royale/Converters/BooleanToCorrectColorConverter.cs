@@ -12,7 +12,7 @@ namespace Quiz_Royale.Converters
     {
         private static readonly string CORRECT_COLOR = "#006400";
         private static readonly string INCORRECT_COLOR = "#ff0000";
-        
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if(value == null)

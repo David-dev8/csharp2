@@ -76,7 +76,7 @@ namespace Quiz_Royale.ViewModels
             }
             set
             {
-                if (value != null)
+                if(value != null)
                 {
                     Game.UseBoost(value);
                     _selectedBooster = value;
@@ -161,7 +161,7 @@ namespace Quiz_Royale.ViewModels
         // Bepaalt de huidige staat van het spel.
         private void DetermineState()
         {
-            switch (Game.State)
+            switch(Game.State)
             {
                 case State.QUESTION:
                     Reset();

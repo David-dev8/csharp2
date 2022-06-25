@@ -28,7 +28,7 @@ namespace Quiz_Royale.Models.Games
         /// <summary>
         /// Deze property geeft toegang tot de boosters die kunnen worden gebruikt in de game.
         /// </summary>
-        public ObservableCollection<Item> Boosters 
+        public ObservableCollection<Item> Boosters
         {
             get
             {
@@ -126,13 +126,13 @@ namespace Quiz_Royale.Models.Games
         /// <returns></returns>
         public async Task UseBoost(Item booster)
         {
-            if (booster.Name == "Category increase")
+            if(booster.Name == "Category increase")
             {
                 await _connector.UseBoost(booster.Name, CurrentQuestion.Category.Name);
             }
-            else 
+            else
             {
-                await _connector.UseBoost(booster.Name, ""); 
+                await _connector.UseBoost(booster.Name, "");
             }
             RemoveBooster(booster);
             Account.Inventory.RemoveItem(booster);

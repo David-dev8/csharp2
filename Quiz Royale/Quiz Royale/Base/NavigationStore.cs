@@ -25,7 +25,7 @@ namespace Quiz_Royale.Base
             {
                 _currentViewModel?.Dispose();
                 _currentViewModel = value;
-                if (value != null)
+                if(value != null)
                 {
                     Navigated?.Invoke(this, EventArgs.Empty);
                 }

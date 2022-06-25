@@ -25,7 +25,7 @@ namespace Quiz_Royale.Storage
         {
             if(File.Exists(FILE_NAME))
             {
-                using (StreamReader reader = new StreamReader(FILE_NAME))
+                using(StreamReader reader = new StreamReader(FILE_NAME))
                 {
                     s_settings = JsonSerializer.Deserialize<Settings>(reader.ReadToEnd());
                 }
@@ -38,7 +38,7 @@ namespace Quiz_Royale.Storage
 
         public static void Save()
         {
-            using (StreamWriter sw = new StreamWriter(FILE_NAME))
+            using(StreamWriter sw = new StreamWriter(FILE_NAME))
             {
                 sw.Write(JsonSerializer.Serialize<Settings>(s_settings));
             }

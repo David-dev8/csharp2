@@ -5,8 +5,8 @@ namespace Quiz_Royale.CustomEventArgs
     /// <summary>
     /// Deze klasse bevat informatie voor wanneer een speler een spel gewonnen heeft.
     /// </summary>
-    public class WinArgs: EventArgs
-    { 
+    public class WinArgs : EventArgs
+    {
         public int XP { get; }
 
         public int Coins { get; }

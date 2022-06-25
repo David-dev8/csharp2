@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 
 namespace Quiz_Royale.DataAccess.API.Converters
 {
-    public class ItemConverter: JsonConverter<Item>
+    public class ItemConverter : JsonConverter<Item>
     {
         public class ItemDTO
         {
@@ -29,12 +29,12 @@ namespace Quiz_Royale.DataAccess.API.Converters
         {
             ItemDTO item = JsonSerializer.Deserialize<ItemDTO>(ref reader, options);
             return new ItemFactory().MakeItem(
-                item.Id, 
-                item.ItemType, 
-                item.Name, 
-                item.Picture, 
-                item.Cost, 
-                item.PaymentType, 
+                item.Id,
+                item.ItemType,
+                item.Name,
+                item.Picture,
+                item.Cost,
+                item.PaymentType,
                 item.Description);
         }
 

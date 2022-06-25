@@ -44,7 +44,7 @@ namespace Quiz_Royale.ViewModels
         // Registreer de geëquipte items van de gebruikers als ze (weer) opnieuw geladen
         private void Inventory_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if(((Inventory) sender).ActiveItems.IsSuccessfullyCompleted)
+            if(((Inventory)sender).ActiveItems.IsSuccessfullyCompleted)
             {
                 EquippedItems = Account.Result.Inventory.ActiveItems.Result;
             }
@@ -98,7 +98,7 @@ namespace Quiz_Royale.ViewModels
             if(EquippedItems == null)
             {
                 return newItems[0];
-            }    
+            }
             return newItems.Where(i => !EquippedItems.Contains(i)).SingleOrDefault();
         }
     }

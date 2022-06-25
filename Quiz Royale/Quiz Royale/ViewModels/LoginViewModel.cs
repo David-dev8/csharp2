@@ -27,7 +27,8 @@ namespace Quiz_Royale.ViewModels
         public LoginViewModel(NavigationStore store) : base(store)
         {
             _creator = new APIAccountCreator();
-            Login = new RelayCommand(async () => { 
+            Login = new RelayCommand(async () =>
+            {
                 await LoginUser();
             }, CanLogin);
         }
@@ -46,11 +47,11 @@ namespace Quiz_Royale.ViewModels
             {
                 _navigationStore.Error = "Username must be non empty and less than 20 characters";
             }
-            catch (InvalidDataException)
+            catch(InvalidDataException)
             {
                 _navigationStore.Error = "Username is already taken";
             }
-            catch (Exception)
+            catch(Exception)
             {
                 _navigationStore.Error = "Something went wrong";
             }

@@ -7,7 +7,7 @@ namespace Quiz_Royale.CustomEventArgs
     /// <summary>
     /// Deze klasse bevat informatie over wanneer er eventueel spelers geëlimineerd zijn.
     /// </summary>
-    public class PlayersLeftArgs: EventArgs
+    public class PlayersLeftArgs : EventArgs
     {
         public IList<Player> Players { get; }
 

@@ -3,7 +3,7 @@
     /// <summary>
     /// Deze klasse vertegenwoordigt een profielfoto die de gebruiker kan kopen in de shop.
     /// </summary>
-    public class ProfilePicture : Item 
+    public class ProfilePicture : Item
     {
         /// <summary>
         /// Creëert een profielfoto die de gebruiker kan kopen en gebruiken.
@@ -14,7 +14,8 @@
         /// <param name="requiredAmount">De hoeveelheid XP of coins dat nodig is om de profielfoto te kopen.</param>
         /// <param name="payment">De betaalwijze om de profielfoto te kopen.</param>
         public ProfilePicture(int id, string name, string picture, int requiredAmount, Payment payment)
-            : base(id, name, picture, requiredAmount, payment) {
+            : base(id, name, picture, requiredAmount, payment)
+        {
 
         }
     }

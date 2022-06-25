@@ -30,16 +30,16 @@ namespace Quiz_Royale.Views.CustomControls
 
         private void SVGImage_Loaded(object sender, RoutedEventArgs e)
         {
-            if (Color != null)
+            if(Color != null)
             {
                 SvgDrawingCanvas canvas = (SvgDrawingCanvas)Child;
                 List<Drawing> drawings = (List<Drawing>)typeof(SvgDrawingCanvas)
                     .GetField("_drawObjects", BindingFlags.NonPublic | BindingFlags.Instance)
                     .GetValue(canvas);
 
-                foreach (Drawing drawing in drawings)
+                foreach(Drawing drawing in drawings)
                 {
-                    if (drawing is GeometryDrawing geometryDrawing)
+                    if(drawing is GeometryDrawing geometryDrawing)
                     {
                         geometryDrawing.Brush = new SolidColorBrush()
                         {

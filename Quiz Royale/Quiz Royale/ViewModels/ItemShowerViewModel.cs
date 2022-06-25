@@ -64,7 +64,7 @@ namespace Quiz_Royale.ViewModels
         /// Creëert een ViewModel voor views waarop items worden getoond.
         /// </summary>
         /// <param name="navigationStore">De navigationStore die wordt gebruikt voor navigatie.</param>
-        public ItemShowerViewModel(NavigationStore navigationStore): base(navigationStore)
+        public ItemShowerViewModel(NavigationStore navigationStore) : base(navigationStore)
         {
             _filterFactory = new FilterFactory();
             _accountProvider = new APIAccountProvider();
@@ -117,9 +117,9 @@ namespace Quiz_Royale.ViewModels
         protected IList<Item> Filter(IItemFilter filter, IList<Item> items)
         {
             IList<Item> filteredItems = new List<Item>();
-            foreach (Item item in items)
+            foreach(Item item in items)
             {
-                if (filter.Filter(item))
+                if(filter.Filter(item))
                 {
                     filteredItems.Add(item);
                 }

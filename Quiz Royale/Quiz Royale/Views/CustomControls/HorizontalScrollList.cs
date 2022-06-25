@@ -75,13 +75,13 @@ namespace Quiz_Royale.Views.CustomControls
 
         private void HorizontalScrollList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (SelectionMode == SelectionMode.Multiple && e.AddedItems.Count > 0)
+            if(SelectionMode == SelectionMode.Multiple && e.AddedItems.Count > 0)
             {
                 Type type = e.AddedItems[0].GetType().BaseType;
                 Type listType = typeof(List<>).MakeGenericType(new[] { type });
                 IList itemsSelected = (IList)Activator.CreateInstance(listType);
 
-                foreach (var item in SelectedItems)
+                foreach(var item in SelectedItems)
                 {
                     itemsSelected.Add(item);
                 }
@@ -103,7 +103,7 @@ namespace Quiz_Royale.Views.CustomControls
 
         private void ShiftCurrent(int delta)
         {
-            if (_currentDisplayedItem == 0 && delta > 0)
+            if(_currentDisplayedItem == 0 && delta > 0)
             {
                 _currentDisplayedItem = Math.Min(GetMinimumDisplayedItems(), Items.Count - 1);
             }
@@ -121,7 +121,7 @@ namespace Quiz_Royale.Views.CustomControls
 
         private double GetItemWidth()
         {
-            if (Items.Count == 0)
+            if(Items.Count == 0)
             {
                 return 1;
             }
@@ -130,12 +130,12 @@ namespace Quiz_Royale.Views.CustomControls
 
         private void DisableItems()
         {
-            if (DisabledItems != null)
+            if(DisabledItems != null)
             {
-                foreach (object item in DisabledItems)
+                foreach(object item in DisabledItems)
                 {
                     FrameworkElement container = ItemContainerGenerator.ContainerFromItem(item) as FrameworkElement;
-                    if (container != null)
+                    if(container != null)
                     {
                         container.IsEnabled = false;
                     }
@@ -145,15 +145,15 @@ namespace Quiz_Royale.Views.CustomControls
 
         private void SelectItems()
         {
-            if (SelectionMode == SelectionMode.Multiple)
+            if(SelectionMode == SelectionMode.Multiple)
             {
-                if (!_isReselecting)
+                if(!_isReselecting)
                 {
-                    if (ItemsSelected != null)
+                    if(ItemsSelected != null)
                     {
                         _isReselecting = true;
                         SelectedItems.Clear();
-                        foreach (var item in ItemsSelected)
+                        foreach(var item in ItemsSelected)
                         {
                             SelectedItems.Add(item);
                         }

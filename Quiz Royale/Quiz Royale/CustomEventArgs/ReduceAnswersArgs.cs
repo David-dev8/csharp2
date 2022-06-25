@@ -7,7 +7,7 @@ namespace Quiz_Royale.CustomEventArgs
     /// <summary>
     /// Deze klasse bevat informatie voor wanneer het aantal antwoordmogelijkheden verkleind wordt.
     /// </summary>
-    public class ReduceAnswersArgs: EventArgs
+    public class ReduceAnswersArgs : EventArgs
     {
         public IList<Answer> WrongAnswers { get; }
 

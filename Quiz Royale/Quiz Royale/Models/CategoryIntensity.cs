@@ -17,13 +17,13 @@ namespace Quiz_Royale.Models
         /// </summary>
         public double Intensity
         {
-            get 
+            get
             {
                 return Math.Round(_intensity, 2);
             }
-            set 
+            set
             {
-                _intensity = value; 
+                _intensity = value;
             }
         }
 
@@ -41,12 +41,12 @@ namespace Quiz_Royale.Models
 
         public override bool Equals(object obj)
         {
-            if (obj == null || GetType() != obj.GetType())
+            if(obj == null || GetType() != obj.GetType())
             {
                 return false;
             }
 
-            CategoryIntensity otherIntensity = (CategoryIntensity) obj;
+            CategoryIntensity otherIntensity = (CategoryIntensity)obj;
 
             return Category.Name.Equals(otherIntensity.Category.Name);
         }

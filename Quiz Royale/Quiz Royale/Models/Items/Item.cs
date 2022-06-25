@@ -34,12 +34,12 @@
 
         public override bool Equals(object obj)
         {
-            if (obj == null || GetType() != obj.GetType())
+            if(obj == null || GetType() != obj.GetType())
             {
                 return false;
             }
 
-            Item otherItem = (Item) obj;
+            Item otherItem = (Item)obj;
 
             return Id == otherItem.Id;
         }

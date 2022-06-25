@@ -49,16 +49,16 @@ namespace Quiz_Royale.Views.CustomControls
 
         private void LoadedCallback(object sender, EventArgs args)
         {
-            if (RotateTowards != null)
+            if(RotateTowards != null)
             {
-                for (int i = 0; i < Items.Count; i++)
+                for(int i = 0; i < Items.Count; i++)
                 {
                     var item = Items.GetItemAt(i);
-                    if (RotateTowards.Equals(item))
+                    if(RotateTowards.Equals(item))
                     {
                         double currentAngle = GetAngleFromItem(item);
                         double nextAngle = GetAngleFromItem(Items.GetItemAt((i + 1) % Items.Count));
-                        if (nextAngle == ANGLE_CORRECTION)
+                        if(nextAngle == ANGLE_CORRECTION)
                         {
                             nextAngle -= 360;
                         }
@@ -116,21 +116,21 @@ namespace Quiz_Royale.Views.CustomControls
 
         private T FindByType<T>(DependencyObject element)
         {
-            if (element is null)
+            if(element is null)
             {
                 return default;
             }
-            else if (element is T t)
+            else if(element is T t)
             {
                 return t;
             }
             else
             {
                 int amountOfChildren = VisualTreeHelper.GetChildrenCount(element);
-                for (int i = 0; i < amountOfChildren; i++)
+                for(int i = 0; i < amountOfChildren; i++)
                 {
                     T searchedElement = FindByType<T>(VisualTreeHelper.GetChild(element, i));
-                    if (searchedElement != null)
+                    if(searchedElement != null)
                     {
                         return searchedElement;
                     }

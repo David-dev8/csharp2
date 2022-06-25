@@ -16,7 +16,7 @@
         public Mode Mode { get; set; }
 
         public bool Released { get; set; }
-        
+
         /// <summary>
         /// Dit is de constructor voor het GameMode object
         /// </summary>

@@ -12,7 +12,7 @@ namespace Quiz_Royale.DataAccess.API
 
         public async Task<Account> GetAccount()
         {
-            if (s_account == null)
+            if(s_account == null)
             {
                 s_account = await _apiHandler.Fetch<Account>("/Player");
             }

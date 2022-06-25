@@ -15,7 +15,7 @@ namespace Quiz_Royale.CustomEventArgs
         /// </summary>
         /// <param name="question">De nieuwe vraag.</param>
         public NewQuestionArgs(Question question)
-        { 
+        {
             Question = question;
         }
     }

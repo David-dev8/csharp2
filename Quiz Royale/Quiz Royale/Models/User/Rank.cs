@@ -36,5 +36,5 @@ namespace Quiz_Royale.Models.User
             Division = division;
             UpperBound = upperBound;
         }
-     }
+    }
 }

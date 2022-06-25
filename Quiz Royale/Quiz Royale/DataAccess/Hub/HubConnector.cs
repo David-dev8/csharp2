@@ -35,7 +35,7 @@ namespace Quiz_Royale.DataAccess.Hub
         /// Creëert een HubConnector.
         /// </summary>
         /// <exception cref="Exceptions.UnableToConnectException">Gegooit wanneer geen verbinding met de hub op de server kon worden gemaakt</exception>
-        public HubConnector() 
+        public HubConnector()
         {
             InitializeConnection();
             InitializeEvents();
@@ -87,7 +87,7 @@ namespace Quiz_Royale.DataAccess.Hub
         /// </summary>
         /// <returns></returns>
         public async Task BreakConection()
-        { 
+        {
             await _connection.DisposeAsync();
         }
 
@@ -186,7 +186,7 @@ namespace Quiz_Royale.DataAccess.Hub
             {
                 _connection.StartAsync();
             }
-            catch (Exception)
+            catch(Exception)
             {
                 throw new Exceptions.UnableToConnectException();
             }

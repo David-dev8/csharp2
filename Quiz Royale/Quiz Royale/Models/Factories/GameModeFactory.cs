@@ -23,7 +23,7 @@ namespace Quiz_Royale.Models.Factories
                             to turn the game to your advantage.
                             
                             As questions get more and more difficult and player counts start to drop, it is up to you to take your chance and grab that 
-                            elusive title and be crowned winner of Quiz Royale.")), 
+                            elusive title and be crowned winner of Quiz Royale.")),
                 new GameMode(Mode.LEAGUE_OF_QUESTIONS, "/Assets/leagueOfQuestions.png", "League of Questions", "Take on opponents with an entire new dimension", RemoveIndent(
                         @"Coming Soon. Stay tuned for updates!"), false),
                 new GameMode(Mode.TRAINING, "/Assets/trainingMode.png", "Training mode", "Tired of ending in last place?", RemoveIndent(

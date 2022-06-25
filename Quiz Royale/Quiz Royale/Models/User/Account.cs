@@ -6,7 +6,7 @@ namespace Quiz_Royale.Models.User
     /// <summary>
     /// Deze klasse vertegenwoordigt een account van een gebruiker op de applicatie.
     /// </summary>
-    public class Account: Observable
+    public class Account : Observable
     {
         private const int NEEDED_XP_TO_REACH_NEXT_LEVEL = 1000;
 
@@ -83,7 +83,7 @@ namespace Quiz_Royale.Models.User
         {
             get
             {
-                return 100 - (int) (XPToNextLevel / (double) NEEDED_XP_TO_REACH_NEXT_LEVEL * 100);
+                return 100 - (int)(XPToNextLevel / (double)NEEDED_XP_TO_REACH_NEXT_LEVEL * 100);
             }
         }
 

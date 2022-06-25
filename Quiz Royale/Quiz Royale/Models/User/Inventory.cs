@@ -12,7 +12,7 @@ namespace Quiz_Royale.Models.User
     /// <summary>
     /// Deze klasse vertegenwoordigt de inventory van een gebruiker.
     /// </summary>
-    public class Inventory: Observable
+    public class Inventory : Observable
     {
         private IInventoryProvider _provider;
         private IInventoryMutator _mutator;
@@ -104,7 +104,7 @@ namespace Quiz_Royale.Models.User
         // Haalt het actieve item op van het type dat wordt meegegeven.
         private Item GetItemByType(string type)
         {
-            if (ActiveItems.Result == null)
+            if(ActiveItems.Result == null)
             {
                 return null;
             }
@@ -125,7 +125,7 @@ namespace Quiz_Royale.Models.User
         // Haalt alle boosters op die de gebruiker heeft.
         private IList<Item> GetBoosters()
         {
-            if (ActiveItems.Result == null)
+            if(ActiveItems.Result == null)
             {
                 return null;
             }
@@ -134,9 +134,9 @@ namespace Quiz_Royale.Models.User
             var filterFactory = new FilterFactory();
             IItemFilter filter = filterFactory.GetFilter("Booster");
 
-            foreach (var item in ActiveItems.Result)
+            foreach(var item in ActiveItems.Result)
             {
-                if (filter.Filter(item))
+                if(filter.Filter(item))
                 {
                     boosters.Add(item);
                 }

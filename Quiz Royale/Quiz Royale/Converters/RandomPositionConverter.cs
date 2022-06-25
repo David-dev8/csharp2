@@ -9,7 +9,7 @@ namespace Quiz_Royale.Converters
     /// Deze klasse is verantwoordelijk voor het genereren van een willekeurige x en y positie binnen een bepaalde hoogte en breedte.
     /// Bij het converten wordt daarvoor een Thickness met de x en y positie teruggegeven.
     /// </summary>
-    public class RandomPositionConverter: IMultiValueConverter
+    public class RandomPositionConverter : IMultiValueConverter
     {
         private static Random s_random = new Random();
 

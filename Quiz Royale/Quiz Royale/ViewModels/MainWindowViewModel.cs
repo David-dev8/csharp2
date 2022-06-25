@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Quiz_Royale.Base;
+using System;
 using System.Windows;
 using System.Windows.Input;
-using Quiz_Royale.Base;
 
 namespace Quiz_Royale.ViewModels
 {
@@ -9,14 +9,14 @@ namespace Quiz_Royale.ViewModels
     /// Deze klasse dient als de basis ViewModel voor de pagina's op de applicatie.
     /// In deze klasse zijn commands en properties aanwezig voor de werking van de navigatiebalk.
     /// </summary>
-    public class MainWindowViewModel: Observable
+    public class MainWindowViewModel : Observable
     {
         private readonly NavigationStore _navigationStore;
 
         /// <summary>
         /// Deze property geeft toegang tot de huidige ViewModel.
         /// </summary>
-        public BaseViewModel CurrentViewModel 
+        public BaseViewModel CurrentViewModel
         {
             get
             {

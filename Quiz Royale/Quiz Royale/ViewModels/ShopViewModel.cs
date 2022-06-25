@@ -44,7 +44,7 @@ namespace Quiz_Royale.ViewModels
         {
             set
             {
-                if (value != null)
+                if(value != null)
                 {
                     _itemSelected = value;
                     Buy();
@@ -111,7 +111,7 @@ namespace Quiz_Royale.ViewModels
         // Filter standaard op de borders.
         private void Items_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (_shop.Items.IsSuccessfullyCompleted && Account.IsSuccessfullyCompleted)
+            if(_shop.Items.IsSuccessfullyCompleted && Account.IsSuccessfullyCompleted)
             {
                 FillBuyables(_shop.Items.Result);
                 FillRewards(_shop.Items.Result);

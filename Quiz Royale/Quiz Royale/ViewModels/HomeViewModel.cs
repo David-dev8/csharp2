@@ -38,7 +38,7 @@ namespace Quiz_Royale.ViewModels
                 return _gameModes;
             }
         }
-        
+
         /// <summary>
         /// Deze property geeft toegang tot de geselecteerde gamemodus.
         /// </summary>
@@ -64,7 +64,7 @@ namespace Quiz_Royale.ViewModels
                 Game game = factory.CreateGame(SelectedGameMode.Mode, Account.Result);
                 _navigationStore.CurrentViewModel = new LobbyViewModel(_navigationStore, game);
             }
-            catch (Exceptions.UnableToConnectException e)
+            catch(Exceptions.UnableToConnectException e)
             {
                 _navigationStore.Error = e.Message;
             }

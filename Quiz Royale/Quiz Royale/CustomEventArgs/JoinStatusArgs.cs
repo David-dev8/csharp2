@@ -26,7 +26,7 @@ namespace Quiz_Royale.CustomEventArgs
         /// <param name="players">De spelers die al in het spel waren toen de speler gejoind was.</param>
         /// <param name="cats">Een lijst met alle categorieën en hun initiële kansen.</param>
         public JoinStatusArgs(bool status, string message, IList<Player> players, IList<CategoryIntensity> cats)
-        { 
+        {
             Status = status;
             Message = message;
             Players = players;

@@ -53,7 +53,7 @@ namespace Quiz_Royale.Models.Games
         /// <summary>
         /// Deze property geeft toegang tot het aantal spelers dat nog in de huidige game zitten.
         /// </summary>
-        public int CurrentAmountOfPlayers 
+        public int CurrentAmountOfPlayers
         {
             get
             {
@@ -221,9 +221,9 @@ namespace Quiz_Royale.Models.Games
         // Maakt de kans hoger dat een catogorie wordt gekozen
         private void IncreaseCategoryChance(object sender, CategoryIncreaseArgs e)
         {
-            foreach (CategoryIntensity chance in Chances)
+            foreach(CategoryIntensity chance in Chances)
             {
-                if (chance.Category.Name == e.CatId)
+                if(chance.Category.Name == e.CatId)
                 {
                     chance.Intensity += 10;
                 }
@@ -232,11 +232,11 @@ namespace Quiz_Royale.Models.Games
                     chance.Intensity -= (float)(10.0 / (Chances.Count - 1));
                 }
 
-                if (chance.Intensity < 1)
+                if(chance.Intensity < 1)
                 {
                     chance.Intensity = 1;
                 }
-                if (chance.Intensity > (101 - Chances.Count))
+                if(chance.Intensity > (101 - Chances.Count))
                 {
                     chance.Intensity = (101 - Chances.Count);
                 }
@@ -254,7 +254,7 @@ namespace Quiz_Royale.Models.Games
                 Account.TotalWins++;
                 return WINNER_MESSAGE;
             }
-            double percent = (double) CurrentPosition / TotalAmountOfPlayersStarted * 100;
+            double percent = (double)CurrentPosition / TotalAmountOfPlayersStarted * 100;
             return LOSE_MESSAGES.Where(x => x.Key >= percent).Reverse().First().Value;
         }
 
@@ -274,9 +274,9 @@ namespace Quiz_Royale.Models.Games
         /// <param name="e">Informatie over de staat van het spel wanneer er gejoind is.</param>
         private void JoinStatus(object sender, JoinStatusArgs e)
         {
-            if (e.Status)
+            if(e.Status)
             {
-                foreach (Player player in e.Players)
+                foreach(Player player in e.Players)
                 {
                     AddPlayer(player);
                 }

@@ -13,7 +13,7 @@ namespace Quiz_Royale.Models.Items
     /// Deze klasse heeft alle fucntionaliteiten van de shop. 
     /// In deze klasse kunnen bijvoorbeeld de items worden gekocht.
     /// </summary>
-    public class Shop: Observable
+    public class Shop : Observable
     {
         private IItemProvider _itemProvider;
 

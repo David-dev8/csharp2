@@ -6,7 +6,7 @@ namespace Quiz_Royale.Base
     /// <summary>
     /// Deze klasse biedt de basis voor klasses die gesubscribede klasses kunnen notificeren wanneer een property wordt gewijzigd.
     /// </summary>
-    public abstract class Observable: INotifyPropertyChanged
+    public abstract class Observable : INotifyPropertyChanged
     {
         /// <summary>
         /// Dit event zorgt ervoor dat de gesubscribede klassen op de hoogte worden gesteld van wijzigingen.
