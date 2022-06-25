@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Quiz_Royale.Base;
+using Quiz_Royale.Models.Games;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -6,14 +8,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quiz_Royale
+namespace Quiz_Royale.ViewModels
 {
+    /// <summary>
+    /// Deze klasse dient als de ViewModel voor de lobby, wanneer de gebruiker wacht om in een spel te komen.
+    /// </summary>
     public class LobbyViewModel : BaseViewModel
     {
         private bool _waitingLobby;
 
         public Game Game { get; set; }
 
+        /// <summary>
+        /// Deze property geeft aan of de gebruiker al in een spel zit en moet wachten tot het begint.
+        /// Als deze false is, zit de gebruiker dus nog niet in een game.
+        /// </summary>
         public bool WaitingLobby
         {
             get
@@ -27,12 +36,20 @@ namespace Quiz_Royale
             }
         }
 
+        /// <summary>
+        /// Creëert een LobbyViewModel met een navigationStore en de gegeven Game.
+        /// </summary>
+        /// <param name="navigationStore">De navigationStore die wordt gebruikt voor navigatie.</param>
+        /// <param name="game">De Game waarmee de gebruiker probeert te joinen.</param>
         public LobbyViewModel(NavigationStore store, Game game) : base(store)
         {
             Game = game;
             Game.PropertyChanged += _game_PropertyChanged;
         }
 
+        // Registreer veranderingen in staat van de game en acteer hierop.
+        // Als de gebruiker joint, of niet kan joinen, zal dit worden geregistreerd.
+        // Wanneer het spel begint, zal de huidige ViewModel een GameViewModel worden zodat het spel gespeeld kan worden.
         private void _game_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch(Game.State)

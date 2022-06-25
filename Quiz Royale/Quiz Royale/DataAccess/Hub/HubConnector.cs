@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
 using Quiz_Royale.CustomEventArgs;
+using Quiz_Royale.Models;
+using Quiz_Royale.Models.Games;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,14 +1,20 @@
-﻿using Quiz_Royale.DataAccess;
+﻿using Quiz_Royale.Base;
+using Quiz_Royale.DataAccess;
 using Quiz_Royale.DataAccess.API;
 using Quiz_Royale.Exceptions;
+using Quiz_Royale.Models.User;
+using Quiz_Royale.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quiz_Royale
+namespace Quiz_Royale.ViewModels
 {
+    /// <summary>
+    /// Deze klasse dient als de ViewModel voor de login.
+    /// </summary>
     public class LoginViewModel : BaseViewModel
     {
         private IAccountCreator _creator;
@@ -17,6 +23,10 @@ namespace Quiz_Royale
 
         public RelayCommand Login { get; set; }
 
+        /// <summary>
+        /// Creëert een LoginViewModel met een navigationStore.
+        /// </summary>
+        /// <param name="navigationStore">De navigationStore die wordt gebruikt voor navigatie.</param>
         public LoginViewModel(NavigationStore store) : base(store)
         {
             _creator = new APIAccountCreator();
@@ -25,6 +35,8 @@ namespace Quiz_Royale
             }, CanLogin);
         }
 
+        // Probeert een account aan te maken voor de gebruiker.
+        // De hiervoor opgegeven username, die is opgeslagen in de Username property, zal hiervoor worden gebruikt.
         private async Task LoginUser()
         {
             try
@@ -47,12 +59,15 @@ namespace Quiz_Royale
             }
         }
 
+        // Zorgt ervoor dat een gebruiker geregistreerd wordt.
         private async Task CreateUser()
         {
             TokenCredentials credentials = await _creator.CreateAccount(Username);
-            Storage.Settings.Credentials = credentials;
+            LocalStorage.Settings.Credentials = credentials;
         }
 
+        // Controleert of een gebruiker een account aan mag maken.
+        // Daarvoor moet er een gebruikersnaam zijn opgegeven die niet leeg is.
         private bool CanLogin(object o)
         {
             return !string.IsNullOrEmpty(Username);

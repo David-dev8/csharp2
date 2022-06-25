@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Quiz_Royale.Models.User;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;

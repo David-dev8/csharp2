@@ -1,4 +1,6 @@
-﻿using Quiz_Royale.Exceptions;
+﻿using Quiz_Royale.DataAccess.API.Converters;
+using Quiz_Royale.Exceptions;
+using Quiz_Royale.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,7 +50,7 @@ namespace Quiz_Royale.DataAccess.API
 
         private void SetAuthorization()
         {
-            string token = Storage.Settings.Credentials?.AccessToken;
+            string token = LocalStorage.Settings.Credentials?.AccessToken;
             if(token != null)
             {
                 s_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);

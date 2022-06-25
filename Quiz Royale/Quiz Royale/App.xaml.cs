@@ -1,4 +1,7 @@
-﻿using Quiz_Royale.DataAccess.API;
+﻿using Quiz_Royale.Base;
+using Quiz_Royale.DataAccess.API;
+using Quiz_Royale.Storage;
+using Quiz_Royale.ViewModels;
 using Quiz_Royale.Views;
 using System;
 using System.Collections.Generic;
@@ -45,7 +48,7 @@ namespace Quiz_Royale
 
         protected override void OnExit(ExitEventArgs e)
         {
-            Storage.Save();
+            LocalStorage.Save();
             base.OnExit(e);
         }
 
@@ -53,7 +56,7 @@ namespace Quiz_Royale
         private async Task Initialize(NavigationStore navigationStore)
         {
             // Controleer of de gebruiker al een account heeft, dit is het geval wanneer er een access token aanwezig is
-            if (Storage.Settings.Credentials?.AccessToken != null)
+            if (LocalStorage.Settings.Credentials?.AccessToken != null)
             {
                 try
                 {

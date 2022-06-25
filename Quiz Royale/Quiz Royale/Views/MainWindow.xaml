@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:temp="clr-namespace:Quiz_Royale"
+        xmlns:viewmodels="clr-namespace:Quiz_Royale.ViewModels"
         xmlns:local="clr-namespace:Quiz_Royale.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="700" Width="1000" WindowState="Maximized"
@@ -13,22 +13,22 @@
     </Window.Resources>
     <Grid>
         <Grid.Resources>
-            <DataTemplate DataType="{x:Type temp:LoginViewModel}">
+            <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
                 <local:LoginView />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type temp:HomeViewModel}">
+            <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
                 <local:HomeView />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type temp:ShopViewModel}">
+            <DataTemplate DataType="{x:Type viewmodels:ShopViewModel}">
                 <local:ShopView />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type temp:ProfileViewModel}">
+            <DataTemplate DataType="{x:Type viewmodels:ProfileViewModel}">
                 <local:ProfileView />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type temp:GameViewModel}">
+            <DataTemplate DataType="{x:Type viewmodels:GameViewModel}">
                 <local:GameView />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type temp:LobbyViewModel}">
+            <DataTemplate DataType="{x:Type viewmodels:LobbyViewModel}">
                 <local:LobbyView />
             </DataTemplate>
         </Grid.Resources>

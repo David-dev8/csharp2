@@ -86,10 +86,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Page Update="Views\LobbyView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
